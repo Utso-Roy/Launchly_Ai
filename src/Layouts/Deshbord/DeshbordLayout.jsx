@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Navbar = () => {
+const DeshbordLayout = () => {
     return (
         <div>
-           this is navbar 
+            
         </div>
     );
 };
 
-export default Navbar;
+export default DeshbordLayout;
