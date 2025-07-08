@@ -7,10 +7,15 @@ import { toast } from "react-toastify";
 import { updateProfile } from "firebase/auth";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Swal from "sweetalert2";
+import { Link, useLocation, useNavigate } from "react-router";
 const Register = () => {
   const [error, setError] = useState("");
   const { createUser, setUser } = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
+  const location = useLocation()
+  const from = location.state?.from?.pathname || "/";
+
+  const navigate = useNavigate()
   const handleRegister = (e) => {
     e.preventDefault();
     setError("");
@@ -52,6 +57,7 @@ const Register = () => {
             setUser({ ...user, displayName: name, photoURL: photo });
             toast.success("Registration successful!");
             form.reset();
+            navigate(from, { replace: true });
           })
           .catch((err) => {
             console.error("Profile update failed:", err.message);
@@ -64,9 +70,6 @@ const Register = () => {
       });
   };
 
-  const goToLogin = () => {
-    // Future: Navigate to login route
-  };
 
   return (
     <div className="min-h-screen bg-base-200 dark:bg-gray-900 flex justify-center items-center px-4">
@@ -133,22 +136,28 @@ const Register = () => {
 
             {error && <p className="text-red-500 text-sm">{error}</p>}
 
-            <button
+         
+               <button
               type="submit"
               className="w-full py-2 px-4 cursor-pointer bg-[#21BEDA] rounded-md text-white font-semibold"
             >
               Register
             </button>
+            
+            
+            
           </form>
 
           <p className="text-center mt-4 text-sm text-gray-600 dark:text-gray-300">
             Already have an account?{" "}
-            <span
-              onClick={goToLogin}
+            <Link to="/login">
+             <span
               className="text-[#21BEDA] hover:underline cursor-pointer"
             >
               Login
             </span>
+            
+            </Link>
           </p>
         </div>
       </motion.div>

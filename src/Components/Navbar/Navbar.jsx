@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { IoIosSunny } from "react-icons/io";
 import { LuMoonStar } from "react-icons/lu";
 import { NavLink } from "react-router";
@@ -9,7 +9,8 @@ import { toast } from "react-toastify";
 
 const Navbar = () => {
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
-const {user,logOut,setUser} = useContext(AuthContext)
+  const { user, logOut, setUser } = useContext(AuthContext)
+  const navigate = useNavigate()
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
     localStorage.setItem("theme", theme);
@@ -24,6 +25,7 @@ const handelLogOut = () => {
   logOut()
     .then(() => {
       setUser(null);
+      navigate ('/login')
       toast.success("Logged out successfully!");
     })
     .catch((error) => {
@@ -138,17 +140,17 @@ const handelLogOut = () => {
 
   <ul
     tabIndex={0}
-    className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 text-black rounded-box w-52"
+    className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-[#21BEDA] text-base-200 rounded-box w-52"
   >
     <li className="dark:text-[#21BEDA]">
       <span>
         <strong>{user.displayName}</strong> 
       </span>
     </li>
-    <li className="dark:text-[#21BEDA]">
+    <li className="dark:text-[#21BEDA] font-semibold">
       <a>Dashboard</a>
     </li>
-    <li onClick={handelLogOut} className="dark:text-[#21BEDA]">
+    <li onClick={handelLogOut} className="dark:text-[#21BEDA] font-semibold">
       <a>Logout</a>
     </li>
   </ul>

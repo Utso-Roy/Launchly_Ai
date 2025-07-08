@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router"; 
+import { Link, useLocation, useNavigate } from "react-router"; 
 import { motion } from "framer-motion";
 import signInAnimation from "../../assets/signIn.json";
 import Lottie from "lottie-react";
@@ -11,6 +11,11 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const location = useLocation();
+  console.log(location)
+  const navigate = useNavigate()
+const from = location.state?.from?.pathname || "/";
+
 
   const { loginUser,setUser, googleLogin } = useContext(AuthContext)
   const handleGoogleLogin = () => {
@@ -18,6 +23,7 @@ const Login = () => {
       .then(data => {
         setUser(data.user)
         toast.success('Google Login successful!')
+            navigate(from, { replace: true });
       })
       .catch(err => {
       
@@ -37,7 +43,7 @@ const handleLogin = (e) => {
   loginUser(email, password)
     .then((data) => {
       setUser(data.user);
-      
+        navigate(from, { replace: true });
       toast.success("Login successful!");
       form.reset();
     })
@@ -67,7 +73,7 @@ const handleLogin = (e) => {
         {/* Login Form */}
         <div className="w-full lg:w-1/2 flex flex-col items-center">
           <h2 className="text-3xl font-bold text-center mb-6 text-gray-800 dark:text-white w-full">
-            Sign In
+            Login
           </h2>
 
           
