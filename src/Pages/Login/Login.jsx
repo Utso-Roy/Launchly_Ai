@@ -1,21 +1,51 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router"; 
 import { motion } from "framer-motion";
 import signInAnimation from "../../assets/signIn.json";
 import Lottie from "lottie-react";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
+import { toast } from "react-toastify";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+
 
 const Login = () => {
-  const handleGoogleLogin = () => {
-    alert("Google Login Clicked");
-    // TODO: Add real Google Login here
-  };
+  const [showPassword, setShowPassword] = useState(false);
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    alert("Login Success");
-    // TODO: Add real login logic here
+  const { loginUser,setUser, googleLogin } = useContext(AuthContext)
+  const handleGoogleLogin = () => {
+    googleLogin()
+      .then(data => {
+        setUser(data.user)
+        toast.success('Google Login successful!')
+      })
+      .catch(err => {
+      
+        console.log(err.message)
+        toast.error("Google Login failed ! please try again later .")
+    })
+
+
+   
   };
+const handleLogin = (e) => {
+  e.preventDefault();
+  const form = e.target;
+  const email = form.email.value.trim();
+  const password = form.password.value.trim();
+
+  loginUser(email, password)
+    .then((data) => {
+      setUser(data.user);
+      
+      toast.success("Login successful!");
+      form.reset();
+    })
+    .catch((err) => {
+      console.error("Login error:", err.message);
+      toast.error("Login failed! Please check your credentials.");
+    })
+};
 
   return (
     <div className="min-h-screen bg-base-200 flex justify-center items-center px-2 dark:bg-gray-900">
@@ -40,26 +70,40 @@ const Login = () => {
             Sign In
           </h2>
 
-          <form onSubmit={handleLogin} className="space-y-4 w-full max-w-sm">
-            <input
-              type="email"
-              placeholder="Email"
-              className="input input-bordered w-full dark:bg-gray-700 dark:text-white"
-              required
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              className="input input-bordered w-full dark:bg-gray-700 dark:text-white"
-              required
-            />
-            <button
-              type="submit"
-              className="w-full py-2 px-4 bg-[#21BEDA] rounded-md text-white font-semibold"
-            >
-              Login
-            </button>
-          </form>
+          
+<form onSubmit={handleLogin} className="space-y-4 w-full max-w-sm">
+  <input
+    type="email"
+    name="email"
+    placeholder="Email"
+    className="input input-bordered w-full dark:bg-gray-700 dark:text-white"
+    required
+  />
+
+  {/* Password Field with Toggle Icon */}
+  <div className="relative">
+    <input
+      type={showPassword ? "text" : "password"}
+      name="password"
+      placeholder="Password"
+      className="input input-bordered w-full pr-10 dark:bg-gray-700 dark:text-white"
+      required
+    />
+    <span
+      onClick={() => setShowPassword(!showPassword)}
+      className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400"
+    >
+      {showPassword ? <FaEyeSlash /> : <FaEye />}
+    </span>
+  </div>
+
+  <button
+    type="submit"
+    className="w-full py-2 cursor-pointer px-4 bg-[#21BEDA] rounded-md text-white font-semibold"
+  >
+    Login
+  </button>
+</form>
 
           <div className="divider text-gray-500 dark:text-gray-400 w-full max-w-sm">OR</div>
 

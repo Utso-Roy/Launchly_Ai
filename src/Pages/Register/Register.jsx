@@ -4,11 +4,13 @@ import Lottie from "lottie-react";
 import register from "../../assets/register.json";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { toast } from "react-toastify";
-
+import { updateProfile } from "firebase/auth";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import Swal from "sweetalert2";
 const Register = () => {
   const [error, setError] = useState("");
-  const { createUser,setUser} = useContext(AuthContext)
-
+  const { createUser, setUser } = useContext(AuthContext);
+  const [showPassword, setShowPassword] = useState(false);
   const handleRegister = (e) => {
     e.preventDefault();
     setError("");
@@ -19,8 +21,6 @@ const Register = () => {
     const password = form.password.value.trim();
     const photo = form.photo.value.trim();
 
-    console.log({name, email,password,photo})
-
     if (!email || !password || !name || !photo) {
       return setError("All fields are required!");
     }
@@ -28,31 +28,44 @@ const Register = () => {
       return setError("Password must be at least 6 characters.");
     }
 
+    const strongPasswordRegex =
+      /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+]).{6,}$/;
 
-    createUser(email,password)
-      .then(data => {
-        setUser(data.user)
-      toast.success("Logged out successfully!");
+    if (!strongPasswordRegex.test(password)) {
+      Swal.fire({
+        icon: "error",
+        title: "Weak Password",
+        text: "Password must contain at least one uppercase letter, one number, and one special character.",
+      });
+      return;
+    }
 
+    createUser(email, password)
+      .then((data) => {
+        const user = data.user;
 
+        updateProfile(user, {
+          displayName: name,
+          photoURL: photo,
+        })
+          .then(() => {
+            setUser({ ...user, displayName: name, photoURL: photo });
+            toast.success("Registration successful!");
             form.reset();
-
-
+          })
+          .catch((err) => {
+            console.error("Profile update failed:", err.message);
+            toast.error("Failed to update profile.");
+          });
       })
-      .catch(error => {
-        toast.error("Logout failed!");
-
-      console.log(error.message)
-    })
-
-
-
-  
+      .catch((error) => {
+        console.error("Register error:", error.message);
+        toast.error("Registration failed!");
+      });
   };
 
   const goToLogin = () => {
-
-    ///got to Login page 
+    // Future: Navigate to login route
   };
 
   return (
@@ -77,47 +90,56 @@ const Register = () => {
           <h2 className="text-3xl font-bold text-center mb-6 text-gray-800 dark:text-white w-full">
             Create Account
           </h2>
+          <form onSubmit={handleRegister} className="space-y-4 w-full max-w-sm">
+            <input
+              type="text"
+              name="name"
+              placeholder="Full Name"
+              className="input input-bordered w-full dark:bg-gray-700 dark:text-white"
+              required
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              className="input input-bordered w-full dark:bg-gray-700 dark:text-white"
+              required
+            />
 
-        <form onSubmit={handleRegister} className="space-y-4 w-full max-w-sm">
-  <input
-    type="text"
-    name="name"
-    placeholder="Full Name"
-    className="input input-bordered w-full dark:bg-gray-700 dark:text-white"
-    required
-  />
-  <input
-    type="email"
-    name="email"
-    placeholder="Email"
-    className="input input-bordered w-full dark:bg-gray-700 dark:text-white"
-    required
-  />
-  <input
-    type="password"
-    name="password"
-    placeholder="Password"
-    className="input input-bordered w-full dark:bg-gray-700 dark:text-white"
-    required
-  />
-  <input
-    type="url"
-    name="photo"
-    placeholder="Photo URL"
-    className="input input-bordered w-full dark:bg-gray-700 dark:text-white"
-    required
-  />
+            {/* Password with toggle eye icon */}
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                placeholder="Password"
+                className="input input-bordered w-full pr-10 dark:bg-gray-700 dark:text-white"
+                required
+              />
+              <span
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500"
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
 
-  {error && <p className="text-red-500 text-sm">{error}</p>}
+            <input
+              type="url"
+              name="photo"
+              placeholder="Photo URL"
+              className="input input-bordered w-full dark:bg-gray-700 dark:text-white"
+              required
+            />
 
-  <button
-    type="submit"
-    className="w-full py-2 px-4 bg-[#21BEDA] rounded-md text-white font-semibold"
-  >
-    Register
-  </button>
-</form>
+            {error && <p className="text-red-500 text-sm">{error}</p>}
 
+            <button
+              type="submit"
+              className="w-full py-2 px-4 cursor-pointer bg-[#21BEDA] rounded-md text-white font-semibold"
+            >
+              Register
+            </button>
+          </form>
 
           <p className="text-center mt-4 text-sm text-gray-600 dark:text-gray-300">
             Already have an account?{" "}
