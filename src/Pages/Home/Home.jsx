@@ -8,6 +8,8 @@ import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { motion } from "framer-motion";
 import { GiStarFormation } from "react-icons/gi";
 import { IoMdTrendingUp } from "react-icons/io";
+import TrendingProducts from "../../Components/Tranding_products/TrendingProducts";
+import ExtraSections from "../../Components/ExtraSection/ExtraSections";
 
 const Home = () => {
   const { user } = useContext(AuthContext);
@@ -48,7 +50,9 @@ const Home = () => {
       </div>
 
       {/* Featured Products */}
-      <section className="my-10 px-4 md:px-8">
+      <section data-aos="fade-right"
+     data-aos-offset="300"
+     data-aos-easing="ease-in-sine" className="my-10 px-4 md:px-8">
         <h2 className="text-3xl flex items-center justify-center  font-bold text-center text-[#101960] dark:text-white mb-8">
           <GiStarFormation color="#f3d60f" />
           Featured Tech Products
@@ -119,17 +123,25 @@ const Home = () => {
           
 
 
-          <section className="my-10 px-4 md:px-8"> 
+          <section data-aos="fade-left"
+     data-aos-offset="300"
+     data-aos-easing="ease-in-sine" className="my-10 px-4 md:px-8"> 
               
                <h2 className="text-3xl flex items-center justify-center  font-bold text-center text-[#101960] dark:text-white mb-8">
                   <IoMdTrendingUp size={40} color="#f3d60f" />
          Trending Products Section
 
         </h2>
+              <div>
+                  
+                  <TrendingProducts></TrendingProducts>
+              </div>
+
+          </section>
+
+          <section className="my-10 ">
+              <ExtraSections></ExtraSections>
               
-
-
-
           </section>
 
 
