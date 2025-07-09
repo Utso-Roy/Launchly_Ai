@@ -1,11 +1,11 @@
 import React from 'react';
 
-const DeshbordLayout = () => {
+const Sidebar = () => {
     return (
         <div>
-            
+            this is sidebar 
         </div>
     );
 };
 
-export default DeshbordLayout;
+export default Sidebar;

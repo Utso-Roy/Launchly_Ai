@@ -1,13 +1,15 @@
-import React from 'react';
-import { AuthContext } from '../../AuthProvider/AuthProvider';
+import React from "react";
+import Slider from "../../Components/BennarSlider/Slider";
 
 const Home = () => {
+    return <div>
+        <div className="my-2">
+            
+            
+        <Slider></Slider>
+      </div>
 
-    return (
-        <div>
-            This is home route 
-        </div>
-    );
+  </div>;
 };
 
 export default Home;

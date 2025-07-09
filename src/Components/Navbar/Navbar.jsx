@@ -6,7 +6,8 @@ import { NavLink } from "react-router";
 import { Button } from "@mui/material";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { toast } from "react-toastify";
-
+import Lottie from "lottie-react";
+import Roket from '../../assets/Roket.json'
 const Navbar = () => {
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
   const { user, logOut, setUser } = useContext(AuthContext)
@@ -95,9 +96,21 @@ const handelLogOut = () => {
             {navLinks}
           </ul>
         </div>
-        <Link to="/" className="btn btn-ghost text-xl">
-          Launchly
-        </Link>
+      <div className="flex items-center ">
+  <p className="text-[1.4rem] text-[#21BEDA] font-semibold">Launchly</p>
+  <div className="w-9 h-9">
+    <Lottie
+      animationData={Roket}
+      loop={true}
+      className="w-full h-full"
+    />
+  </div>
+</div>
+
+
+
+
+
       </div>
 
       {/* Navbar Center */}
@@ -147,11 +160,13 @@ const handelLogOut = () => {
         <strong>{user.displayName}</strong> 
       </span>
     </li>
-    <li className="dark:text-[#21BEDA] font-semibold">
-      <a>Dashboard</a>
+                <Link to="/dashboard">
+                 <li className="dark:text-[#21BEDA] font-semibold">
+      <a href="##">Dashboard</a>
     </li>
+                </Link>
     <li onClick={handelLogOut} className="dark:text-[#21BEDA] font-semibold">
-      <a>Logout</a>
+      <a href="##">Logout</a>
     </li>
   </ul>
 </div>

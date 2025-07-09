@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router';
-
+import Roket  from '../../assets/Roket.json'
+import Lottie from 'lottie-react';
 const Footer = () => {
 
      const navLinks = (
@@ -35,7 +36,16 @@ const Footer = () => {
 
         {/* Logo / Name */}
         <div>
-          <h2 className="text-2xl font-bold mb-2">Launchly</h2>
+           <div className="flex items-center ">
+            <p className="text-[1.4rem] text-[#21BEDA] font-semibold">Launchly</p>
+            <div className="w-9 h-9">
+              <Lottie
+                animationData={Roket}
+                loop={true}
+                className="w-full h-full"
+              />
+            </div>
+          </div>
           <p className="text-sm text-gray-300">
             Discover and share the latest tech products.
           </p>
