@@ -7,6 +7,7 @@ import Login from "../../Pages/Login/Login"
 import Register from "../../Pages/Register/Register";
 import PrivateRoutes from "../Private/PrivateRoutes";
 import DashboardLayout from "../../Layouts/Deshbord/DashboardLayout";
+import Products_Details_Page from "../../Pages/Products_Details/Products_Details_Page";
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ export const router = createBrowserRouter([
       {
         path: "register",
         element: <Register> </Register>,
+      },
+      {
+        path: "/products/:id",
+        element: <PrivateRoutes><Products_Details_Page></Products_Details_Page></PrivateRoutes>,
       },
     ],
   },

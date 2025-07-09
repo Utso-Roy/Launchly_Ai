@@ -7,11 +7,11 @@ import { Button } from "@mui/material";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { toast } from "react-toastify";
 import Lottie from "lottie-react";
-import Roket from '../../assets/Roket.json'
+import Roket from "../../assets/Roket.json";
 const Navbar = () => {
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
-  const { user, logOut, setUser } = useContext(AuthContext)
-  const navigate = useNavigate()
+  const { user, logOut, setUser } = useContext(AuthContext);
+  const navigate = useNavigate();
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
     localStorage.setItem("theme", theme);
@@ -22,21 +22,18 @@ const Navbar = () => {
     setTheme(newTheme);
   };
 
-const handelLogOut = () => {
-  logOut()
-    .then(() => {
-      setUser(null);
-      navigate ('/login')
-      toast.success("Logged out successfully!");
-    })
-    .catch((error) => {
-      console.log(error.message);
-      toast.error("Logout failed!");
-    });
-};
-
-
-
+  const handelLogOut = () => {
+    logOut()
+      .then(() => {
+        setUser(null);
+        navigate("/login");
+        toast.success("Logged out successfully!");
+      })
+      .catch((error) => {
+        console.log(error.message);
+        toast.error("Logout failed!");
+      });
+  };
 
   const navLinks = (
     <>
@@ -96,21 +93,16 @@ const handelLogOut = () => {
             {navLinks}
           </ul>
         </div>
-      <div className="flex items-center ">
-  <p className="text-[1.4rem] text-[#21BEDA] font-semibold">Launchly</p>
-  <div className="w-9 h-9">
-    <Lottie
-      animationData={Roket}
-      loop={true}
-      className="w-full h-full"
-    />
-  </div>
-</div>
-
-
-
-
-
+        <div className="flex items-center ">
+          <p className="text-[1.4rem] text-[#21BEDA] font-semibold">Launchly</p>
+          <div className="w-9 h-9">
+            <Lottie
+              animationData={Roket}
+              loop={true}
+              className="w-full h-full"
+            />
+          </div>
+        </div>
       </div>
 
       {/* Navbar Center */}
@@ -130,67 +122,58 @@ const handelLogOut = () => {
             <IoIosSunny size={22} />
           )}
         </button>
-        {
-          
-          user ? (
-          
-        <div className="dropdown dropdown-end">
-  <div
-    tabIndex={0}
-    role="button"
-    className="btn   btn-ghost btn-circle avatar"
-  >
-    <div className="w-10 rounded-full">
-      <img
-        alt="User Avatar"
-        src={
-          user?.photoURL 
-         
-        }
-      />
-    </div>
-  </div>
+        {user ? (
+          <div className="dropdown dropdown-end">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn   btn-ghost btn-circle avatar"
+            >
+              <div className="w-10 rounded-full">
+                <img alt="User Avatar" src={user?.photoURL} />
+              </div>
+            </div>
 
-  <ul
-    tabIndex={0}
-    className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-[#21BEDA] text-base-200 rounded-box w-52"
-  >
-    <li className="dark:text-[#21BEDA]">
-      <span>
-        <strong>{user.displayName}</strong> 
-      </span>
-    </li>
-                <Link to="/dashboard">
-                 <li className="dark:text-[#21BEDA] font-semibold">
-      <a href="##">Dashboard</a>
-    </li>
-                </Link>
-    <li onClick={handelLogOut} className="dark:text-[#21BEDA] font-semibold">
-      <a href="##">Logout</a>
-    </li>
-  </ul>
-</div>
-
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-[#21BEDA] text-base-200 rounded-box w-52"
+            >
+              <li className="dark:text-[#21BEDA]">
+                <span>
+                  <strong>{user.displayName}</strong>
+                </span>
+              </li>
+              <Link to="/dashboard">
+                <li className="dark:text-[#21BEDA] font-semibold">
+                  <a href="33">Dashboard </a>{" "}
+                </li>
+              </Link>
+              <li
+                onClick={handelLogOut}
+                className="dark:text-[#21BEDA] font-semibold"
+              >
+                <a href="#"> Logout</a>{" "}
+              </li>
+            </ul>
+          </div>
         ) : (
           <Link to="/login">
-          <Button
-            variant="contained"
-            sx={{
-              backgroundColor: "#21BEDA",
-              "&:hover": {
-                backgroundColor: "#1BAFC8",
-              },
-              color: "white",
-              borderRadius: "6px",
-              px: 2,
-            }}
-          >
-            Sign In
-          </Button>
-        </Link>
-          )
-      }
-
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: "#21BEDA",
+                "&:hover": {
+                  backgroundColor: "#1BAFC8",
+                },
+                color: "white",
+                borderRadius: "6px",
+                px: 2,
+              }}
+            >
+              Sign In
+            </Button>
+          </Link>
+        )}
       </div>
     </div>
   );

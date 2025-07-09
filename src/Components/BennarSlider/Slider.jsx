@@ -52,7 +52,7 @@ const Slider = () => {
                   <p className="text-sm md:text-lg lg:text-xl drop-shadow">
                     {slide.subtitle}
                   </p>
-                  <button className="mt-4 px-5 py-2 md:px-6 md:py-3 bg-white text-black font-semibold rounded-md shadow hover:bg-gray-200 transition-all duration-300">
+                  <button className="mt-4 px-5 py-2 md:px-6 md:py-3 bg-white cursor-pointer text-[#21BEDA] font-semibold rounded-md shadow hover:bg-gray-200 transition-all duration-300">
                     Learn More
                   </button>
                 </div>
