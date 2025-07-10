@@ -80,7 +80,7 @@ const TrendingProducts = () => {
                     <button
                       disabled={isOwner || hasVoted}
                       onClick={() => handleUpvote(product._id)}
-                      className={`mt-3 flex items-center justify-center gap-2 px-4 py-2 rounded font-semibold transition-colors ${
+                      className={`mt-3 flex items-center cursor-pointer justify-center gap-2 px-4 py-2 rounded font-semibold transition-colors ${
                         isOwner || hasVoted
                           ? "bg-gray-300 text-gray-600 cursor-not-allowed dark:bg-gray-700 dark:text-gray-400"
                           : "bg-[#21BEDA] text-white hover:bg-[#1ca6c0]"

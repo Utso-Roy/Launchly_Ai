@@ -15,10 +15,13 @@ const Products_Details_Page = () => {
   const [reviewRating, setReviewRating] = useState(0);
   const [showReportModal, setShowReportModal] = useState(false);
 
-  const { data: products = [], isLoading, refetch } = useQuery({
-    queryKey: ["featured_products"],
-    queryFn: () => axiosSecure("featured_products"),
-  });
+    const { data: products = [], isLoading, refetch } = useQuery(
+        
+        {
+    queryKey: ["all_products"],
+    queryFn: () => axiosSecure("all_products"),
+  }
+  );
 
   const { data: reviews = [] } = useQuery({
     queryKey: ["reviews", id],
