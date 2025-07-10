@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
-import { motion } from "framer-motion";
 
 const My_Profile = () => {
   const { user } = useContext(AuthContext);
@@ -10,81 +9,92 @@ const My_Profile = () => {
   const subscriptionAmount = "$9.99 / month";
 
   const handleSubscribe = () => {
-    // এখানে future backend integration এর জন্য logic রাখতে পারো
     setShowModal(true);
   };
 
   return (
-    <motion.div
-      className="max-w-md mx-auto my-10 p-3 rounded-xl shadow-lg dark:bg-gray-900 bg-white"
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      <div className="flex flex-col items-center gap-4">
-        <img
-          src={user?.photoURL || "https://i.ibb.co/ZVGf7Vn/user.png"}
-          alt="User Profile"
-          className="w-24 h-24 object-cover rounded-full border-4 border-[#21BEDA]"
-        />
-        <h2 className="text-xl font-bold text-gray-800 dark:text-white">
-          {user?.displayName || "User Name"}
-        </h2>
-        <p className="text-gray-600 dark:text-gray-300">
-          {user?.email || "user@example.com"}
-        </p>
+    <div data-aos="zoom-in-down"data-aos-duration="3000" className="max-w-4xl mt-10 px-4 md:px-8">
+      <h2 className="text-3xl font-bold text-center text-[#21BEDA] dark:text-white mb-8">
+        My Profile
+      </h2>
 
-        {!isSubscribed ? (
-          <>
-            <button
-              onClick={handleSubscribe}
-              className="mt-4 px-4 py-2 bg-[#21BEDA] hover:bg-[#1ca6c0] text-white rounded shadow"
-            >
-              Subscribe: {subscriptionAmount}
-            </button>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-gray-10 border-2 border-[#21BEDA] dark:bg-gray-900 p-6 rounded-lg shadow-md">
+        <div className="flex justify-center items-start">
+          <img
+            src={user?.photoURL || "https://i.ibb.co/ZVGf7Vn/user.png"}
+            alt="User"
+            className="w-36 h-36 object-cover rounded-full border-4 border-[#21BEDA]"
+          />
+        </div>
 
-            {/* DaisyUI Modal */}
-            {showModal && (
-              <dialog id="subscribe_modal" className="modal modal-open">
-                <div className="modal-box dark:bg-gray-800 dark:text-white">
-                  <h3 className="font-bold text-lg">Subscribe Now</h3>
-                  <p className="py-4">
-                    To enjoy premium benefits, subscribe now for{" "}
-                    <span className="font-semibold text-[#21BEDA]">
-                      {subscriptionAmount}
-                    </span>
-                    .
-                  </p>
-                  <div className="modal-action">
-                    <form method="dialog" className="space-x-2">
-                      <button
-                        className="btn bg-[#21BEDA] hover:bg-[#1ca6c0] text-white"
-                        onClick={() => {
-                          // future: call backend to subscribe
-                          setShowModal(false);
-                        }}
-                      >
-                        Confirm
-                      </button>
-                      <button
-                        className="btn btn-outline"
-                        onClick={() => setShowModal(false)}
-                      >
-                        Cancel
-                      </button>
-                    </form>
-                  </div>
-                </div>
-              </dialog>
-            )}
-          </>
-        ) : (
-          <div className="mt-4 px-4 py-2 bg-green-600 text-white rounded shadow">
-            Status: Verified
+        <div className="space-y-4">
+          <div>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Name</p>
+            <h3 className="text-lg font-semibold text-gray-800 dark:text-white">
+              {user?.displayName || "User Name"}
+            </h3>
           </div>
-        )}
+          <div>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Email</p>
+            <h3 className="text-lg font-semibold text-gray-800 dark:text-white">
+              {user?.email || "user@example.com"}
+            </h3>
+          </div>
+          <div>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              Membership
+            </p>
+            {!isSubscribed ? (
+              <button
+                onClick={handleSubscribe}
+                className="px-4 py-2 bg-[#21BEDA] cursor-pointer hover:bg-[#1ca6c0] text-white rounded shadow"
+              >
+                Subscribe: {subscriptionAmount}
+              </button>
+            ) : (
+              <span className="inline-block px-4 py-2 bg-green-600 text-white rounded shadow">
+                Status: Verified
+              </span>
+            )}
+          </div>
+        </div>
       </div>
-    </motion.div>
+
+      {/* DaisyUI Modal */}
+      {showModal && (
+        <dialog id="subscribe_modal" className="modal modal-open">
+          <div className="modal-box dark:bg-gray-800 dark:text-white">
+            <h3 className="font-bold text-lg">Subscribe Now</h3>
+            <p className="py-4">
+              To enjoy premium benefits, subscribe now for{" "}
+              <span className="font-semibold text-[#21BEDA]">
+                {subscriptionAmount}
+              </span>
+              .
+            </p>
+            <div className="modal-action">
+              <form method="dialog" className="space-x-2">
+                <button
+                  className="btn bg-[#21BEDA] hover:bg-[#1ca6c0] text-white"
+                  onClick={() => {
+                    // TODO: backend call here
+                    setShowModal(false);
+                  }}
+                >
+                  Confirm
+                </button>
+                <button
+                  className="btn btn-outline"
+                  onClick={() => setShowModal(false)}
+                >
+                  Cancel
+                </button>
+              </form>
+            </div>
+          </div>
+        </dialog>
+      )}
+    </div>
   );
 };
 

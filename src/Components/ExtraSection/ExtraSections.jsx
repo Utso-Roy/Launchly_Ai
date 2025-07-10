@@ -51,7 +51,7 @@ const ExtraSections = () => {
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="bg-white dark:bg-gray-800 p-6 md:p-12 rounded-2xl  shadow-lg"
+        className="bg-[#f0fbff] dark:bg-gray-800 p-6 md:p-12 rounded-2xl  shadow-lg"
       >
         <h2 className="text-3xl md:text-4xl font-bold text-center text-[#101960] dark:text-white mb-10">
            Success Stories from Launchly
@@ -61,7 +61,7 @@ const ExtraSections = () => {
             <motion.div
               key={i}
               whileHover={{ scale: 1.03 }}
-              className="p-4 border border-[#21BEDA] bg-[#f9fdff] dark:bg-gray-700 rounded-xl shadow-sm"
+              className="p-4  bg-[#f9fdff] dark:bg-gray-700 rounded-xl shadow-sm"
             >
               <FaUsers className="text-[#21BEDA] text-4xl mb-4" />
               <h3 className="text-xl font-semibold text-[#21BEDA] mb-2">

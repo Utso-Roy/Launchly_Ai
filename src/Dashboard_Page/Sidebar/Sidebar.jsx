@@ -7,7 +7,7 @@ const Sidebar = () => {
 
 
   return (
-    <div className="w-full md:w-64 bg-white dark:bg-gray-900 shadow-lg h-full p-4 space-y-4">
+    <div className="w-full sticky top-18 md:w-64 bg-white dark:bg-gray-900 shadow-lg h-full p-4 space-y-4">
       <h2 className="text-2xl font-bold text-center text-[#21BEDA] dark:text-white mb-6">
         Dashboard
       </h2>
