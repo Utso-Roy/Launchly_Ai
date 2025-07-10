@@ -8,6 +8,9 @@ import Register from "../../Pages/Register/Register";
 import PrivateRoutes from "../Private/PrivateRoutes";
 import DashboardLayout from "../../Layouts/Deshbord/DashboardLayout";
 import Products_Details_Page from "../../Pages/Products_Details/Products_Details_Page";
+import My_Profile from "../../Pages/My_Profile/My_Profile";
+import My_Products from "../../Pages/My_products/My_Products";
+import Add_Products from "../../Pages/Add_Products/Add_Products";
 
 export const router = createBrowserRouter([
   {
@@ -23,7 +26,7 @@ export const router = createBrowserRouter([
 
       {
         path: "products",
-        element: <PrivateRoutes><Products></Products></PrivateRoutes>,
+        element: <Products></Products>
       },
       {
         path: "login",
@@ -48,11 +51,19 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        path: '/dashboard',
-        // element : <Home></Home>
+        path: '/dashboard/profile',
+        element : <My_Profile></My_Profile>
         
 
-      }
+      },
+      {
+        path: "/dashboard/myProducts",
+        element : <My_Products></My_Products>
+      },
+      {
+        path: "/dashboard/addProduct",
+        element : <Add_Products></Add_Products>
+      },
 
 
 

@@ -31,9 +31,6 @@ const Products_Details_Page = () => {
   const product = products.find((item) => item._id === id);
 
   if (isLoading) return <Loading />;
-  if (!product)
-    return <p className="text-center text-red-500 mt-10">Product not found!</p>;
-
   const isOwner = user?.uid === product.ownerId;
   const hasVoted = product.upvotedUsers?.includes(user?.uid);
 
@@ -91,7 +88,7 @@ const Products_Details_Page = () => {
         {/* Back Button */}
         <button
           onClick={() => navigate(-1)}
-          className="mb-6 flex items-center text-[#21BEDA] hover:text-[#1ca6c0] font-semibold"
+          className="mb-6 flex cursor-pointer items-center text-[#21BEDA] hover:text-[#1ca6c0] font-semibold"
         >
           <FaArrowLeft className="mr-2" /> Back to Products
         </button>
