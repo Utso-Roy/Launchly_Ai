@@ -62,12 +62,12 @@ const Navbar = () => {
 
   return (
     <div
-      className={`navbar shadow-sm px-4 ${
+      className={`navbar shadow-sm sticky top-0 z-1000 px-4 ${
         theme === "dark" ? "bg-[#1e2939] text-white" : "bg-[#101960] text-white"
       }`}
     >
       {/* Navbar Start */}
-      <div className="navbar-start">
+      <div className="navbar-start  ">
         {/* Mobile Dropdown Menu */}
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -134,27 +134,30 @@ const Navbar = () => {
               </div>
             </div>
 
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-[#21BEDA] text-base-200 rounded-box w-52"
-            >
-              <li className="dark:text-[#21BEDA]">
-                <span>
-                  <strong>{user.displayName}</strong>
-                </span>
-              </li>
-              <Link to="/dashboard">
-                <li className="dark:text-[#21BEDA] font-semibold">
-                  <a href="33">Dashboard </a>{" "}
-                </li>
-              </Link>
-              <li
-                onClick={handelLogOut}
-                className="dark:text-[#21BEDA] font-semibold"
-              >
-                <a href="#"> Logout</a>{" "}
-              </li>
-            </ul>
+           <ul
+  tabIndex={0}
+  className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-[#21BEDA] text-white rounded-box w-52"
+>
+  <li className="dark:text-[#21BEDA]">
+    <span>
+      <strong>{user.displayName}</strong>
+    </span>
+  </li>
+
+  <Link to="/dashboard">
+    <li className="cursor-pointer hover:bg-[#76c1cc] font-semibold transition-colors duration-200 rounded-md px-2 py-1">
+      Dashboard
+    </li>
+  </Link>
+
+  <li
+    onClick={handelLogOut}
+    className="cursor-pointer hover:bg-[#76c1cc] font-semibold transition-colors duration-200 rounded-md px-2 py-1"
+  >
+    Logout
+  </li>
+</ul>
+
           </div>
         ) : (
           <Link to="/login">

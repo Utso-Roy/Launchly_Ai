@@ -40,19 +40,22 @@ const Home = () => {
   const featured = products
     ?.filter((item) => item.isFeatured)
     .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-    .slice(0, 7);
+    .slice(0, 8);
 
   return (
     <div>
       {/* Slider */}
-      <div className="my-4">
+      <div className="my-2">
         <Slider />
       </div>
 
       {/* Featured Products */}
-      <section data-aos="fade-right"
-     data-aos-offset="300"
-     data-aos-easing="ease-in-sine" className="my-10 px-4 md:px-8">
+      <section
+        data-aos="fade-right"
+        data-aos-offset="300"
+        data-aos-easing="ease-in-sine"
+        className="my-10 px-4 md:px-8"
+      >
         <h2 className="text-3xl flex items-center justify-center  font-bold text-center text-[#101960] dark:text-white mb-8">
           <GiStarFormation color="#f3d60f" />
           Featured Tech Products
@@ -119,33 +122,26 @@ const Home = () => {
             })}
           </div>
         )}
-          </section>
-          
+      </section>
 
-
-          <section data-aos="fade-left"
-     data-aos-offset="300"
-     data-aos-easing="ease-in-sine" className="my-10 px-4 md:px-8"> 
-              
-               <h2 className="text-3xl flex items-center justify-center  font-bold text-center text-[#101960] dark:text-white mb-8">
-                  <IoMdTrendingUp size={40} color="#f3d60f" />
-         Trending Products Section
-
+      <section
+        data-aos="fade-left"
+        data-aos-offset="300"
+        data-aos-easing="ease-in-sine"
+        className="my-10 px-4 md:px-8"
+      >
+        <h2 className="text-3xl flex items-center justify-center  font-bold text-center text-[#101960] dark:text-white mb-8">
+          <IoMdTrendingUp size={40} color="#f3d60f" />
+          Trending Products Section
         </h2>
-              <div>
-                  
-                  <TrendingProducts></TrendingProducts>
-              </div>
+        
+          <TrendingProducts></TrendingProducts>
+    
+      </section>
 
-          </section>
-
-          <section className="my-10 ">
-              <ExtraSections></ExtraSections>
-              
-          </section>
-
-
-
+      <section className="my-10 ">
+        <ExtraSections></ExtraSections>
+      </section>
     </div>
   );
 };

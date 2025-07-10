@@ -9,8 +9,8 @@ const ExtraSections = () => {
       <motion.section
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="bg-[#f0fbff] dark:bg-gray-900 p-6 md:p-12 rounded-2xl shadow-md"
+         transition={{ duration: 0.6 }}
+        className="bg-[#f0fbff]  dark:bg-gray-900 p-6 md:p-12 rounded-2xl shadow-md"
       >
         <h2 className="text-3xl md:text-4xl font-bold text-center text-[#101960] dark:text-white mb-6">
           Why Tech Enthusiasts Choose Launchly?
