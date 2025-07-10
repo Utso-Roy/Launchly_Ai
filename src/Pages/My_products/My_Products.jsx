@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Loading from "../../Context/Auth/Loader/Loading";
+import { Typewriter } from "react-simple-typewriter";
+import Swal from "sweetalert2";
 
 const My_Products = () => {
   const [postProducts, setPostProducts] = useState([]);
@@ -14,7 +16,6 @@ const My_Products = () => {
       });
   }, []);
 
-  console.log(postProducts);
   if (loading) {
     return (
       <div className="flex justify-center mx-50 items-center min-h-[40vh]">
@@ -23,21 +24,64 @@ const My_Products = () => {
     );
   }
 
+  //products delete id
+
+  const handelDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:3000/add_products_data/${id}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.deletedCount > 0) {
+              setPostProducts((prev) =>
+                prev.filter((product) => product._id !== id)
+              );
+              Swal.fire(
+                "Deleted!",
+                "Your product has been deleted.",
+                "success"
+              );
+            }
+          });
+      }
+    });
+  };
+
   return (
-    <div   className="p-4 md:p-8 w-full max-w-6xl mx-auto">
+    <div className="p-4 md:p-8 w-full max-w-4xl ">
       <h2 className="text-3xl font-bold mb-5 text-[#101960] text-center dark:text-white">
-        My Submitted Products
+        <Typewriter
+          words={["My Submitted Products"]}
+          loop={Infinity}
+          cursor
+          cursorStyle="_"
+          typeSpeed={70}
+          deleteSpeed={50}
+          delaySpeed={1000}
+        />
       </h2>
 
       {postProducts.length === 0 ? (
         <p className="text-gray-600 dark:text-gray-300">No products found.</p>
       ) : (
-        <div  className="overflow-x-auto rounded-xl shadow-md border border-gray-200 dark:border-gray-700">
+        <div className="overflow-x-auto rounded-xl shadow-md border border-gray-200 dark:border-gray-700">
           <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700 text-sm md:text-base">
             <thead className="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200">
               <tr>
                 <th className="px-4 py-3 text-left font-semibold">Image</th>
-                <th className="px-4 py-3 text-left font-semibold">Product Name</th>
+                <th className="px-4 py-3 text-left font-semibold">
+                  Product Name
+                </th>
                 <th className="px-4 py-3 text-left font-semibold">Votes</th>
                 <th className="px-4 py-3 text-left font-semibold">Status</th>
                 <th className="px-4 py-3 text-left font-semibold">Actions</th>
@@ -48,8 +92,7 @@ const My_Products = () => {
                 <tr
                   key={product._id}
                   className="hover:bg-gray-50 dark:hover:bg-gray-800 transition duration-200"
-                  >
-                      
+                >
                   <td className="px-4 py-3">
                     <img
                       src={product?.data?.image}
@@ -81,7 +124,10 @@ const My_Products = () => {
                     <button className="px-3 py-1 bg-[#21BEDA] cursor-pointer hover:bg-[#84c8d4] text-white text-sm rounded transition">
                       Update
                     </button>
-                    <button className="px-3 py-1 cursor-pointer bg-red-500 hover:bg-red-600 text-white text-sm rounded transition">
+                    <button
+                      onClick={() => handelDelete(product?._id)}
+                      className="px-3 py-1 cursor-pointer bg-red-500 hover:bg-red-600 text-white text-sm rounded transition"
+                    >
                       Delete
                     </button>
                   </td>

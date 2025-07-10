@@ -13,11 +13,11 @@ const My_Profile = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row w-full min-h-screen dark:bg-gray-950 bg-gray-100">
+    <div className="   dark:bg-gray-950 ">
       
 
       {/* Profile Content */}
-      <main className="flex-1 p-4 md:p-8 max-w-5xl mx-auto w-full">
+      <main className="flex-1 p-4 md:p-8 max-w-5xl  ">
         <div data-aos="zoom-in-down" data-aos-duration="2000">
           <h2 className="text-3xl font-bold text-center text-[#21BEDA] dark:text-white mb-8">
             My Profile
