@@ -37,7 +37,7 @@ const Add_Products = () => {
 
 
   return (
-    <div className="max-w-2xl mx-8 my-3 p-8 bg-base-200 dark:bg-gray-900 rounded-lg shadow-md">
+    <div  data-aos="zoom-in-down" data-aos-duration="2000" className="max-w-2xl  mx-8 my-3 p-8 bg-base-200 dark:bg-gray-900 rounded-lg shadow-md">
       <h2 className="text-3xl font-semibold text-center text-[#21BEDA] mb-8">
         Add New Product
       </h2>

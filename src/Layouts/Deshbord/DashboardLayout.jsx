@@ -8,7 +8,7 @@ const DashboardLayout = () => {
   return (
     <div>
       <Navbar></Navbar>
-      <div className="flex gap-5">
+      <div className="flex md:gap-5 sm:gap-3">
         <Sidebar></Sidebar>
         <Outlet></Outlet>
       </div>

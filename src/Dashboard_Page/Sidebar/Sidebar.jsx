@@ -7,7 +7,7 @@ const Sidebar = () => {
 
 
   return (
-    <div className="w-full sticky top-18 md:w-64 bg-white dark:bg-gray-900 shadow-lg h-full p-4 space-y-4">
+    <div className="w-full sticky md:top-18 sm:top-12 md:w-64 bg-white dark:bg-gray-900 shadow-lg h-full p-4 space-y-4">
       <h2 className="text-2xl font-bold text-center text-[#21BEDA] dark:text-white mb-6">
         Dashboard
       </h2>
@@ -18,7 +18,7 @@ const Sidebar = () => {
           className={({ isActive }) =>
             `flex items-center gap-3 px-4 py-2 rounded-md transition-colors ${
               isActive
-                ? 'bg-[#21BEDA] text-white'
+                ? ' text-[#21BEDA]'
                 : 'text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
             }`
           }
@@ -32,7 +32,7 @@ const Sidebar = () => {
           className={({ isActive }) =>
             `flex items-center gap-3 px-4 py-2 rounded-md transition-colors ${
               isActive
-                ? 'bg-[#21BEDA] text-white'
+                ? ' text-[#21BEDA]'
                 : 'text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
             }`
           }
@@ -46,7 +46,7 @@ const Sidebar = () => {
           className={({ isActive }) =>
             `flex items-center gap-3 px-4 py-2 rounded-md transition-colors ${
               isActive
-                ? 'bg-[#21BEDA] text-white'
+                ? ' text-[#21BEDA]'
                 : 'text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
             }`
           }
