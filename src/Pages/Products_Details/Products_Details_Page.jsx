@@ -1,11 +1,12 @@
 import React, { useContext, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import { useQuery } from "@tanstack/react-query";
-import { axiosSecure } from "../../Services/products_Api/Featured_Products_Api";
 import { FaThumbsUp, FaFlag, FaArrowLeft } from "react-icons/fa";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { toast } from "react-toastify";
 import Loading from "../../Context/Auth/Loader/Loading";
+import { axiosSecure } from "../../Services/products_Api/Featured_Products_Api";
+import axios from "axios";
 
 const Products_Details_Page = () => {
   const { id } = useParams();
@@ -48,38 +49,49 @@ const Products_Details_Page = () => {
   };
 
   const handleReportConfirm = async () => {
-    try {
-      await axiosSecure(`report/${product._id}`, {
-        method: "POST",
-        data: { reporterId: user.uid },
-      });
-      toast.success("Report submitted successfully.");
-      setShowReportModal(false);
-    } catch (err) {
-      console.error("Report failed", err);
-    }
-  };
+  try {
+    await axios.post('http://localhost:3000/reported', {
+      productId: product?._id,
+      productName: product?.name,
+      productImage: product?.image,
+      reporterId: user?.uid,
+      reporterName: user?.displayName,
+      reportedAt: new Date()
+    });
 
-  const handleReviewSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await axiosSecure(`reviews/${product._id}`, {
-        method: "POST",
-        data: {
-          name: user.displayName,
-          photo: user.photoURL,
-          description: reviewText,
-          rating: reviewRating,
-        },
-      });
-      setReviewText("");
-      setReviewRating(0);
-      toast.success("Review posted!");
-      refetch();
-    } catch (err) {
-      console.error("Review failed", err);
-    }
-  };
+    toast.success("Report submitted successfully.");
+    setShowReportModal(false);
+  } catch (err) {
+    console.error("Report failed", err);
+    toast.error("Failed to report product.");
+  }
+};
+
+
+const handleReviewSubmit = async (e) => {
+  e.preventDefault();
+  try {
+     await axios.post(
+      `http://localhost:3000/reviews`,
+      {
+        name: user?.displayName,
+        photo: user?.photoURL,
+        description: reviewText,
+        rating: reviewRating,
+      }
+    );
+
+    // reset form
+    setReviewText("");
+    setReviewRating(0);
+    toast.success("Review posted!");
+    refetch();
+  } catch (err) {
+    console.error("Review failed", err);
+    toast.error("Failed to post review.");
+  }
+};
+
 
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 py-10 px-4 md:px-12 lg:px-32">
@@ -131,7 +143,7 @@ const Products_Details_Page = () => {
           <button
             disabled={isOwner || hasVoted}
             onClick={handleUpvote}
-            className={`flex items-center gap-2 px-4 py-2 rounded ${
+            className={`flex items-center cursor-pointer gap-2 px-4 py-2 rounded ${
               isOwner || hasVoted
                 ? "bg-gray-300 text-gray-600 dark:bg-gray-700 dark:text-gray-400 cursor-not-allowed"
                 : "bg-[#21BEDA] text-white hover:bg-[#1ca6c0]"
@@ -144,12 +156,12 @@ const Products_Details_Page = () => {
             <>
               <button
                 onClick={() => setShowReportModal(true)}
-                className="flex items-center gap-2 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded"
+                className="flex items-center cursor-pointer gap-2 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded"
               >
                 <FaFlag /> Report
               </button>
 
-              {/* DaisyUI Modal */}
+              {/*  Modal */}
               {showReportModal && (
                 <dialog id="report_modal" className="modal modal-open">
                   <div className="modal-box bg-white dark:bg-gray-800">
@@ -167,7 +179,7 @@ const Products_Details_Page = () => {
                         </button>
                         <button
                           onClick={handleReportConfirm}
-                          className="btn bg-red-600 text-white hover:bg-red-700"
+                          className="btn cursor-pointer bg-red-600 text-white hover:bg-red-700"
                         >
                           Confirm Report
                         </button>
@@ -265,7 +277,7 @@ const Products_Details_Page = () => {
 
             <button
               type="submit"
-              className="bg-[#21BEDA] text-white px-6 py-2 rounded hover:bg-[#1ca6c0]"
+              className="bg-[#21BEDA] cursor-pointer text-white px-6 py-2 rounded hover:bg-[#1ca6c0]"
             >
               Submit Review
             </button>

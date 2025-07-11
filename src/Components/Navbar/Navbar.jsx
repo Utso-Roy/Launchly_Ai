@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
-import { IoIosSunny } from "react-icons/io";
+import { IoIosSunny, IoMdLogOut } from "react-icons/io";
 import { LuMoonStar } from "react-icons/lu";
 import { NavLink } from "react-router";
 import { Button } from "@mui/material";
@@ -8,6 +8,7 @@ import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { toast } from "react-toastify";
 import Lottie from "lottie-react";
 import Roket from "../../assets/Roket.json";
+import { MdDashboard } from "react-icons/md";
 const Navbar = () => {
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
   const { user, logOut, setUser } = useContext(AuthContext);
@@ -133,10 +134,9 @@ const Navbar = () => {
                 <img alt="User Avatar" src={user?.photoURL} />
               </div>
             </div>
-
-           <ul
+<ul
   tabIndex={0}
-  className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-[#21BEDA] text-white rounded-box w-52"
+  className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-200 text-[#21BEDA] rounded-box w-52"
 >
   <li className="dark:text-[#21BEDA]">
     <span>
@@ -144,17 +144,22 @@ const Navbar = () => {
     </span>
   </li>
 
-  <Link to="/dashboard">
-    <li className="cursor-pointer hover:bg-[#76c1cc] font-semibold transition-colors duration-200 rounded-md px-2 py-1">
-      Dashboard
-    </li>
-  </Link>
+  <li>
+    <Link
+      to="/dashboard"
+      className="cursor-pointer  flex items-center gap-2 font-semibold transition-colors duration-200 rounded-md px-2 py-1"
+    >
+      <MdDashboard className="text-lg" /> Dashboard
+    </Link>
+  </li>
 
-  <li
-    onClick={handelLogOut}
-    className="cursor-pointer hover:bg-[#76c1cc] font-semibold transition-colors duration-200 rounded-md px-2 py-1"
-  >
-    Logout
+  <li>
+    <button
+      onClick={handelLogOut}
+      className="w-full text-left flex items-center gap-2 cursor-pointer  font-semibold transition-colors duration-200 rounded-md px-2 py-1"
+    >
+      <IoMdLogOut className="text-lg" /> Logout
+    </button>
   </li>
 </ul>
 
