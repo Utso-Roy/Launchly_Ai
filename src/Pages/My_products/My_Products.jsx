@@ -95,8 +95,8 @@ const My_Products = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-[40vh]">
-        {Loading()}
+      <div className="block mx-auto">
+        <Loading></Loading>
       </div>
     );
   }

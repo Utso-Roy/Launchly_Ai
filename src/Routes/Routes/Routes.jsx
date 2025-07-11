@@ -16,6 +16,7 @@ import MangeCoupon from "../../Pages/ManageCoupon/MangeCoupon";
 import MangeUser from "../../Pages/ManageUser/MangeUser";
 import Statistics from "../../Pages/statisticis/Statistics";
 import ReportedContent from "../../Pages/Report/ReportedContent";
+import ReportDetails from "../../Pages/ReportDetails/ReportDetails";
 
 export const router = createBrowserRouter([
   {
@@ -132,6 +133,15 @@ export const router = createBrowserRouter([
           <PrivateRoutes>
             {" "}
             <MangeCoupon></MangeCoupon>{" "}
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "/dashboard/reportDetails/:id",
+        element: (
+          <PrivateRoutes>
+            {" "}
+            <ReportDetails></ReportDetails>{" "}
           </PrivateRoutes>
         ),
       },

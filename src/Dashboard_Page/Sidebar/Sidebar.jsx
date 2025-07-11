@@ -8,7 +8,7 @@ import { MdDashboard, MdOutlineRateReview, MdReport } from 'react-icons/md';
 
 const Sidebar = () => {
   return (
-    <div className="w-full sticky md:top-18 sm:top-12 md:w-64 bg-white dark:bg-gray-900 shadow-lg h-full p-4 space-y-4">
+    <div className="w-full sticky md:top-16 sm:top-12 md:w-64 bg-white dark:bg-gray-900 shadow-lg h-full p-4 space-y-4">
       <h2 className="text-2xl font-bold text-center text-[#21BEDA] flex gap-1 items-center dark:text-white mb-6">
         <MdDashboard /> Dashboard
       </h2>
