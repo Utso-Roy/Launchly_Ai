@@ -10,6 +10,7 @@ import { GiStarFormation } from "react-icons/gi";
 import { IoMdTrendingUp } from "react-icons/io";
 import TrendingProducts from "../../Components/Tranding_products/TrendingProducts";
 import ExtraSections from "../../Components/ExtraSection/ExtraSections";
+import Loading from "../../Context/Auth/Loader/Loading";
 
 const Home = () => {
   const { user } = useContext(AuthContext);
@@ -62,7 +63,7 @@ const Home = () => {
         </h2>
 
         {isLoading ? (
-          <p className="text-center">Loading products...</p>
+          Loading()
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {featured.map((product, i) => {
