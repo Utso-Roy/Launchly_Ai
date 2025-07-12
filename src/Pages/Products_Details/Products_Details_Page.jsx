@@ -31,7 +31,7 @@ const Products_Details_Page = () => {
 
   const product = products.find((item) => item._id === id);
 
-  if (isLoading) return <Loading />;
+  if (isLoading) return <div className=" block mx-auto"> <Loading />; </div>
   const isOwner = user?.uid === product.ownerId;
   const hasVoted = product.upvotedUsers?.includes(user?.uid);
 
@@ -54,6 +54,7 @@ const Products_Details_Page = () => {
       productId: product?._id,
       productName: product?.name,
       productImage: product?.image,
+      isFeatured :product?.isFeatured,
       reporterId: user?.uid,
       reporterName: user?.displayName,
       reportedAt: new Date()
@@ -67,6 +68,8 @@ const Products_Details_Page = () => {
   }
 };
 
+  
+  console.log()
 
 const handleReviewSubmit = async (e) => {
   e.preventDefault();

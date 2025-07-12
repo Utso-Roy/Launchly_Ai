@@ -20,10 +20,9 @@ const ReportedContent = () => {
 
     },[])
 
- const handleDelete = async (id) => {
-  console.log(id);
+const handleDelete = async () => {
   try {
-    const response = await fetch(`http://localhost:3000/reported/${id}`, {
+    const response = await fetch(`http://localhost:3000/reported`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -38,9 +37,12 @@ const ReportedContent = () => {
 
     if (data.success) {
       toast.success("Deleted Successfully");
-      setReport((prevReport) => prevReport.filter((item) => item._id !== id));
+      // UI থেকে ম্যানুয়ালি রিমুভ করতে পারো: যেকোনো একটা item যার isFeatured === true
+      setReport((prevReport) =>
+        prevReport.filter((item) => item.isFeatured !== true)
+      );
     } else {
-      toast.error("Failed to delete");
+      toast.error("No featured product found to delete");
     }
   } catch (err) {
     toast.error("Failed to delete");
@@ -52,6 +54,25 @@ const ReportedContent = () => {
   const handelDetailsBtn = (id) => {
     navigate(`/dashboard/reportDetails/${id}`);
   };
+
+if(report.length===0)
+{
+
+  return (
+    
+    <div className="w-full max-w-4xl my-10  mx-10 dark:bg-gray-900">
+      <h2 className="font-semibold  text-2xl text-gray-600 text-center dark:text-white">
+
+        No Reported Products Found
+      </h2>
+      
+
+
+
+  </div>
+
+  )
+}
 
   if (loading) return <div className="block mx-auto">  <Loading />;</div>
 
@@ -90,13 +111,13 @@ const ReportedContent = () => {
                 <td className="py-3 px-4">
                   <div className="flex flex-wrap gap-2">
                     <button
-                      onClick={() => handelDetailsBtn(item._id)}
+                      onClick={() => handelDetailsBtn(item?._id)}
                       className="bg-[#21CAD2] cursor-pointer hover:bg-[#68bbbf] text-white px-3 py-2 rounded-md text-sm"
                     >
                       View Details
                     </button>
                     <button
-                      onClick={() => handleDelete(item._id)}
+                      onClick={() => handleDelete()}
                       className="bg-red-500 cursor-pointer hover:bg-red-600 text-white px-3 py-2 rounded-md text-sm"
                     >
                       Delete

@@ -23,7 +23,7 @@ const from = location.state?.from?.pathname || "/";
       .then(data => {
         setUser(data.user)
         toast.success('Google Login successful!')
-            navigate(from, { replace: true });
+        navigate(from, { replace: true });
       })
       .catch(err => {
       
