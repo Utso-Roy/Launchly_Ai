@@ -106,7 +106,7 @@ const ReviewQueue = () => {
             <tr key={product?._id} className="hover:bg-gray-50 dark:hover:bg-gray-800">
               <td>{product?.data?.name}</td>
               <td>
-                <Link to={`/product-details/${product?._id}`}>
+                <Link to={`/dashboard/product_details/${product?._id}`}>
                   <button className="btn btn-sm bg-[#21BEDA] text-white hover:bg-[#1ba9c3]">
                     View
                   </button>

@@ -147,7 +147,7 @@ const My_Products = () => {
         <p className="text-gray-600 dark:text-gray-300">No products found.</p>
       ) : (
         <div className="overflow-x-auto rounded-xl shadow-md border border-gray-200 dark:border-gray-700">
-          <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700 text-sm md:text-base">
+          <table className="min-w-3xl mx-auto divide-y divide-gray-200 dark:divide-gray-700 text-sm md:text-base">
             <thead className="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200">
               <tr>
                 <th className="px-4 py-3 text-left font-semibold">Image</th>
@@ -231,8 +231,7 @@ const My_Products = () => {
                 className="select select-bordered w-full"
               >
                 <option>Pending</option>
-                <option>Accepted</option>
-                <option>Rejected</option>
+                
               </select>
               <div className="modal-action">
                 <button type="submit" className="btn text-white hover:bg-[#21bedae8] bg-[#21BEDA]">

@@ -18,6 +18,7 @@ import Statistics from "../../Pages/statisticis/Statistics";
 import ReportedContent from "../../Pages/Report/ReportedContent";
 import ReportDetails from "../../Pages/ReportDetails/ReportDetails";
 import ProductReviewSection from "../../Utils/ProductReviewSection/ProductReviewSection";
+import ReviewDetails from "../../Pages/ReviewDetails/ReviewDetails";
 
 export const router = createBrowserRouter([
   {
@@ -151,6 +152,15 @@ export const router = createBrowserRouter([
           <PrivateRoutes>
             {" "}
             <ReportDetails></ReportDetails>{" "}
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "/dashboard/product_details/:id",
+        element: (
+          <PrivateRoutes>
+            {" "}
+            <ReviewDetails></ReviewDetails>{" "}
           </PrivateRoutes>
         ),
       },
