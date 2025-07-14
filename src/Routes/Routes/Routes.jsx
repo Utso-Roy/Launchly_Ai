@@ -17,6 +17,7 @@ import MangeUser from "../../Pages/ManageUser/MangeUser";
 import Statistics from "../../Pages/statisticis/Statistics";
 import ReportedContent from "../../Pages/Report/ReportedContent";
 import ReportDetails from "../../Pages/ReportDetails/ReportDetails";
+import ProductReviewSection from "../../Utils/ProductReviewSection/ProductReviewSection";
 
 export const router = createBrowserRouter([
   {
@@ -47,6 +48,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoutes>
             <Products_Details_Page></Products_Details_Page>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "/products/review",
+        element: (
+          <PrivateRoutes>
+            <ProductReviewSection></ProductReviewSection>
           </PrivateRoutes>
         ),
       },
