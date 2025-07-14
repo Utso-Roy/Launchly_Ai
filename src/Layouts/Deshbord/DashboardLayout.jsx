@@ -11,7 +11,7 @@ const DashboardLayout = () => {
       <Navbar></Navbar>
       <div className="flex md:gap-5 sm:gap-3">
         <Sidebar></Sidebar>
-
+{/* 
         <div className="p-8">
       <h1 className="text-3xl font-bold text-[#2D7FC4] text-center mb-4"> Welcome to Your Dashboard</h1>
       <p className="text-lg text-center text-gray-600">
@@ -21,7 +21,7 @@ const DashboardLayout = () => {
       <div className="flex justify-center mt-6">
         <FcIdea className="text-7xl" />
       </div>
-    </div>
+    </div> */}
     
         <div>
 

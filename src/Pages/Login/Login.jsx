@@ -12,7 +12,6 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const location = useLocation();
-  console.log(location)
   const navigate = useNavigate()
 const from = location.state?.from?.pathname || "/";
 

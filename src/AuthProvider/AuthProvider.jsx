@@ -22,16 +22,39 @@ const AuthProvider = ({ children }) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setLoading(false);
-    });
+ useEffect(() => {
+  const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+    setUser(currentUser);
 
-    return () => {
-      unsubscribe();
-    };
-  }, []);
+    if (currentUser?.email) {
+      try {
+        const res = await fetch("http://localhost:3000/jwt", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email: currentUser?.email }),
+        });
+
+        const data = await res.json();
+        console.log('jwt data',data)
+
+        if (data.token) {
+          localStorage.setItem("token", data.token); 
+        }
+      } catch (error) {
+        console.error("JWT fetch failed:", error);
+      }
+    } else {
+    localStorage.removeItem("token"); 
+    }
+
+    setLoading(false);
+  });
+
+  return () => unsubscribe(); 
+}, []);
+
 
   const logOut = () => {
     return signOut(auth);

@@ -140,7 +140,8 @@ const Navbar = () => {
 >
   <li className="dark:text-[#21BEDA]">
     <span>
-      <strong>{user.displayName}</strong>
+                  
+                    {user?.displayName}
     </span>
   </li>
 

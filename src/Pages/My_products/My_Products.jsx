@@ -1,23 +1,50 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Loading from "../../Context/Auth/Loader/Loading";
 import { Typewriter } from "react-simple-typewriter";
 import Swal from "sweetalert2";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const My_Products = () => {
   const [postProducts, setPostProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selectedProduct, setSelectedProduct] = useState(null); // 🆕 For modal
-  const [showModal, setShowModal] = useState(false); // 🆕
+  const {user} = useContext(AuthContext)
+  const [selectedProduct, setSelectedProduct] = useState(null); 
+  const [showModal, setShowModal] = useState(false); 
+
+
+
+  console.log(user.accessToken)
+  
+
+
 
   // Fetch data
-  useEffect(() => {
-    fetch("http://localhost:3000/add_products_data")
-      .then((res) => res.json())
-      .then((data) => {
-        setPostProducts(data);
-        setLoading(false);
-      });
-  }, []);
+ useEffect(() => {
+  const email = user?.email;
+  const token = localStorage.getItem("token");
+
+  if (!email || !token) return;
+
+  fetch(`http://localhost:3000/add_products_data/${email}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error("Unauthorized or token expired");
+      }
+      return res.json();
+    })
+    .then((data) => {
+      setPostProducts(data);
+      setLoading(false);
+    })
+    .catch((err) => {
+      console.error(" JWT Protected Route Error:", err);
+    });
+}, [user]);
 
   // Delete
   const handelDelete = (id) => {
@@ -46,6 +73,7 @@ const My_Products = () => {
       }
     });
   };
+
 
   // Update Handler (Open Modal)
   const handleEdit = (product) => {
