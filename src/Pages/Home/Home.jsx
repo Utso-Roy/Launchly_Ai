@@ -11,6 +11,7 @@ import { IoMdTrendingUp } from "react-icons/io";
 import TrendingProducts from "../../Components/Tranding_products/TrendingProducts";
 import ExtraSections from "../../Components/ExtraSection/ExtraSections";
 import Loading from "../../Context/Auth/Loader/Loading";
+import MakeFeaturedSection from "../../Utils/MakeFeturedSection/MakeFeturedSection";
 
 const Home = () => {
   const { user } = useContext(AuthContext);
@@ -123,6 +124,11 @@ const Home = () => {
             })}
           </div>
         )}
+
+
+        {
+          <MakeFeaturedSection></MakeFeaturedSection>
+        }
       </section>
 
       <section

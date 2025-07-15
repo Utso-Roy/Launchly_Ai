@@ -70,6 +70,8 @@ const ReviewQueue = () => {
   };
 
   const handleFeatured = async (id) => {
+
+    console.log("Marking product as featured ", id)
     try {
       const res = await fetch(`http://localhost:3000/products/${id}/feature`, {
         method: "PATCH",

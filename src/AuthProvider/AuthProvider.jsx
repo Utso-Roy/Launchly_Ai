@@ -37,7 +37,6 @@ const AuthProvider = ({ children }) => {
         });
 
         const data = await res.json();
-        console.log('jwt data',data)
 
         if (data.token) {
           localStorage.setItem("token", data.token); 
