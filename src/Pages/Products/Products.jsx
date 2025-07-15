@@ -4,28 +4,36 @@ import { FaThumbsUp } from "react-icons/fa";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { useNavigate } from "react-router";
 import Loading from "../../Context/Auth/Loader/Loading";
+import { GiConsoleController } from "react-icons/gi";
 
 const Products = () => {
   const [productData, setProductData] = useState([]);
-    const [searchQuery, setSearchQuery] = useState("");
-    const [loading,setLoading] = useState(true)
+  const [searchQuery, setSearchQuery] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [totalProducts, setTotalProducts] = useState(0);
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+  const limit = 6;
 
   useEffect(() => {
-    fetch("http://localhost:3000/all_products")
+    setLoading(true);
+    fetch(`http://localhost:3000/all_products?page=${page}&limit=${limit}`)
       .then((res) => res.json())
-        .then((data) => {
-          
-            setProductData(data)
-            setLoading(false)
+      .then((data) => {
+        if (data.success) {
+          setProductData(data.products);
+          setTotalProducts(data.total);
+        }
+        setLoading(false);
       });
-  }, []);
+  }, [page]);
 
-    
-    if (loading) {
-      return  Loading()
-    }
+  console.log(typeof productData)
+  const totalPages = Math.ceil(totalProducts / limit);
+
+  if (loading) return <Loading />;
+
   const handleUpvote = async (productId) => {
     if (!user) return navigate("/login");
 
@@ -52,7 +60,7 @@ const Products = () => {
         setProductData(updated);
       }
     } catch (err) {
-      console.error(" Upvote failed ", err);
+      console.error("Upvote failed", err);
     }
   };
 
@@ -60,13 +68,28 @@ const Products = () => {
     product.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+
+  const handleClick = (id) => {
+    console.log(id)
+
+    navigate(`/products/${id}`)
+    
+
+  }
+
+
+
+
+
+
+
   return (
     <div className="px-4 md:px-10 py-10 bg-white dark:bg-gray-900 min-h-screen">
       <h2 className="text-3xl font-bold text-center text-gray-800 dark:text-white mb-8">
         All Accepted Tech Products
       </h2>
 
-      {/*  Search */}
+      {/* Search */}
       <div className="max-w-xl mx-auto mb-8">
         <input
           type="text"
@@ -77,7 +100,7 @@ const Products = () => {
         />
       </div>
 
-      {/*  Product Cards */}
+      {/* Product Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredProducts.map((product, i) => {
           const isOwner = user?.uid === product.ownerId;
@@ -98,14 +121,14 @@ const Products = () => {
                 className="w-full h-40 object-cover rounded mb-3"
               />
               <h3
-                className="text-xl font-semibold text-[#21BEDA] hover:underline"
-                onClick={() => navigate(`/products/${product._id}`)}
+                className="text-xl font-semibold cursor-pointer text-[#21BEDA] hover:underline"
+                onClick={() => handleClick(product._id)}
               >
                 {product.name}
               </h3>
-
+{console.log(product)}
               <div className="flex flex-wrap gap-2 my-2">
-                {product.tags.map((tag, i) => (
+                {product?.tags?.map((tag, i) => (
                   <span
                     key={i}
                     className="text-xs bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white px-2 py-1 rounded"
@@ -115,18 +138,11 @@ const Products = () => {
                 ))}
               </div>
 
-
-              {
-
-
-                
-              }
-
               {user && (
                 <button
                   disabled={isOwner || hasVoted}
                   onClick={() => handleUpvote(product._id)}
-                  className={`mt-3 flex items-center cursor-pointer justify-center gap-2 px-4 py-2 rounded font-semibold transition-colors ${
+                  className={`mt-3 flex items-center justify-center gap-2 px-4 py-2 rounded font-semibold transition-colors ${
                     isOwner || hasVoted
                       ? "bg-gray-300 text-gray-600 cursor-not-allowed dark:bg-gray-700 dark:text-gray-400"
                       : "bg-[#21BEDA] text-white hover:bg-[#1ca6c0]"
@@ -139,6 +155,23 @@ const Products = () => {
             </motion.div>
           );
         })}
+      </div>
+
+      {/* Pagination Buttons */}
+      <div className="mt-10 flex justify-center">
+        <div className="join">
+          {[...Array(totalPages).keys()].map((pg) => (
+            <button
+              key={pg}
+              onClick={() => setPage(pg + 1)}
+              className={`join-item btn ${
+                pg + 1 === page ? "bg-[#21BEDA] text-white" : ""
+              }`}
+            >
+              {pg + 1}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );

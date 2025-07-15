@@ -79,7 +79,7 @@ const MakeFeaturedSection = () => {
               />
               <h3
                 className="text-xl font-semibold text-[#21BEDA] cursor-pointer hover:underline"
-                onClick={() => navigate(`/products/${product._id}`)}
+                onClick={() => navigate(`/dashboard/products/${product._id}`)}
               >
                 {product?.data?.name}
               </h3>
@@ -97,14 +97,14 @@ const MakeFeaturedSection = () => {
 
               <div className="mt-3 flex items-center gap-2 text-gray-600 dark:text-gray-300">
                 <button
-                  onClick={() => handleUpvote(product._id)}
+                  onClick={() => handleUpvote(product?._id)}
                   disabled={alreadyVoted}
                   className={`btn ${
                     alreadyVoted ? "bg-gray-400 cursor-not-allowed" : "bg-[#21BEDA]"
                   }`}
                 >
                   <FaThumbsUp size={18} className="text-white" />
-                  <span className="text-white ml-1">{product.upvotes || 0}</span>
+                  <span className="text-white ml-1">{product?.upvotes || 0}</span>
                 </button>
               </div>
             </motion.div>
