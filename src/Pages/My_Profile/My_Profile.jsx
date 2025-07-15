@@ -1,14 +1,53 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
+import { Elements } from "@stripe/react-stripe-js";
+import {loadStripe} from '@stripe/stripe-js';
+
+import CheckoutForm from "../../Components/CheckoutForm/CheckoutForm";
+// import { toast } from "react-toastify";
+
+const stripePromise = loadStripe(import.meta.env.VITE_STRIP_KEY);
 
 const My_Profile = () => {
   const { user } = useContext(AuthContext);
   const [showModal, setShowModal] = useState(false);
 
   const isSubscribed = user?.isSubscribed || false;
-  const subscriptionAmount = "$9.99 / month";
+  const subscriptionAmount = 10 
 
-  const handleSubscribe = () => {
+  // const profileData = {
+  //     name: user?.displayName,
+  //     email: user?.email,
+  //     photoURL: user?.photoURL,
+  //     isSubscribed: true,
+  //     subscribedAt: new Date(),
+  //     amountPaid: subscriptionAmount,
+  //   };
+
+   
+const handleSubscribe = () => {
+    //  try {
+    //   const res =  await fetch("http://localhost:3000/myProfileData", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(profileData),
+    //   });
+
+    //   const result = await res.json();
+    //   if (result.success) {
+    //     toast.success("Subscription saved!");
+    //   } else {
+    //     toast.error("Failed to save subscription data.");
+    //   }
+    // } catch (err) {
+    //   console.error("DB error:", err);
+    //   toast.error("Error saving to database.");
+    // }
+  
+
+
     setShowModal(true);
   };
 
@@ -52,9 +91,9 @@ const My_Profile = () => {
                 {!isSubscribed ? (
                   <button
                     onClick={handleSubscribe}
-                    className="px-4 py-2 bg-[#21BEDA] hover:bg-[#1ca6c0] text-white rounded shadow"
+                    className="px-4 py-2 bg-[#21BEDA] cursor-pointer hover:bg-[#1ca6c0] text-white rounded shadow"
                   >
-                    Subscribe: {subscriptionAmount}
+                    Subscribe: ${subscriptionAmount}/ month;
                   </button>
                 ) : (
                   <span className="inline-block px-4 py-2 bg-green-600 text-white rounded shadow">
@@ -68,24 +107,34 @@ const My_Profile = () => {
 
         {/* DaisyUI Modal */}
         {showModal && (
-          <dialog id="subscribe_modal" className="modal modal-open">
-            <div className="modal-box dark:bg-gray-800 dark:text-white">
+          <dialog id="subscribe_modal" className="modal  modal-open">
+            <div className="modal-box bg-gray-100 dark:bg-gray-800 dark:text-white">
               <h3 className="font-bold text-lg">Subscribe Now</h3>
               <p className="py-4">
                 To enjoy premium benefits, subscribe now for{" "}
                 <span className="font-semibold text-[#21BEDA]">{subscriptionAmount}</span>.
               </p>
+
+              
+              {/*  use strip Components */}
+
+              <div className="p-1 ">
+                <Elements stripe={stripePromise}>
+      <CheckoutForm subscriptionAmount ={subscriptionAmount } />
+    </Elements>
+
+
+
+                
+              </div>
+
+
+
+
               <div className="modal-action">
+
                 <form method="dialog" className="space-x-2">
-                  <button
-                    className="btn bg-[#21BEDA] hover:bg-[#1ca6c0] text-white"
-                    onClick={() => {
-                      // TODO: backend call here
-                      setShowModal(false);
-                    }}
-                  >
-                    Confirm
-                  </button>
+                 
                   <button
                     className="btn btn-outline"
                     onClick={() => setShowModal(false)}

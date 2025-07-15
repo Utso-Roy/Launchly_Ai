@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import Loading from "../../Context/Auth/Loader/Loading";
-import { Link } from "react-router"; 
+import { Link } from "react-router";
 import { toast } from "react-toastify";
 
 const ReviewQueue = () => {
@@ -22,7 +22,9 @@ const ReviewQueue = () => {
       .then((res) => res.json())
       .then((data) => {
         const order = { Pending: 0, Accepted: 1, Rejected: 2 };
-        const sorted = [...data].sort((a, b) => order[a.status] - order[b.status]);
+        const sorted = [...data].sort(
+          (a, b) => order[a.status] - order[b.status]
+        );
         setPostProducts(sorted);
         setLoading(false);
       })
@@ -70,8 +72,7 @@ const ReviewQueue = () => {
   };
 
   const handleFeatured = async (id) => {
-
-    console.log("Marking product as featured ", id)
+    console.log("Marking product as featured ", id);
     try {
       const res = await fetch(`http://localhost:3000/products/${id}/feature`, {
         method: "PATCH",
@@ -86,6 +87,16 @@ const ReviewQueue = () => {
   };
 
   if (loading) return <Loading />;
+  
+if (!loading && postProducts.length === 0) {
+  return (
+    <p className="text-center font-bold text-gray-500 my-20">
+      No products found in the review queue.
+    </p>
+  
+  );
+}
+  
 
   return (
     <div className="p-4   overflow-x-auto bg-white dark:bg-gray-900 min-h-screen">
@@ -105,7 +116,10 @@ const ReviewQueue = () => {
         </thead>
         <tbody>
           {postProducts.map((product) => (
-            <tr key={product?._id} className="hover:bg-gray-50 dark:hover:bg-gray-800">
+            <tr
+              key={product?._id}
+              className="hover:bg-gray-50 dark:hover:bg-gray-800"
+            >
               <td>{product?.data?.name}</td>
               <td>
                 <Link to={`/dashboard/product_details/${product?._id}`}>
@@ -122,11 +136,18 @@ const ReviewQueue = () => {
                   Make Featured
                 </button>
               </td>
-<td
-  className={`font-medium ${product?.status === "Accepted" ? "text-green-600": product?.status === "Rejected" ? "text-red-600" : "text-yellow-600"}`}
->
-  {product?.status}
-</td>              <td>
+              <td
+                className={`font-medium ${
+                  product?.status === "Accepted"
+                    ? "text-green-600"
+                    : product?.status === "Rejected"
+                    ? "text-red-600"
+                    : "text-yellow-600"
+                }`}
+              >
+                {product?.status}
+              </td>{" "}
+              <td>
                 <button
                   className={`btn btn-sm text-white ${
                     product?.status !== "pending"
