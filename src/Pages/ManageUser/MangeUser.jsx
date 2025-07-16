@@ -1,16 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import Loading from '../../Context/Auth/Loader/Loading';
 
 const MangeUser = () => {
-  const [users, setUsers] = useState([]);
+    const [users, setUsers] = useState([]);
+    const [loading,setLoading] = useState(true)
 
   useEffect(() => {
     fetch('http://localhost:3000/mangeUser') 
       .then(res => res.json())
-      .then(data => setUsers(data))
-      .catch(err => console.error("Error loading users:", err));
+        .then(data => {
+           setLoading(false)
+            setUsers(data)
+           
+      })
+        .catch(err => {
+            console.error("Error loading users:", err)
+          setLoading(false)
+      });
   }, []);
+    
+    const totalUser = users.length
 
   const makeAdmin = async (id) => {
     try {
@@ -36,11 +47,16 @@ const MangeUser = () => {
       toast.error("Failed to make moderator");
       console.log(error);
     }
-  };
+    };
+    
+
+    if (loading) {
+        return <Loading></Loading>
+    }
 
   return (
     <div className="p-4 md:p-8 max-w-7xl mx-auto">
-      <h2 className="text-2xl md:text-3xl font-bold dark:text-white text-[#23245F] text-center mb-6">Manage Users</h2>
+          <h2 className="text-2xl md:text-3xl font-bold dark:text-white text-[#23245F] text-center mb-6">Manage Users  {totalUser }</h2>
       
       <div className="overflow-x-auto rounded-lg shadow border border-gray-200 dark:border-gray-700">
         <table className="min-w-full text-sm text-left">

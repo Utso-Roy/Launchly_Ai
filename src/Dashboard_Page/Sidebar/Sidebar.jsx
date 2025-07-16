@@ -13,12 +13,11 @@ import {
 import { MdDashboard, MdOutlineAdminPanelSettings, MdOutlineRateReview, MdReport } from "react-icons/md";
 import { useQuery } from "@tanstack/react-query";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
-import Loading from "../../Context/Auth/Loader/Loading";
 
 const Sidebar = () => {
   const { user } = useContext(AuthContext);
 
-  const { data: userRole = {}, isLoading } = useQuery({
+  const { data: userRole = {} } = useQuery({
     queryKey: ["userRole", user?.email],
     enabled: !!user?.email,
     queryFn: async () => {
@@ -27,15 +26,11 @@ const Sidebar = () => {
     },
   });
 
-  if (isLoading) {
-    return <Loading></Loading>;
-  }
 
   const isAdmin = userRole?.role === "admin";
   const isUser = userRole?.role === "user";
   const moderator = userRole?.role === "moderator";
 
-  console.log(isAdmin);
   return (
     <div className="w-full sticky md:top-16 sm:top-12 md:w-64 bg-white dark:bg-gray-900 shadow-lg h-full p-4 space-y-4">
       <h2 className="text-2xl  font-bold text-center text-[#21BEDA] flex gap-1 items-center dark:text-white mb-6">
@@ -43,7 +38,7 @@ const Sidebar = () => {
       
        
       </h2>
-<h3 className="text-[#21BEDA] flex items-center gap-2">
+<h3 className="text-[#23245F] font-semibold flex items-center gap-2">
   {isAdmin && (
     <>
       <MdOutlineAdminPanelSettings className="text-xl" />

@@ -62,13 +62,8 @@ if(report.length===0)
     
     <div className="w-full max-w-4xl my-10  mx-10 dark:bg-gray-900">
       <h2 className="font-semibold  text-2xl text-gray-600 text-center dark:text-white">
-
         No Reported Products Found
       </h2>
-      
-
-
-
   </div>
 
   )

@@ -9,20 +9,11 @@ const ReviewDetails = () => {
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    const email = user?.email;
-    const token = localStorage.getItem("token");
-    if (!token || !email) {
-      setError("Unauthorized");
-      return;
-    }
 
-    fetch(`http://localhost:3000/add_products_data/${email}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
+    fetch(`http://localhost:3000/all_pending_products`,
+     
+    )
       .then((res) => {
-        if (!res.ok) throw new Error("Unauthorized or Forbidden");
         return res.json();
       })
       .then((data) => {

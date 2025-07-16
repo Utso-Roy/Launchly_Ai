@@ -7,33 +7,20 @@ import { AuthContext } from "../../AuthProvider/AuthProvider";
 const My_Products = () => {
   const [postProducts, setPostProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const {user} = useContext(AuthContext)
-  const [selectedProduct, setSelectedProduct] = useState(null); 
-  const [showModal, setShowModal] = useState(false); 
+  const { user } = useContext(AuthContext);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
 
 
-  console.log(user.accessToken)
-  
-
-
-
-  // Fetch data
- useEffect(() => {
+  useEffect(() => {
   const email = user?.email;
-  const token = localStorage.getItem("token");
+  if (!email) return;
 
-  if (!email || !token) return;
-
-  fetch(`http://localhost:3000/add_products_data/${email}`, {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
+  fetch(`http://localhost:3000/add_products_data/${email}`)
     .then((res) => {
       if (!res.ok) {
-        throw new Error("Unauthorized or token expired");
+        throw new Error("Failed to fetch data");
       }
       return res.json();
     })
@@ -42,11 +29,12 @@ const My_Products = () => {
       setLoading(false);
     })
     .catch((err) => {
-      console.error(" JWT Protected Route Error:", err);
+      console.error("Public Route Error:", err);
     });
 }, [user]);
 
-  // Delete
+
+  // Delete product with Authorization header
   const handelDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -60,29 +48,32 @@ const My_Products = () => {
       if (result.isConfirmed) {
         fetch(`http://localhost:3000/add_products_data/${id}`, {
           method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         })
           .then((res) => res.json())
           .then((data) => {
             if (data.deletedCount > 0) {
-              setPostProducts((prev) =>
-                prev.filter((product) => product._id !== id)
-              );
+              setPostProducts((prev) => prev.filter((product) => product._id !== id));
               Swal.fire("Deleted!", "Your product has been deleted.", "success");
             }
+          })
+          .catch((error) => {
+            Swal.fire("Error!", "Failed to delete product.", "error");
+            console.error(error);
           });
       }
     });
   };
 
-
-  // Update Handler (Open Modal)
+  // Open modal to update product
   const handleEdit = (product) => {
     setSelectedProduct(product);
     setShowModal(true);
   };
 
-  // Submit Update Form
-
+  // Submit updated product data with Authorization header
   const handleUpdate = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -104,6 +95,7 @@ const My_Products = () => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       body: JSON.stringify(updatedData),
     })
@@ -111,20 +103,24 @@ const My_Products = () => {
       .then((data) => {
         if (data.modifiedCount > 0) {
           setPostProducts((prev) =>
-            prev.map((item) =>
-              item._id === selectedProduct._id ? updatedData : item
-            )
+            prev.map((item) => (item._id === selectedProduct._id ? updatedData : item))
           );
           Swal.fire("Updated!", "Product has been updated.", "success");
+        } else {
+          Swal.fire("Info", "No changes were made.", "info");
         }
         setShowModal(false);
+      })
+      .catch((error) => {
+        Swal.fire("Error!", "Failed to update product.", "error");
+        console.error(error);
       });
   };
 
   if (loading) {
     return (
       <div className="block mx-auto">
-        <Loading></Loading>
+        <Loading />
       </div>
     );
   }
@@ -174,14 +170,16 @@ const My_Products = () => {
                     {product.votes || 0}
                   </td>
                   <td className="px-4 py-3">
-                    <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium
+                    <span
+                      className={`inline-block px-3 py-1 rounded-full text-xs font-medium
                         ${
                           product?.status === "Accepted"
                             ? "bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100"
                             : product.status === "Rejected"
                             ? "bg-red-100 text-red-800 dark:bg-red-800 dark:text-red-100"
                             : "bg-yellow-100 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-100"
-                        }`}>
+                        }`}
+                    >
                       {product?.status || "Pending"}
                     </span>
                   </td>
@@ -231,10 +229,14 @@ const My_Products = () => {
                 className="select select-bordered w-full"
               >
                 <option>Pending</option>
-                
+                <option>Accepted</option>
+                <option>Rejected</option>
               </select>
               <div className="modal-action">
-                <button type="submit" className="btn text-white hover:bg-[#21bedae8] bg-[#21BEDA]">
+                <button
+                  type="submit"
+                  className="btn text-white hover:bg-[#21bedae8] bg-[#21BEDA]"
+                >
                   Save Changes
                 </button>
                 <button

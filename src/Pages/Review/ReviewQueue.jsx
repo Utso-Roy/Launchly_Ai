@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import Loading from "../../Context/Auth/Loader/Loading";
-import { Link } from "react-router";
+import { Link } from "react-router"; 
 import { toast } from "react-toastify";
 
 const ReviewQueue = () => {
@@ -9,101 +9,127 @@ const ReviewQueue = () => {
   const [postProducts, setPostProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // useEffect(() => {
+  //   const email = user?.email;
+  //   const token = localStorage.getItem("token");
+  //   if (!token || !email) return;
+
+  //   fetch(`http://localhost:3000/add_products_data/${email}`, {
+  //     headers: {
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //   })
+  //     .then((res) => {
+  //       if (!res.ok) {
+  //         throw new Error("Unauthorized or token expired");
+  //       }
+  //       return res.json();
+  //     })
+  //     .then((data) => {
+  //       const order = { Pending: 0, Accepted: 1, Rejected: 2 };
+  //       const sorted = [...data].sort(
+  //         (a, b) => order[a.status] - order[b.status]
+  //       );
+  //       setPostProducts(sorted);
+  //       setLoading(false);
+  //     })
+  //     .catch((err) => {
+  //       console.error("JWT Protected Route Error:", err);
+  //       setLoading(false);
+  //     });
+  // }, [user]);
+
   useEffect(() => {
-    const email = user?.email;
-    const token = localStorage.getItem("token");
-    if (!token) return;
 
-    fetch(`http://localhost:3000/add_products_data/${email}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+  fetch(`http://localhost:3000/all_pending_products`)
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error("Failed to fetch data");
+      }
+      return res.json();
     })
-      .then((res) => res.json())
-      .then((data) => {
-        const order = { Pending: 0, Accepted: 1, Rejected: 2 };
-        const sorted = [...data].sort(
-          (a, b) => order[a.status] - order[b.status]
-        );
-        setPostProducts(sorted);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("JWT Protected Route Error:", err);
-      });
-  }, [user]);
+    .then((data) => {
+      const order = { Pending: 0, Accepted: 1, Rejected: 2 };
+      const sorted = [...data].sort(
+        (a, b) => order[a.status] - order[b.status]
+      );
+      setPostProducts(sorted);
+      setLoading(false);
+    })
+    .catch((err) => {
+      console.error("Public Route Error:", err);
+      setLoading(false);
+    });
+}, [user]);
 
-  const handleAccept = async (id) => {
+
+
+
+  const token = localStorage.getItem("token");
+
+  // Common function to PATCH status update with auth header
+  const updateProductStatus = async (id, status, successMessage) => {
     try {
       const res = await fetch(`http://localhost:3000/products/${id}/status`, {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status: "Accepted" }),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ status }),
       });
       const result = await res.json();
       if (result.modifiedCount) {
-        toast.success("Product Accepted");
+        toast.success(successMessage);
         setPostProducts((prev) =>
-          prev.map((p) => (p._id === id ? { ...p, status: "Accepted" } : p))
+          prev.map((p) => (p._id === id ? { ...p, status } : p))
         );
       }
     } catch (err) {
       console.error(err);
+      toast.error("Failed to update status");
     }
   };
 
-  const handleReject = async (id) => {
-    try {
-      const res = await fetch(`http://localhost:3000/products/${id}/status`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status: "Rejected" }),
-      });
-      const result = await res.json();
-      if (result.modifiedCount) {
-        toast.warning("Product Rejected");
-        setPostProducts((prev) =>
-          prev.map((p) => (p._id === id ? { ...p, status: "Rejected" } : p))
-        );
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  const handleAccept = (id) => updateProductStatus(id, "Accepted", "Product Accepted");
+  const handleReject = (id) => updateProductStatus(id, "Rejected", "Product Rejected");
 
+  // Mark featured function
   const handleFeatured = async (id) => {
-    console.log("Marking product as featured ", id);
     try {
       const res = await fetch(`http://localhost:3000/products/${id}/feature`, {
         method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
       const result = await res.json();
       if (result.modifiedCount) {
         toast.info("Product marked as Featured");
+        // Optional: Update UI state to show product is featured (add property or refetch)
       }
     } catch (err) {
       console.error(err);
+      toast.error("Failed to mark featured");
     }
   };
 
   if (loading) return <Loading />;
-  
-if (!loading && postProducts.length === 0) {
-  return (
-    <p className="text-center font-bold text-gray-500 my-20">
-      No products found in the review queue.
-    </p>
-  
-  );
-}
-  
+
+  if (!loading && postProducts.length === 0) {
+    return (
+      <p className="text-center font-bold text-gray-500 my-20">
+        No products found in the review queue.
+      </p>
+    );
+  }
 
   return (
-    <div className="p-4   overflow-x-auto bg-white dark:bg-gray-900 min-h-screen">
+    <div className="p-4 overflow-x-auto bg-white dark:bg-gray-900 min-h-screen">
       <h2 className="text-2xl text-center font-bold mb-4 text-[#201571] dark:text-white">
         Product Review Queue
       </h2>
-      <table className="table  min-w-[800px] mx-auto  text-gray-800 dark:text-white">
+      <table className="table min-w-[800px] mx-auto text-gray-800 dark:text-white">
         <thead>
           <tr className="bg-gray-200 dark:bg-gray-700">
             <th>Product Name</th>
@@ -130,7 +156,7 @@ if (!loading && postProducts.length === 0) {
               </td>
               <td>
                 <button
-                  className="btn btn-sm  bg-[#21BEDA] text-white  hover:bg-[#1ba9c3]"
+                  className="btn btn-sm bg-[#21BEDA] text-white hover:bg-[#1ba9c3]"
                   onClick={() => handleFeatured(product?._id)}
                 >
                   Make Featured
@@ -146,7 +172,7 @@ if (!loading && postProducts.length === 0) {
                 }`}
               >
                 {product?.status}
-              </td>{" "}
+              </td>
               <td>
                 <button
                   className={`btn btn-sm text-white ${
