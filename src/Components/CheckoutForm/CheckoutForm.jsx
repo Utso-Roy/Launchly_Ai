@@ -4,7 +4,7 @@ import '../../Components/CheckoutForm/CheackOut.css'
 import { toast } from 'react-toastify';
 import { ClockLoader } from 'react-spinners';
 import axios from 'axios';
-    const CheckoutForm = ({subscriptionAmount }) => {
+    const CheckoutForm = ({subscriptionAmount,setVerify }) => {
   const stripe = useStripe();
         const elements = useElements();
         const [processing, setProcessing] = useState(false)
@@ -81,10 +81,8 @@ useEffect(() => {
 
     if (paymentIntent.status === "succeeded") {
       toast.success("Payment successful!");
-      console.log("💸 PaymentIntent:", paymentIntent);
-
-      // এখানে চাইলে সাবস্ক্রিপশন ডাটাবেজে POST করতে পারো
-      // await axios.post("/subscription", {...});
+setVerify(true)
+      
     }
 
     setProcessing(false);

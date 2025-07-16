@@ -11,42 +11,15 @@ const stripePromise = loadStripe(import.meta.env.VITE_STRIP_KEY);
 const My_Profile = () => {
   const { user } = useContext(AuthContext);
   const [showModal, setShowModal] = useState(false);
+  const [verify ,setVerify] = useState(false)
 
   const isSubscribed = user?.isSubscribed || false;
   const subscriptionAmount = 10 
 
-  // const profileData = {
-  //     name: user?.displayName,
-  //     email: user?.email,
-  //     photoURL: user?.photoURL,
-  //     isSubscribed: true,
-  //     subscribedAt: new Date(),
-  //     amountPaid: subscriptionAmount,
-  //   };
 
    
-const handleSubscribe = () => {
-    //  try {
-    //   const res =  await fetch("http://localhost:3000/myProfileData", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(profileData),
-    //   });
-
-    //   const result = await res.json();
-    //   if (result.success) {
-    //     toast.success("Subscription saved!");
-    //   } else {
-    //     toast.error("Failed to save subscription data.");
-    //   }
-    // } catch (err) {
-    //   console.error("DB error:", err);
-    //   toast.error("Error saving to database.");
-    // }
+  const handleSubscribe = () => {
   
-
 
     setShowModal(true);
   };
@@ -61,7 +34,7 @@ const handleSubscribe = () => {
           <h2 className="text-3xl font-bold text-center text-[#21BEDA] dark:text-white mb-8">
             My Profile
           </h2>
-
+        
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-white dark:bg-gray-900 border border-[#21BEDA] p-6 rounded-lg shadow-lg">
             {/* Profile Image */}
             <div className="flex justify-center items-center">
@@ -89,12 +62,19 @@ const handleSubscribe = () => {
               <div>
                 <p className="text-sm text-gray-500 dark:text-gray-400">Membership</p>
                 {!isSubscribed ? (
-                  <button
-                    onClick={handleSubscribe}
-                    className="px-4 py-2 bg-[#21BEDA] cursor-pointer hover:bg-[#1ca6c0] text-white rounded shadow"
-                  >
-                    Subscribe: ${subscriptionAmount}/ month;
-                  </button>
+  <button
+  onClick={handleSubscribe}
+  disabled={verify === true}
+  className={`px-4 py-2 text-white rounded shadow ${
+    verify
+      ? "bg-[#21BEDA] cursor-not-allowed"
+      : "bg-[#21BEDA] hover:bg-[#1ca6c0] cursor-pointer"
+  }`}
+>
+  {verify ? "Verified" : `Subscribe: $${subscriptionAmount}/month`}
+</button>
+
+
                 ) : (
                   <span className="inline-block px-4 py-2 bg-green-600 text-white rounded shadow">
                     Status: Verified
@@ -120,7 +100,7 @@ const handleSubscribe = () => {
 
               <div className="p-1 ">
                 <Elements stripe={stripePromise}>
-      <CheckoutForm subscriptionAmount ={subscriptionAmount } />
+      <CheckoutForm setVerify={setVerify} subscriptionAmount ={subscriptionAmount } />
     </Elements>
 
 
