@@ -1,5 +1,11 @@
 import React from "react";
-import { FaGlobe, FaRobot, FaGamepad, FaMobileAlt, FaLaptopCode } from "react-icons/fa";
+import {
+  FaGlobe,
+  FaRobot,
+  FaGamepad,
+  FaMobileAlt,
+  FaLaptopCode,
+} from "react-icons/fa";
 
 const categories = [
   { name: "Web Apps", icon: <FaGlobe />, color: "#3B82F6" },
@@ -14,24 +20,18 @@ const scrollingCategories = [...categories, ...categories];
 
 const Categories = () => {
   return (
-    <div className="py-12 bg-gray-50  dark:bg-gray-800 overflow-hidden">
-      <h2 className="text-3xl text-[#101960] dark:text-white font-bold text-center mb-8">Explore by Categories</h2>
+    <div className="py-12 bg-gray-50 dark:bg-gray-800 overflow-hidden">
+      <h2 className="text-3xl text-[#101960] dark:text-white font-bold text-center mb-8">
+        Explore by Categories
+      </h2>
 
       {/* Marquee Wrapper */}
-      <div
-        className="overflow-hidden relative "
-        style={{ minWidth: "100vw" }}
-      >
-        <div
-          className="flex"
-          style={{
-            animation: "marquee 30s linear infinite",
-          }}
-        >
+      <div className="overflow-hidden relative w-full">
+        <div className="marquee flex">
           {scrollingCategories.map((cat, idx) => (
             <div
               key={idx}
-              className="cursor-target cursor-pointer flex flex-col items-center justify-center min-w-[12rem] h-40 mx-4 rounded-2xl shadow-lg text-white"
+              className="cursor-pointer flex flex-col items-center justify-center min-w-[12rem] h-40 mx-4 rounded-2xl shadow-lg text-white hover:scale-105 transition-transform duration-300"
               style={{ backgroundColor: cat.color }}
             >
               <div className="text-4xl mb-3">{cat.icon}</div>
@@ -41,11 +41,17 @@ const Categories = () => {
         </div>
       </div>
 
-      {/* Inline keyframes */}
+      {/* Inline keyframes + hover pause */}
       <style>{`
         @keyframes marquee {
           0% { transform: translateX(0); }
           100% { transform: translateX(-50%); }
+        }
+        .marquee {
+          animation: marquee 30s linear infinite;
+        }
+        .marquee:hover {
+          animation-play-state: paused;
         }
       `}</style>
     </div>

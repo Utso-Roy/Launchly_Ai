@@ -15,6 +15,7 @@ import MakeFeaturedSection from "../../Utils/MakeFeturedSection/MakeFeturedSecti
 import Categories from "../../Components/Categories";
 import CouponSlider from "../../Components/CouponSlider/CouponSlider";
 import GuidesSection from "../../Components/GuidesSection";
+import ReviewSection from "../../Pages/ReviewSection";
 
 const Home = () => {
   const { user } = useContext(AuthContext);
@@ -150,10 +151,7 @@ const Home = () => {
       <section className="my-10">
         <Categories></Categories>
       </section>
-      <section className="my-10">
-        
-      <CouponSlider></CouponSlider>
-      </section>
+      
 
       <section className="my-10">
 
@@ -164,7 +162,15 @@ const Home = () => {
         <ExtraSections></ExtraSections>
       </section>
 
-      
+      <section className="my-10">
+
+        <ReviewSection></ReviewSection>
+      </section>
+
+      <section className="my-10">
+        
+      <CouponSlider></CouponSlider>
+      </section>
     </div>
   );
 };
