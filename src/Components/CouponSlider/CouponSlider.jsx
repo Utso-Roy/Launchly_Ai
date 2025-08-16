@@ -10,7 +10,6 @@ const CouponMarquee = () => {
       .catch((err) => console.error("Failed to load coupons:", err));
   }, []);
 
-  // duplicate array for continuous scroll
   const scrollingCoupons = [...coupons, ...coupons];
 
   return (
