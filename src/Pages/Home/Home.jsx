@@ -14,6 +14,7 @@ import Loading from "../../Context/Auth/Loader/Loading";
 import MakeFeaturedSection from "../../Utils/MakeFeturedSection/MakeFeturedSection";
 import Categories from "../../Components/Categories";
 import CouponSlider from "../../Components/CouponSlider/CouponSlider";
+import GuidesSection from "../../Components/GuidesSection";
 
 const Home = () => {
   const { user } = useContext(AuthContext);
@@ -152,6 +153,11 @@ const Home = () => {
       <section className="my-10">
         
       <CouponSlider></CouponSlider>
+      </section>
+
+      <section className="my-10">
+
+        <GuidesSection></GuidesSection>
       </section>
 
       <section className="my-10 ">
