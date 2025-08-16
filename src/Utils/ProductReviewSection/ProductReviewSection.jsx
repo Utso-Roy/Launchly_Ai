@@ -29,7 +29,12 @@ const ProductReviewSection = () => {
       });
   }, []);
 
-  if (loading) return <div><Loading></Loading></div>
+  if (loading)
+    return (
+      <div>
+        <Loading></Loading>
+      </div>
+    );
   if (error) return <p className="text-center text-red-500">{error}</p>;
 
   return (

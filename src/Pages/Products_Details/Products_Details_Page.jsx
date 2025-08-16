@@ -68,8 +68,7 @@ const Products_Details_Page = () => {
       toast.success("Upvoted successfully!");
     } catch (err) {
       toast.error("Upvote failed!");
-            console.log(err)
-
+      console.log(err);
     }
   };
 
@@ -88,7 +87,7 @@ const Products_Details_Page = () => {
       setShowReportModal(false);
     } catch (err) {
       toast.error("Failed to report product.");
-      console.log(err)
+      console.log(err);
     }
   };
 
@@ -119,12 +118,11 @@ const Products_Details_Page = () => {
       setReviewText("");
       setReviewRating(0);
       toast.success("Review posted!");
-      navigate("/products/review")
+      navigate("/products/review");
       refetch();
     } catch (err) {
       toast.error("Failed to post review.");
-            console.log(err)
-
+      console.log(err);
     }
   };
 
@@ -140,12 +138,25 @@ const Products_Details_Page = () => {
         </button>
 
         {/* Product Image & Info */}
-        <img src={product.image} alt={product.name} className="w-full h-[300px] object-cover rounded mb-6" />
-        <h2 className="text-3xl font-bold text-[#21BEDA] mb-2">{product.name}</h2>
-        <p className="text-gray-700 dark:text-gray-300 mb-4">{product.description || "No description available."}</p>
+        <img
+          src={product.image}
+          alt={product.name}
+          className="w-full h-[300px] object-cover rounded mb-6"
+        />
+        <h2 className="text-3xl font-bold text-[#21BEDA] mb-2">
+          {product.name}
+        </h2>
+        <p className="text-gray-700 dark:text-gray-300 mb-4">
+          {product.description || "No description available."}
+        </p>
 
         {product.link && (
-          <a href={product.link} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline mb-4 block">
+          <a
+            href={product.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 underline mb-4 block"
+          >
             Visit Product Site
           </a>
         )}
@@ -153,7 +164,10 @@ const Products_Details_Page = () => {
         {/* Tags */}
         <div className="flex flex-wrap gap-2 mb-4">
           {product.tags?.map((tag, i) => (
-            <span key={i} className="text-sm font-medium px-3 py-1 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white">
+            <span
+              key={i}
+              className="text-sm font-medium px-3 py-1 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white"
+            >
               #{tag}
             </span>
           ))}
@@ -185,11 +199,25 @@ const Products_Details_Page = () => {
               {showReportModal && (
                 <dialog id="report_modal" className="modal modal-open">
                   <div className="modal-box bg-white dark:bg-gray-800">
-                    <h3 className="font-bold text-lg dark:text-white">Report Product</h3>
-                    <p className="py-4 text-gray-700 dark:text-gray-300">Are you sure you want to report this product?</p>
+                    <h3 className="font-bold text-lg dark:text-white">
+                      Report Product
+                    </h3>
+                    <p className="py-4 text-gray-700 dark:text-gray-300">
+                      Are you sure you want to report this product?
+                    </p>
                     <div className="modal-action">
-                      <button onClick={() => setShowReportModal(false)} className="btn">Cancel</button>
-                      <button onClick={handleReportConfirm} className="btn bg-red-600 text-white hover:bg-red-700">Confirm Report</button>
+                      <button
+                        onClick={() => setShowReportModal(false)}
+                        className="btn"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        onClick={handleReportConfirm}
+                        className="btn bg-red-600 text-white hover:bg-red-700"
+                      >
+                        Confirm Report
+                      </button>
                     </div>
                   </div>
                 </dialog>
@@ -206,17 +234,37 @@ const Products_Details_Page = () => {
               <p className="text-gray-500">No reviews yet.</p>
             ) : (
               reviews.map((review, i) => (
-                <div key={i} className="p-4 bg-gray-100 dark:bg-gray-700 rounded shadow">
+                <div
+                  key={i}
+                  className="p-4 bg-gray-100 dark:bg-gray-700 rounded shadow"
+                >
                   <div className="flex items-center gap-3 mb-2">
-                    <img src={review.photo} alt={review.name} className="w-10 h-10 rounded-full" />
-                    <span className="font-semibold text-gray-800 dark:text-white">{review.name}</span>
+                    <img
+                      src={review.photo}
+                      alt={review.name}
+                      className="w-10 h-10 rounded-full"
+                    />
+                    <span className="font-semibold text-gray-800 dark:text-white">
+                      {review.name}
+                    </span>
                   </div>
                   <div className="flex gap-1 mb-1">
                     {[1, 2, 3, 4, 5].map((star) => (
-                      <span key={star} className={`text-xl ${star <= review.rating ? "text-yellow-400" : "text-gray-400"}`}>★</span>
+                      <span
+                        key={star}
+                        className={`text-xl ${
+                          star <= review.rating
+                            ? "text-yellow-400"
+                            : "text-gray-400"
+                        }`}
+                      >
+                        ★
+                      </span>
                     ))}
                   </div>
-                  <p className="text-gray-800 dark:text-gray-200">{review.description}</p>
+                  <p className="text-gray-800 dark:text-gray-200">
+                    {review.description}
+                  </p>
                 </div>
               ))
             )}
@@ -264,7 +312,7 @@ const Products_Details_Page = () => {
 
             <button
               type="submit"
-              className="bg-[#21BEDA] text-white px-6 py-2 rounded hover:bg-[#1ca6c0]"
+              className="btn btn-outline border-[#1ca6c0] border-2  cursor-pointer text-gray-700 hover:text-white px-6 py-2 rounded hover:bg-[#1ca6c0]"
             >
               Submit Review
             </button>

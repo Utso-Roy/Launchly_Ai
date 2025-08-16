@@ -15,9 +15,12 @@ const MakeFeaturedSection = () => {
     if (!user) return navigate("/login");
 
     try {
-      const res = await axios.patch(`http://localhost:3000/upvote/${productId}`, {
-        userId: user.uid,
-      });
+      const res = await axios.patch(
+        `http://localhost:3000/upvote/${productId}`,
+        {
+          userId: user.uid,
+        }
+      );
 
       if (res.data.success) {
         setFeaturedProducts((prev) =>
@@ -58,8 +61,8 @@ const MakeFeaturedSection = () => {
   }, []);
 
   return (
-    <div className="my-10">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div className="my-10 ">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
         {featuredProducts.map((product, i) => {
           const alreadyVoted = (product.upvotedUsers || []).includes(user?.uid);
 
@@ -100,11 +103,15 @@ const MakeFeaturedSection = () => {
                   onClick={() => handleUpvote(product?._id)}
                   disabled={alreadyVoted}
                   className={`btn ${
-                    alreadyVoted ? "bg-gray-400 cursor-not-allowed" : "bg-[#21BEDA]"
+                    alreadyVoted
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : "bg-[#21BEDA]"
                   }`}
                 >
                   <FaThumbsUp size={18} className="text-white" />
-                  <span className="text-white ml-1">{product?.upvotes || 0}</span>
+                  <span className="text-white ml-1">
+                    {product?.upvotes || 0}
+                  </span>
                 </button>
               </div>
             </motion.div>

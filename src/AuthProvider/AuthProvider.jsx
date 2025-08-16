@@ -22,38 +22,37 @@ const AuthProvider = ({ children }) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
- useEffect(() => {
-  const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-    setUser(currentUser);
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      setUser(currentUser);
 
-    if (currentUser?.email) {
-      try {
-        const res = await fetch("http://localhost:3000/jwt", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email: currentUser?.email }),
-        });
+      if (currentUser?.email) {
+        try {
+          const res = await fetch("http://localhost:3000/jwt", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email: currentUser?.email }),
+          });
 
-        const data = await res.json();
+          const data = await res.json();
 
-        if (data.token) {
-          localStorage.setItem("token", data.token); 
+          if (data.token) {
+            localStorage.setItem("token", data.token);
+          }
+        } catch (error) {
+          console.error("JWT fetch failed:", error);
         }
-      } catch (error) {
-        console.error("JWT fetch failed:", error);
+      } else {
+        localStorage.removeItem("token");
       }
-    } else {
-    localStorage.removeItem("token"); 
-    }
 
-    setLoading(false);
-  });
+      setLoading(false);
+    });
 
-  return () => unsubscribe(); 
-}, []);
-
+    return () => unsubscribe();
+  }, []);
 
   const logOut = () => {
     return signOut(auth);
@@ -80,7 +79,9 @@ const AuthProvider = ({ children }) => {
     setLoading,
   };
 
-  return <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
+  );
 };
 
 export default AuthProvider;

@@ -4,9 +4,10 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+
 const slides = [
   {
-    image: "https://i.ibb.co/C3cR1PF3/pexels-pavel-danilyuk-8294616-1.jpg", // New working AI-related image
+    image: "https://i.ibb.co/C3cR1PF3/pexels-pavel-danilyuk-8294616-1.jpg",
     title: "Discover Next-Gen Tech",
     subtitle: "Explore AI tools, web apps, and mobile innovations daily.",
   },
@@ -21,7 +22,6 @@ const slides = [
     subtitle: "Follow top-rated tools and trending software launches.",
   },
 ];
-
 
 const Slider = () => {
   return (
@@ -39,12 +39,18 @@ const Slider = () => {
         {slides.map((slide, index) => (
           <SwiperSlide key={index}>
             <div className="w-full h-full relative">
+              {/* Image */}
               <img
                 src={slide.image}
                 alt={slide.title}
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-opacity-50 flex items-center justify-center text-center px-4 md:px-20">
+
+              {/* Black Overlay */}
+              <div className="absolute inset-0 bg-black/40"></div>
+
+              {/* Text Content */}
+              <div className="absolute inset-0 flex items-center justify-center text-center px-4 md:px-20">
                 <div className="text-white max-w-3xl space-y-4">
                   <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold leading-tight drop-shadow-md">
                     {slide.title}

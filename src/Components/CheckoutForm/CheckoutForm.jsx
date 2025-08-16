@@ -1,45 +1,47 @@
-import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import React, { useEffect, useState } from 'react';
-import '../../Components/CheckoutForm/CheackOut.css'
-import { toast } from 'react-toastify';
-import { ClockLoader } from 'react-spinners';
-import axios from 'axios';
-    const CheckoutForm = ({subscriptionAmount,setVerify }) => {
+import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import React, { useEffect, useState } from "react";
+import "../../Components/CheckoutForm/CheackOut.css";
+import { toast } from "react-toastify";
+import { ClockLoader } from "react-spinners";
+import axios from "axios";
+const CheckoutForm = ({ subscriptionAmount, setVerify }) => {
   const stripe = useStripe();
-        const elements = useElements();
-        const [processing, setProcessing] = useState(false)
-       const [clientSecret, setClientSecret] = useState(null);
+  const elements = useElements();
+  const [processing, setProcessing] = useState(false);
+  const [clientSecret, setClientSecret] = useState(null);
 
-useEffect(() => {
-  const createPaymentIntent = async () => {
-    try {
-      if (!subscriptionAmount) {
-        console.error("subscriptionAmount is undefined");
-        return;
+  useEffect(() => {
+    const createPaymentIntent = async () => {
+      try {
+        if (!subscriptionAmount) {
+          console.error("subscriptionAmount is undefined");
+          return;
+        }
+
+        const amount = parseFloat(subscriptionAmount);
+        if (isNaN(amount)) {
+          console.error("Invalid subscriptionAmount:", subscriptionAmount);
+          return;
+        }
+
+        const amountInCents = Math.round(amount * 100);
+        const res = await axios.post(
+          "http://localhost:3000/create-payment-intent",
+          {
+            amount: amountInCents,
+          }
+        );
+
+        setClientSecret(res.data.clientSecret);
+      } catch (error) {
+        console.error("Error creating payment intent:", error);
       }
+    };
 
-      const amount = parseFloat(subscriptionAmount);
-      if (isNaN(amount)) {
-        console.error("Invalid subscriptionAmount:", subscriptionAmount);
-        return;
-      }
+    createPaymentIntent();
+  }, [subscriptionAmount]);
 
-      const amountInCents = Math.round(amount * 100);
-      const res = await axios.post("http://localhost:3000/create-payment-intent", {
-        amount: amountInCents,
-      });
-
-      setClientSecret(res.data.clientSecret); 
-    } catch (error) {
-      console.error("Error creating payment intent:", error);
-    }
-  };
-
-  createPaymentIntent();
-}, [subscriptionAmount]);
-
-
-   const handleSubmit = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     setProcessing(true);
 
@@ -48,7 +50,7 @@ useEffect(() => {
       setProcessing(false);
       return;
     }
-
+    console.log("utso");
     const card = elements.getElement(CardElement);
     if (!card) {
       toast.error("Card element not found");
@@ -57,10 +59,11 @@ useEffect(() => {
     }
 
     // 1. Create payment method
-    const { error: methodError, paymentMethod } = await stripe.createPaymentMethod({
-      type: "card",
-      card,
-    });
+    const { error: methodError, paymentMethod } =
+      await stripe.createPaymentMethod({
+        type: "card",
+        card,
+      });
 
     if (methodError) {
       toast.error(methodError.message);
@@ -69,9 +72,10 @@ useEffect(() => {
     }
 
     // 2. Confirm the payment
-    const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(clientSecret, {
-      payment_method: paymentMethod.id,
-    });
+    const { paymentIntent, error: confirmError } =
+      await stripe.confirmCardPayment(clientSecret, {
+        payment_method: paymentMethod.id,
+      });
 
     if (confirmError) {
       toast.error(confirmError.message);
@@ -81,8 +85,7 @@ useEffect(() => {
 
     if (paymentIntent.status === "succeeded") {
       toast.success("Payment successful!");
-setVerify(true)
-      
+      setVerify(true);
     }
 
     setProcessing(false);
@@ -94,21 +97,28 @@ setVerify(true)
         options={{
           style: {
             base: {
-              fontSize: '16px',
-              color: '#424770',
-              '::placeholder': {
-                color: '#aab7c4',
+              fontSize: "16px",
+              color: "#424770",
+              "::placeholder": {
+                color: "#aab7c4",
               },
             },
             invalid: {
-              color: '#9e2146',
+              color: "#9e2146",
             },
           },
         }}
       />
-      <button className='bg-green-600 text-white btn' type="submit" disabled={!stripe||processing}>
-      {processing? <ClockLoader size={20} color='#21BEDA' /> : ` Pay ${subscriptionAmount }`
- }
+      <button
+        className="bg-green-600 text-white btn"
+        type="submit"
+        disabled={!stripe || processing}
+      >
+        {processing ? (
+          <ClockLoader size={20} color="#21BEDA" />
+        ) : (
+          ` Pay ${subscriptionAmount}`
+        )}
       </button>
     </form>
   );

@@ -11,28 +11,25 @@ const My_Products = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
-
-
   useEffect(() => {
-  const email = user?.email;
-  if (!email) return;
+    const email = user?.email;
+    if (!email) return;
 
-  fetch(`http://localhost:3000/add_products_data/${email}`)
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error("Failed to fetch data");
-      }
-      return res.json();
-    })
-    .then((data) => {
-      setPostProducts(data);
-      setLoading(false);
-    })
-    .catch((err) => {
-      console.error("Public Route Error:", err);
-    });
-}, [user]);
-
+    fetch(`http://localhost:3000/add_products_data/${email}`)
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to fetch data");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setPostProducts(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Public Route Error:", err);
+      });
+  }, [user]);
 
   // Delete product with Authorization header
   const handelDelete = (id) => {
@@ -55,8 +52,14 @@ const My_Products = () => {
           .then((res) => res.json())
           .then((data) => {
             if (data.deletedCount > 0) {
-              setPostProducts((prev) => prev.filter((product) => product._id !== id));
-              Swal.fire("Deleted!", "Your product has been deleted.", "success");
+              setPostProducts((prev) =>
+                prev.filter((product) => product._id !== id)
+              );
+              Swal.fire(
+                "Deleted!",
+                "Your product has been deleted.",
+                "success"
+              );
             }
           })
           .catch((error) => {
@@ -103,7 +106,9 @@ const My_Products = () => {
       .then((data) => {
         if (data.modifiedCount > 0) {
           setPostProducts((prev) =>
-            prev.map((item) => (item._id === selectedProduct._id ? updatedData : item))
+            prev.map((item) =>
+              item._id === selectedProduct._id ? updatedData : item
+            )
           );
           Swal.fire("Updated!", "Product has been updated.", "success");
         } else {
@@ -144,10 +149,12 @@ const My_Products = () => {
       ) : (
         <div className="overflow-x-auto rounded-xl shadow-md border border-gray-200 dark:border-gray-700">
           <table className="min-w-3xl mx-auto divide-y divide-gray-200 dark:divide-gray-700 text-sm md:text-base">
-            <thead className="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200">
+            <thead className="bg-gray-100 dark:bg-gray-800 sticky top-0  text-gray-700 dark:text-gray-200">
               <tr>
                 <th className="px-4 py-3 text-left font-semibold">Image</th>
-                <th className="px-4 py-3 text-left font-semibold">Product Name</th>
+                <th className="px-4 py-3 text-left font-semibold">
+                  Product Name
+                </th>
                 <th className="px-4 py-3 text-left font-semibold">Votes</th>
                 <th className="px-4 py-3 text-left font-semibold">Status</th>
                 <th className="px-4 py-3 text-left font-semibold">Actions</th>

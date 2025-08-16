@@ -66,7 +66,6 @@ const Register = () => {
           photo,
           password,
         });
-
       } catch (dbErr) {
         console.error("MongoDB Save Error:", dbErr.message);
         toast.error("Failed to save user to database.");

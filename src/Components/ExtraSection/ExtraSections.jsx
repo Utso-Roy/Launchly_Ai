@@ -68,9 +68,7 @@ const ExtraSections = () => {
                 Startup #{i + 1}
               </h3>
               <p className="text-gray-700 dark:text-gray-300">
-                Our product was discovered on Launchly and gained over 2,000 users
-                in just 3 days. The community feedback helped us grow faster than
-                we imagined!
+                I launched “GreenTech Ideas” as part of my university project. Launchly gave it a platform, and now I'm collaborating with real-world NGOs. The feedback and reach were beyond my expectations.
               </p>
             </motion.div>
           ))}

@@ -34,12 +34,12 @@ const TrendingProducts = () => {
   };
 
   return (
-    <section className="my-12 px-4 md:px-8">
+    <section className="my-10 ">
       <div className="max-w-7xl mx-auto">
         {isLoading ? (
           <Loading />
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {trending.map((product, i) => {
               const isOwner = user?.uid === product.ownerId;
               const hasVoted = product.upvotedUsers?.includes(user?.uid);
@@ -51,7 +51,7 @@ const TrendingProducts = () => {
                   animate={{ opacity: 1, y: 0 }}
                   whileHover={{ y: -8, scale: 1.03 }}
                   transition={{ delay: i * 0.1, duration: 0.4, type: "spring" }}
-                  className="border-2 border-[#21BEDA] rounded-xl p-4 bg-white dark:bg-gray-900 shadow-md hover:shadow-lg transition-all"
+                  className="hover:shadow-[#21BEDA] rounded-xl p-4 bg-base-200 dark:bg-gray-900 shadow-md hover:shadow-lg transition-all"
                 >
                   <img
                     src={product.image}
@@ -99,12 +99,13 @@ const TrendingProducts = () => {
         <div className="text-center mt-8">
           <button
             onClick={() => navigate("/products")}
-            className="px-6 py-2 bg-[#21BEDA] cursor-pointer text-white font-semibold rounded hover:bg-[#1ca6c0] transition"
+            className=" btn btn-outline border-[#21BEDA] text-[#21BEDA] cursor-pointer hover:text-white font-semibold rounded hover:bg-[#1ca6c0] transition"
           >
             Show All Products
           </button>
         </div>
       </div>
+
     </section>
   );
 };

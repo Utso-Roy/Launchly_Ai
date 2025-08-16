@@ -9,7 +9,7 @@ const DashboardLayout = () => {
   return (
     <div>
       <Navbar></Navbar>
-      <div className="flex md:gap-5 sm:gap-3">
+      <div className="flex md:gap-4 sm:gap-2">
         <Sidebar></Sidebar>
 {/* 
         <div className="p-8">
@@ -23,7 +23,7 @@ const DashboardLayout = () => {
       </div>
     </div> */}
     
-        <div>
+        <div className="my-15 ">
 
           
         <Outlet></Outlet>

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import Loading from "../../Context/Auth/Loader/Loading";
-import { Link } from "react-router"; 
+import { Link } from "react-router";
 import { toast } from "react-toastify";
 
 const ReviewQueue = () => {
@@ -40,30 +40,26 @@ const ReviewQueue = () => {
   // }, [user]);
 
   useEffect(() => {
-
-  fetch(`http://localhost:3000/all_pending_products`)
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error("Failed to fetch data");
-      }
-      return res.json();
-    })
-    .then((data) => {
-      const order = { Pending: 0, Accepted: 1, Rejected: 2 };
-      const sorted = [...data].sort(
-        (a, b) => order[a.status] - order[b.status]
-      );
-      setPostProducts(sorted);
-      setLoading(false);
-    })
-    .catch((err) => {
-      console.error("Public Route Error:", err);
-      setLoading(false);
-    });
-}, [user]);
-
-
-
+    fetch(`http://localhost:3000/all_pending_products`)
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to fetch data");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        const order = { Pending: 0, Accepted: 1, Rejected: 2 };
+        const sorted = [...data].sort(
+          (a, b) => order[a.status] - order[b.status]
+        );
+        setPostProducts(sorted);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Public Route Error:", err);
+        setLoading(false);
+      });
+  }, [user]);
 
   const token = localStorage.getItem("token");
 
@@ -91,8 +87,10 @@ const ReviewQueue = () => {
     }
   };
 
-  const handleAccept = (id) => updateProductStatus(id, "Accepted", "Product Accepted");
-  const handleReject = (id) => updateProductStatus(id, "Rejected", "Product Rejected");
+  const handleAccept = (id) =>
+    updateProductStatus(id, "Accepted", "Product Accepted");
+  const handleReject = (id) =>
+    updateProductStatus(id, "Rejected", "Product Rejected");
 
   // Mark featured function
   const handleFeatured = async (id) => {

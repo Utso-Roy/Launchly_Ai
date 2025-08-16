@@ -4,7 +4,6 @@ import { FaThumbsUp } from "react-icons/fa";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { useNavigate } from "react-router";
 import Loading from "../../Context/Auth/Loader/Loading";
-import { GiConsoleController } from "react-icons/gi";
 
 const Products = () => {
   const [productData, setProductData] = useState([]);
@@ -29,7 +28,6 @@ const Products = () => {
       });
   }, [page]);
 
-  console.log(typeof productData)
   const totalPages = Math.ceil(totalProducts / limit);
 
   if (loading) return <Loading />;
@@ -68,23 +66,14 @@ const Products = () => {
     product.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-
   const handleClick = (id) => {
-    console.log(id)
+    console.log(id);
 
-    navigate(`/products/${id}`)
-    
-
-  }
-
-
-
-
-
-
+    navigate(`/products/${id}`);
+  };
 
   return (
-    <div className="px-4 md:px-10 py-10 bg-white dark:bg-gray-900 min-h-screen">
+    <div className="px-4 md:px-10 py-10   dark:bg-gray-900 min-h-screen">
       <h2 className="text-3xl font-bold text-center text-gray-800 dark:text-white mb-8">
         All Accepted Tech Products
       </h2>
@@ -101,7 +90,7 @@ const Products = () => {
       </div>
 
       {/* Product Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-5">
         {filteredProducts.map((product, i) => {
           const isOwner = user?.uid === product.ownerId;
           const hasVoted = product.upvotedUsers.includes(user?.uid);
@@ -113,7 +102,7 @@ const Products = () => {
               animate={{ opacity: 1, y: 0 }}
               whileHover={{ y: -8, scale: 1.02 }}
               transition={{ delay: i * 0.1, duration: 0.4 }}
-              className="border-2 border-[#21BEDA] rounded-xl p-4 bg-white dark:bg-gray-800 shadow-md cursor-pointer transition-all"
+              className=" hover:shadow-[#21BEDA] rounded-xl p-4 bg-base-200 dark:bg-gray-800 shadow-lg cursor-pointer transition-all"
             >
               <img
                 src={product.image}
@@ -126,7 +115,6 @@ const Products = () => {
               >
                 {product.name}
               </h3>
-{console.log(product)}
               <div className="flex flex-wrap gap-2 my-2">
                 {product?.tags?.map((tag, i) => (
                   <span
@@ -142,7 +130,7 @@ const Products = () => {
                 <button
                   disabled={isOwner || hasVoted}
                   onClick={() => handleUpvote(product._id)}
-                  className={`mt-3 flex items-center justify-center gap-2 px-4 py-2 rounded font-semibold transition-colors ${
+                  className={`mt-3 flex cursor-pointer items-center justify-center gap-2 px-4 py-2 rounded font-semibold transition-colors ${
                     isOwner || hasVoted
                       ? "bg-gray-300 text-gray-600 cursor-not-allowed dark:bg-gray-700 dark:text-gray-400"
                       : "bg-[#21BEDA] text-white hover:bg-[#1ca6c0]"

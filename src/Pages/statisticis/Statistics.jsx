@@ -61,9 +61,9 @@ const Statistics = () => {
 
   if (loading) {
     return (
-      <div >
-<Loading></Loading>
-        </div>
+      <div>
+        <Loading></Loading>
+      </div>
     );
   }
 
@@ -73,28 +73,27 @@ const Statistics = () => {
         Platform Summary Bar Chart
       </h2>
 
-     <div className="overflow-x-auto">
-  <div className="min-w-[700px] bg-white dark:bg-gray-900 rounded-2xl shadow-xl p-6">
-    <ResponsiveContainer width="100%" height={400}>
-      <BarChart data={chartData}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" fontSize={14} tick={{ fill: "#4B5563" }} />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Bar dataKey="value">
-          {chartData.map((entry, index) => (
-            <Cell
-              key={`cell-${index}`}
-              fill={COLORS[index % COLORS.length]}
-            />
-          ))}
-        </Bar>
-      </BarChart>
-    </ResponsiveContainer>
-  </div>
-</div>
-
+      <div className="overflow-x-auto">
+        <div className="min-w-[700px] bg-white dark:bg-gray-900 rounded-2xl shadow-xl p-6">
+          <ResponsiveContainer width="100%" height={400}>
+            <BarChart data={chartData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" fontSize={14} tick={{ fill: "#4B5563" }} />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="value">
+                {chartData.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={COLORS[index % COLORS.length]}
+                  />
+                ))}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
     </div>
   );
 };

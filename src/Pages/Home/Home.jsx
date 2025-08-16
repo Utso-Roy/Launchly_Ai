@@ -12,6 +12,8 @@ import TrendingProducts from "../../Components/Tranding_products/TrendingProduct
 import ExtraSections from "../../Components/ExtraSection/ExtraSections";
 import Loading from "../../Context/Auth/Loader/Loading";
 import MakeFeaturedSection from "../../Utils/MakeFeturedSection/MakeFeturedSection";
+import Categories from "../../Components/Categories";
+import CouponSlider from "../../Components/CouponSlider/CouponSlider";
 
 const Home = () => {
   const { user } = useContext(AuthContext);
@@ -78,7 +80,7 @@ const Home = () => {
                   animate={{ opacity: 1, y: 0 }}
                   whileHover={{ y: -8, scale: 1.03 }}
                   transition={{ delay: i * 0.1, duration: 0.4, type: "spring" }}
-                  className=" border-2 border-[#21BEDA] rounded-xl p-4 bg-white dark:bg-gray-900 cursor-pointer shadow-md transition-all"
+                  className=" hover:shadow-[#21BEDA] rounded-xl p-4 bg-base-200 dark:bg-gray-900 cursor-pointer shadow-lg transition-all"
                 >
                   <img
                     src={product.image}
@@ -131,6 +133,7 @@ const Home = () => {
         }
       </section>
 
+
       <section
         data-aos="fade-left"
         data-aos-offset="300"
@@ -141,14 +144,21 @@ const Home = () => {
           <IoMdTrendingUp size={40} color="#f3d60f" />
           Trending Products Section
         </h2>
-        
           <TrendingProducts></TrendingProducts>
-    
+      </section>
+      <section className="my-10">
+        <Categories></Categories>
+      </section>
+      <section className="my-10">
+        
+      <CouponSlider></CouponSlider>
       </section>
 
       <section className="my-10 ">
         <ExtraSections></ExtraSections>
       </section>
+
+      
     </div>
   );
 };

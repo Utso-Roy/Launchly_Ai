@@ -10,9 +10,15 @@ import {
   FaUserShield,
   FaUserAlt,
 } from "react-icons/fa";
-import { MdDashboard, MdOutlineAdminPanelSettings, MdOutlineRateReview, MdReport } from "react-icons/md";
+import {
+  MdDashboard,
+  MdOutlineAdminPanelSettings,
+  MdOutlineRateReview,
+  MdReport,
+} from "react-icons/md";
 import { useQuery } from "@tanstack/react-query";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
+import Loading from "../../Context/Auth/Loader/Loading";
 
 const Sidebar = () => {
   const { user } = useContext(AuthContext);
@@ -26,38 +32,35 @@ const Sidebar = () => {
     },
   });
 
-
   const isAdmin = userRole?.role === "admin";
   const isUser = userRole?.role === "user";
   const moderator = userRole?.role === "moderator";
 
   return (
-    <div className="w-full sticky md:top-16 sm:top-12 md:w-64 bg-white dark:bg-gray-900 shadow-lg h-full p-4 space-y-4">
+    <div className="w-full sticky md:top-18 sm:top-12 md:w-64 bg-white dark:bg-gray-900 shadow-lg h-full p-4 space-y-4">
       <h2 className="text-2xl  font-bold text-center text-[#21BEDA] flex gap-1 items-center dark:text-white mb-6">
-        <MdDashboard />  Dashboard   
-      
-       
+        <MdDashboard /> Dashboard
       </h2>
-<h3 className="text-[#23245F] font-semibold flex items-center gap-2">
-  {isAdmin && (
-    <>
-      <MdOutlineAdminPanelSettings className="text-xl" />
-      Admin User
-    </>
-  )}
-  {moderator && (
-    <>
-      <FaUserShield className="text-xl" />
-      Moderator User
-    </>
-  )}
-  {isUser && (
-    <>
-      <FaUserAlt className="text-xl" />
-      Regular User
-    </>
-  )}
-</h3>
+      <h3 className="text-[#1D2A9D] flex items-center gap-2">
+        {isAdmin && (
+          <>
+            <MdOutlineAdminPanelSettings className="text-xl" />
+            Admin User
+          </>
+        )}
+        {moderator && (
+          <>
+            <FaUserShield className="text-xl" />
+            Moderator User
+          </>
+        )}
+        {isUser && (
+          <>
+            <FaUserAlt className="text-xl" />
+            Regular User
+          </>
+        )}
+      </h3>
 
       <nav className="flex flex-col gap-3">
         {isUser && (

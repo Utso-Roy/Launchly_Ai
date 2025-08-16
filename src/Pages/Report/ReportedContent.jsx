@@ -4,72 +4,70 @@ import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 
 const ReportedContent = () => {
-
-    const [report, setReport] = useState([])
-    const [loading,setLoading] = useState(true)
+  const [report, setReport] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-    useEffect(() => {
-        fetch('http://localhost:3000/reported')
-            .then(res => res.json())
-            .then(data => {
-            
-                setReport(data)
-                setLoading(false)
-        })
+  useEffect(() => {
+    fetch("http://localhost:3000/reported")
+      .then((res) => res.json())
+      .then((data) => {
+        setReport(data);
+        setLoading(false);
+      });
+  }, []);
 
-    },[])
+  const handleDelete = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/reported`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-const handleDelete = async () => {
-  try {
-    const response = await fetch(`http://localhost:3000/reported`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+      if (!response.ok) {
+        throw new Error("Failed to delete");
+      }
 
-    if (!response.ok) {
-      throw new Error("Failed to delete");
+      const data = await response.json();
+
+      if (data.success) {
+        toast.success("Deleted Successfully");
+        // UI থেকে ম্যানুয়ালি রিমুভ করতে পারো: যেকোনো একটা item যার isFeatured === true
+        setReport((prevReport) =>
+          prevReport.filter((item) => item.isFeatured !== true)
+        );
+      } else {
+        toast.error("No featured product found to delete");
+      }
+    } catch (err) {
+      toast.error("Failed to delete");
+      console.error(err);
     }
-
-    const data = await response.json();
-
-    if (data.success) {
-      toast.success("Deleted Successfully");
-      // UI থেকে ম্যানুয়ালি রিমুভ করতে পারো: যেকোনো একটা item যার isFeatured === true
-      setReport((prevReport) =>
-        prevReport.filter((item) => item.isFeatured !== true)
-      );
-    } else {
-      toast.error("No featured product found to delete");
-    }
-  } catch (err) {
-    toast.error("Failed to delete");
-    console.error(err);
-  }
-};
-
+  };
 
   const handelDetailsBtn = (id) => {
     navigate(`/dashboard/reportDetails/${id}`);
   };
 
-if(report.length===0)
-{
+  if (report.length === 0) {
+    return (
+      <div className="w-full max-w-4xl my-10  mx-10 dark:bg-gray-900">
+        <h2 className="font-semibold  text-2xl text-gray-600 text-center dark:text-white">
+          No Reported Products Found
+        </h2>
+      </div>
+    );
+  }
 
-  return (
-    
-    <div className="w-full max-w-4xl my-10  mx-10 dark:bg-gray-900">
-      <h2 className="font-semibold  text-2xl text-gray-600 text-center dark:text-white">
-        No Reported Products Found
-      </h2>
-  </div>
-
-  )
-}
-
-  if (loading) return <div className="block mx-auto">  <Loading />;</div>
+  if (loading)
+    return (
+      <div className="block mx-auto">
+        {" "}
+        <Loading />;
+      </div>
+    );
 
   return (
     <div className="w-full max-w-4xl mx-auto p-4 dark:bg-gray-900">
@@ -95,7 +93,10 @@ if(report.length===0)
                 </td>
                 <td className="py-3 px-4">
                   <img
-                    src={item?.productImage || "https://i.ibb.co/0F3VJfp/resume.jpg"}
+                    src={
+                      item?.productImage ||
+                      "https://i.ibb.co/0F3VJfp/resume.jpg"
+                    }
                     alt="Product"
                     className="w-12 h-12 object-cover rounded shadow dark:border-gray-600"
                   />

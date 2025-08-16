@@ -63,7 +63,7 @@ const Navbar = () => {
 
   return (
     <div
-      className={`navbar shadow-sm sticky top-0 z-1000 px-4 ${
+      className={`navbar shadow-sm fixed top-0 left-0 right-0 z-50  px-4 ${
         theme === "dark" ? "bg-[#1e2939] text-white" : "bg-[#101960] text-white"
       }`}
     >
