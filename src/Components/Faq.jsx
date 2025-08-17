@@ -39,7 +39,7 @@ const Faq = () => {
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-3xl md:text-4xl text-[#101960] font-bold text-center mb-10"
+          className="text-3xl md:text-4xl text-[#101960] dark:text-white font-bold text-center mb-10"
         >
           Frequently Asked Questions
         </motion.h2>
@@ -51,23 +51,23 @@ const Faq = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-white rounded-2xl shadow cursor-target cursor-pointer"
+              className="bg-white rounded-2xl dark:bg-gray-800 shadow cursor-target cursor-pointer"
             >
               <button
                 onClick={() => toggleFaq(index)}
                 className="flex items-center justify-between cursor-pointer w-full p-5 text-left"
               >
-                <span className="text-lg font-medium text-gray-800">
+                <span className="text-lg font-medium text-gray-800 dark:text-white">
                   {faq.question}
                 </span>
                 <ChevronDown
-                  className={`w-6 h-6 text-gray-600 transform transition-transform ${
+                  className={`w-6 h-6 text-gray-600 dark:text-white transform transition-transform ${
                     openIndex === index ? "rotate-180" : ""
                   }`}
                 />
               </button>
               {openIndex === index && (
-                <div className="px-5 pb-5 text-gray-600">{faq.answer}</div>
+                <div className="px-5 pb-5 dark:text-white text-gray-600">{faq.answer}</div>
               )}
             </motion.div>
           ))}

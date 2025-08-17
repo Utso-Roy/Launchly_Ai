@@ -20,7 +20,7 @@ const scrollingCategories = [...categories, ...categories];
 
 const Categories = () => {
   return (
-    <div className="py-12  dark:bg-gray-800 overflow-hidden">
+    <div className="py-12  overflow-hidden">
       <h2 className="text-3xl text-[#101960] dark:text-white font-bold text-center mb-8">
         Explore by Categories
       </h2>

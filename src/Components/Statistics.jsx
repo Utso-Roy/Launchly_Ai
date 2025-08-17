@@ -20,7 +20,7 @@ const Statistics = () => {
   }, []);
 
   return (
-    <section className="dark:bg-gray-900 py-10 transition-colors duration-300">
+    <section className="py-10 transition-colors duration-300">
       <div className="max-w-6xl mx-auto px-6">
         {/* Heading */}
         <h2

@@ -48,7 +48,6 @@ const MakeFeaturedSection = () => {
     fetch("http://localhost:3000/featured")
       .then((res) => res.json())
       .then((data) => {
-        // fallback for missing upvotedUsers
         const updated = data.map((item) => ({
           ...item,
           upvotedUsers: item.upvotedUsers || [],

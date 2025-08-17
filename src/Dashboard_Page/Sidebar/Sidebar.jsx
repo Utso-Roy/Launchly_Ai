@@ -1,24 +1,10 @@
 import React, { useContext } from "react";
-import { NavLink } from "react-router";
-import {
-  FaUserCircle,
-  FaPlusCircle,
-  FaThList,
-  FaChartBar,
-  FaUsersCog,
-  FaTicketAlt,
-  FaUserShield,
-  FaUserAlt,
-} from "react-icons/fa";
-import {
-  MdDashboard,
-  MdOutlineAdminPanelSettings,
-  MdOutlineRateReview,
-  MdReport,
-} from "react-icons/md";
+import { Link, NavLink } from "react-router";
+import { FaUserCircle, FaPlusCircle, FaThList, FaChartBar, FaUsersCog, FaTicketAlt, FaUserShield, FaUserAlt } from "react-icons/fa";
+import { MdDashboard, MdOutlineAdminPanelSettings, MdOutlineRateReview, MdReport } from "react-icons/md";
 import { useQuery } from "@tanstack/react-query";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
-import Loading from "../../Context/Auth/Loader/Loading";
+import { FiLogOut } from "react-icons/fi";
 
 const Sidebar = () => {
   const { user } = useContext(AuthContext);
@@ -36,157 +22,58 @@ const Sidebar = () => {
   const isUser = userRole?.role === "user";
   const moderator = userRole?.role === "moderator";
 
+  const menuItems = [
+    isUser && { icon: <FaUserCircle />, label: "My Profile", to: "/dashboard/profile" },
+    isUser && { icon: <FaPlusCircle />, label: "Add Product", to: "/dashboard/addProduct" },
+    isUser && { icon: <FaThList />, label: "My Products", to: "/dashboard/myProducts" },
+
+    moderator && { icon: <MdOutlineRateReview />, label: "Review Queue", to: "/dashboard/reviewQueue" },
+    moderator && { icon: <MdReport />, label: "Reported Contents", to: "/dashboard/reportedContents" },
+
+    isAdmin && { icon: <FaChartBar />, label: "Statistics", to: "/dashboard/statistics" },
+    isAdmin && { icon: <FaUsersCog />, label: "Manage Users", to: "/dashboard/manageUsers" },
+    isAdmin && { icon: <FaTicketAlt />, label: "Manage Coupons", to: "/dashboard/manageCoupons" },
+  ].filter(Boolean);
+
   return (
-    <div className="w-full sticky md:top-18 sm:top-12 md:w-64 bg-white dark:bg-gray-900 shadow-lg h-full p-4 space-y-4">
-      <h2 className="text-2xl  font-bold text-center text-[#21BEDA] flex gap-1 items-center dark:text-white mb-6">
-        <MdDashboard /> Dashboard
+    <div className="w-full sticky md:top-18 sm:top-12 md:w-64 bg-white dark:bg-gray-900 shadow-lg h-full p-4 space-y-4 transition-all duration-300">
+      <h2 className="text-2xl font-bold text-center text-[#21BEDA] flex gap-1 items-center dark:text-white mb-6">
+        <MdDashboard /> <span className="hidden md:inline">Dashboard</span>
       </h2>
+
       <h3 className="text-[#1D2A9D] flex items-center gap-2">
-        {isAdmin && (
-          <>
-            <MdOutlineAdminPanelSettings className="text-xl" />
-            Admin User
-          </>
-        )}
-        {moderator && (
-          <>
-            <FaUserShield className="text-xl" />
-            Moderator User
-          </>
-        )}
-        {isUser && (
-          <>
-            <FaUserAlt className="text-xl" />
-            Regular User
-          </>
-        )}
+        {isAdmin && <><MdOutlineAdminPanelSettings className="text-xl" /> <span className="hidden md:inline">Admin User</span></>}
+        {moderator && <><FaUserShield className="text-xl" /> <span className="hidden md:inline">Moderator User</span></>}
+        {isUser && <><FaUserAlt className="text-xl" /> <span className="hidden md:inline">Regular User</span></>}
       </h3>
 
       <nav className="flex flex-col gap-3">
-        {isUser && (
-          <>
-            <NavLink
-              to="/dashboard/profile"
-              className={({ isActive }) =>
-                `flex items-center gap-3 px-4 py-2 rounded-md transition-colors ${
-                  isActive
-                    ? "text-[#21BEDA]"
-                    : "text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                }`
-              }
-            >
-              <FaUserCircle />
-              My Profile
-            </NavLink>
-
-            <NavLink
-              to="/dashboard/addProduct"
-              className={({ isActive }) =>
-                `flex items-center gap-3 px-4 py-2 rounded-md transition-colors ${
-                  isActive
-                    ? "text-[#21BEDA]"
-                    : "text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                }`
-              }
-            >
-              <FaPlusCircle />
-              Add Product
-            </NavLink>
-
-            <NavLink
-              to="/dashboard/myProducts"
-              className={({ isActive }) =>
-                `flex items-center gap-3 px-4 py-2 rounded-md transition-colors ${
-                  isActive
-                    ? "text-[#21BEDA]"
-                    : "text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                }`
-              }
-            >
-              <FaThList />
-              My Products
-            </NavLink>
-          </>
-        )}
-
-        {moderator && (
-          <>
-            <NavLink
-              to="/dashboard/reviewQueue"
-              className={({ isActive }) =>
-                `flex items-center gap-3 px-4 py-2 rounded-md transition-colors ${
-                  isActive
-                    ? "text-[#21BEDA]"
-                    : "text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                }`
-              }
-            >
-              <MdOutlineRateReview />
-              Review Queue
-            </NavLink>
-
-            <NavLink
-              to="/dashboard/reportedContents"
-              className={({ isActive }) =>
-                `flex items-center gap-3 px-4 py-2 rounded-md transition-colors ${
-                  isActive
-                    ? "text-[#21BEDA]"
-                    : "text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                }`
-              }
-            >
-              <MdReport />
-              Reported Contents
-            </NavLink>
-          </>
-        )}
-
-        {isAdmin && (
-          <>
-            <NavLink
-              to="/dashboard/statistics"
-              className={({ isActive }) =>
-                `flex items-center gap-3 px-4 py-2 rounded-md transition-colors ${
-                  isActive
-                    ? "text-[#21BEDA]"
-                    : "text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                }`
-              }
-            >
-              <FaChartBar />
-              Statistics
-            </NavLink>
-
-            <NavLink
-              to="/dashboard/manageUsers"
-              className={({ isActive }) =>
-                `flex items-center gap-3 px-4 py-2 rounded-md transition-colors ${
-                  isActive
-                    ? "text-[#21BEDA]"
-                    : "text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                }`
-              }
-            >
-              <FaUsersCog />
-              Manage Users
-            </NavLink>
-
-            <NavLink
-              to="/dashboard/manageCoupons"
-              className={({ isActive }) =>
-                `flex items-center gap-3 px-4 py-2 rounded-md transition-colors ${
-                  isActive
-                    ? "text-[#21BEDA]"
-                    : "text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                }`
-              }
-            >
-              <FaTicketAlt />
-              Manage Coupons
-            </NavLink>
-          </>
-        )}
+        {menuItems.map((item, idx) => (
+          <NavLink
+            key={idx}
+            to={item.to}
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-4 py-2 rounded-md transition-colors ${
+                isActive
+                  ? "text-[#21BEDA]"
+                  : "text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+              }`
+            }
+          >
+            {item.icon}
+            <span className="hidden md:inline">{item.label}</span>
+          </NavLink>
+        ))}
       </nav>
+
+      <div className="mt-6">
+        <Link to="/login">
+          <button className="flex items-center justify-center md:justify-start mx-4 hover:text-red-700 gap-2 cursor-pointer">
+            <FiLogOut size={20} />
+            <span className="hidden md:inline">Logout</span>
+          </button>
+        </Link>
+      </div>
     </div>
   );
 };

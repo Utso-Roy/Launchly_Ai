@@ -56,7 +56,7 @@ const ReviewSection = () => {
   }, []);
 
   return (
-    <section className="dark:bg-gray-900 transition-colors duration-300 py-16">
+    <section className=" transition-colors duration-300 py-16">
       <div className="max-w-6xl mx-auto rounded-lg ">
         {/* Heading */}
         <h2

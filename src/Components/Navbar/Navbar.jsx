@@ -48,7 +48,8 @@ const Navbar = () => {
           Home
         </NavLink>
       </li>
-      <li>
+      {
+        user?.email &&  <li>
         <NavLink
           to="/products"
           className={({ isActive }) =>
@@ -58,6 +59,7 @@ const Navbar = () => {
           Products
         </NavLink>
       </li>
+     }
       <li>
         <NavLink
           to="/guide"
@@ -68,6 +70,28 @@ const Navbar = () => {
           Guides
         </NavLink>
       </li>
+      <li>
+        <NavLink
+          to="/contact"
+          className={({ isActive }) =>
+            isActive ? "text-[#21BEDA] font-semibold" : ""
+          }
+        >
+          Contact
+        </NavLink>
+      </li>
+      {
+        user?.email && <li>
+        <NavLink
+          to="/blog"
+          className={({ isActive }) =>
+            isActive ? "text-[#21BEDA] font-semibold" : ""
+          }
+        >
+          Blog
+        </NavLink>
+      </li>
+      }
     </>
   );
 

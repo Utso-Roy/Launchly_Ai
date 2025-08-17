@@ -24,7 +24,7 @@ const GuidesSection = () => {
   }, []);
 
   return (
-    <div className="py-12  dark:bg-gray-900 transition-colors duration-500">
+    <div className="py-12  transition-colors duration-500">
       <h2
         className="text-3xl font-bold text-center text-[#101960] dark:text-gray-100 mb-8"
         data-aos="fade-up"

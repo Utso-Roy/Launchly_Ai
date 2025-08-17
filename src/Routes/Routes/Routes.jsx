@@ -21,6 +21,8 @@ import ProductReviewSection from "../../Utils/ProductReviewSection/ProductReview
 import ReviewDetails from "../../Pages/ReviewDetails/ReviewDetails";
 import MarkAddDetails from "../../Pages/MarkAddDetails/MarkAddDetails";
 import Guide from "../../Pages/Guide";
+import Contact from "../../Pages/Contact";
+import Blog from "../../Pages/Blog";
 
 export const router = createBrowserRouter([
   {
@@ -65,9 +67,25 @@ export const router = createBrowserRouter([
       {
         path: "/guide",
         element: (
-          <PrivateRoutes>
+        
             <Guide></Guide>
-          </PrivateRoutes>
+          
+        ),
+      },
+      {
+        path: "/contact",
+        element: (
+          
+            <Contact></Contact>
+          
+        ),
+      },
+      {
+        path: "/blog",
+        element: (
+          
+            <Blog></Blog>
+          
         ),
       },
     ],
