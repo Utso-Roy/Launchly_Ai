@@ -4,13 +4,13 @@ import { FaUsers, FaCheckCircle } from "react-icons/fa";
 
 const ExtraSections = () => {
   return (
-    <div className="px-4 md:px-12 my-20 space-y-20 bg-gray-50 dark:bg-gray-900">
+    <div className="px-4 md:px-12 my-20 space-y-20  dark:bg-gray-900">
       {/* Section 1 - Why Choose Us */}
       <motion.section
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
-        className="bg-gray-100 dark:bg-gray-800 p-8 md:p-16 rounded-xl shadow-lg"
+        className=" dark:bg-gray-800 p-8 md:p-16 rounded-xl shadow-lg"
       >
         <h2 className="text-3xl md:text-4xl font-bold text-center text-[#101960] dark:text-white mb-8">
           Why Tech Enthusiasts Choose Launchly?
@@ -52,7 +52,7 @@ const ExtraSections = () => {
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
-        className="bg-gray-100 dark:bg-gray-800 p-8 md:p-16 rounded-xl shadow-lg"
+        className=" dark:bg-gray-800 p-8 md:p-16 rounded-xl shadow-lg"
       >
         <h2 className="text-3xl md:text-4xl font-bold text-center text-[#101960] dark:text-white mb-12">
           Success Stories from Launchly

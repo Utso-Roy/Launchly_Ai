@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FaStar } from "react-icons/fa";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const reviews = [
   {
@@ -45,20 +47,33 @@ const reviews = [
 ];
 
 const ReviewSection = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 800,
+      once: true,
+      easing: "ease-in-out",
+    });
+  }, []);
+
   return (
-    <section className="py-12 bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
-      <div className="max-w-6xl mx-auto px-4">
+    <section className="dark:bg-gray-900 transition-colors duration-300 py-16">
+      <div className="max-w-6xl mx-auto rounded-lg ">
         {/* Heading */}
-        <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 dark:text-white mb-10">
+        <h2
+          data-aos="fade-up"
+          className="text-3xl md:text-4xl font-bold text-center text-[#101960] dark:text-white mb-10"
+        >
           What Our Users Say About Our Software
         </h2>
 
         {/* Review Grid */}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {reviews.map((review) => (
+          {reviews.map((review, index) => (
             <div
               key={review.id}
-              className="card bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl border border-gray-200 dark:border-gray-700 rounded-2xl p-6 transition-all duration-300"
+              data-aos="fade-up"
+              data-aos-delay={index * 150} 
+              className="card bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl border border-gray-200 dark:border-gray-700 rounded-2xl p-6 transition-all duration-300 cursor-target cursor-pointer"
             >
               <div className="flex flex-col h-full">
                 {/* User Info */}

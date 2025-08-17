@@ -14,7 +14,7 @@ const CouponMarquee = () => {
   const scrollingCoupons = [...coupons, ...coupons];
 
   return (
-    <div className="my-10 bg-gray-50 dark:bg-gray-900 overflow-hidden py-6 transition-colors duration-500">
+    <div className="my-10  dark:bg-gray-900 overflow-hidden py-6 transition-colors duration-500">
       {/* Title */}
       <h2 className="text-3xl font-bold text-blue-900 dark:text-white text-center mb-6 flex items-center justify-center gap-2">
         <FaTags className="text-[#21BEDA]" /> Exclusive Coupons

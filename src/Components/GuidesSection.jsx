@@ -23,9 +23,9 @@ const GuidesSection = () => {
   }, []);
 
   return (
-    <div className="py-12 bg-gray-50 dark:bg-gray-900 transition-colors duration-500">
+    <div className="py-12  dark:bg-gray-900 transition-colors duration-500">
       <h2
-        className="text-3xl font-bold text-center text-gray-800 dark:text-gray-100 mb-8"
+        className="text-3xl font-bold text-center text-[#101960] dark:text-gray-100 mb-8"
         data-aos="fade-up"
       >
          Helpful Guides
@@ -37,9 +37,9 @@ const GuidesSection = () => {
             key={idx}
             className="p-6 rounded-2xl shadow-lg bg-white dark:bg-gray-800 hover:shadow-xl transition-shadow duration-300 cursor-target cursor-pointer"
             data-aos="fade-up"
-            data-aos-delay={idx * 100} // staggered animation
+            data-aos-delay={idx * 100} 
           >
-            <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
+            <h3 className="text-xl font-semibold text-[#141c60] dark:text-gray-100 mb-2">
               {guide.title}
             </h3>
             <p className="text-gray-600 dark:text-gray-300">{guide.description}</p>
@@ -48,7 +48,7 @@ const GuidesSection = () => {
       </div>
 
       <div className="mt-8 text-center" data-aos="fade-up" data-aos-delay={400}>
-        <button className="px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors duration-300 cursor-target cursor-pointer">
+        <button className="px-6 py-3 border border-[#21BEDA] btn btn-outline text-[#21BEDA] hover:text-white rounded-full hover:bg-[#21BEDA] transition-colors duration-300 cursor-target cursor-pointer">
           See All Guides
         </button>
       </div>
