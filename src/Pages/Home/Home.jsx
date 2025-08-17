@@ -17,6 +17,7 @@ import CouponSlider from "../../Components/CouponSlider/CouponSlider";
 import GuidesSection from "../../Components/GuidesSection";
 import ReviewSection from "../../Pages/ReviewSection";
 import Faq from "../../Components/Faq";
+import Statistics from "../../Components/Statistics";
 
 const Home = () => {
   const { user } = useContext(AuthContext);
@@ -168,16 +169,21 @@ const Home = () => {
         <ReviewSection></ReviewSection>
       </section>
 
-      <section className="my-10">
-        
-      <CouponSlider></CouponSlider>
+      
+
+      <section>
+        <Statistics></Statistics>
       </section>
 
       <section>
 
         <Faq></Faq>
 
-        </section>
+      </section>
+      <section className="py-10">
+        
+      <CouponSlider></CouponSlider>
+      </section>
     </div>
   );
 };

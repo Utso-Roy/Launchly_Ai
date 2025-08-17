@@ -58,6 +58,16 @@ const Navbar = () => {
           Products
         </NavLink>
       </li>
+      <li>
+        <NavLink
+          to="/guide"
+          className={({ isActive }) =>
+            isActive ? "text-[#21BEDA] font-semibold" : ""
+          }
+        >
+          Guides
+        </NavLink>
+      </li>
     </>
   );
 

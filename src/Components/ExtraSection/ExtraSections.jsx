@@ -10,7 +10,7 @@ const ExtraSections = () => {
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
-        className=" dark:bg-gray-800 p-8 md:p-16 rounded-xl shadow-lg"
+        className=" dark:bg-gray-800 p-8 md:p-16 rounded-xl shadow-md"
       >
         <h2 className="text-3xl md:text-4xl font-bold text-center text-[#101960] dark:text-white mb-8">
           Why Tech Enthusiasts Choose Launchly?
@@ -52,7 +52,7 @@ const ExtraSections = () => {
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
-        className=" dark:bg-gray-800 p-8 md:p-16 rounded-xl shadow-lg"
+        className=" dark:bg-gray-800 p-8 md:p-16 rounded-xl shadow-md"
       >
         <h2 className="text-3xl md:text-4xl font-bold text-center text-[#101960] dark:text-white mb-12">
           Success Stories from Launchly

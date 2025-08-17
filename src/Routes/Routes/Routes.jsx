@@ -20,6 +20,7 @@ import ReportDetails from "../../Pages/ReportDetails/ReportDetails";
 import ProductReviewSection from "../../Utils/ProductReviewSection/ProductReviewSection";
 import ReviewDetails from "../../Pages/ReviewDetails/ReviewDetails";
 import MarkAddDetails from "../../Pages/MarkAddDetails/MarkAddDetails";
+import Guide from "../../Pages/Guide";
 
 export const router = createBrowserRouter([
   {
@@ -58,6 +59,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoutes>
             <ProductReviewSection></ProductReviewSection>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "/guide",
+        element: (
+          <PrivateRoutes>
+            <Guide></Guide>
           </PrivateRoutes>
         ),
       },

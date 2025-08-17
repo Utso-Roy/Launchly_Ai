@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import "aos/dist/aos.css";
 import Aos from "aos";
+import { Link } from "react-router";
 
 const guides = [
   {
@@ -48,9 +49,11 @@ const GuidesSection = () => {
       </div>
 
       <div className="mt-8 text-center" data-aos="fade-up" data-aos-delay={400}>
+        <Link to="/guide">
         <button className="px-6 py-3 border border-[#21BEDA] btn btn-outline text-[#21BEDA] hover:text-white rounded-full hover:bg-[#21BEDA] transition-colors duration-300 cursor-target cursor-pointer">
           See All Guides
         </button>
+        </Link>
       </div>
     </div>
   );
