@@ -20,7 +20,7 @@ const guides = [
 
 const GuidesSection = () => {
   useEffect(() => {
-    Aos.init({ duration: 1000, once: true });
+    Aos.init({ duration: 800, once: true });
   }, []);
 
   return (

@@ -5,7 +5,7 @@ import { MdDashboard, MdOutlineAdminPanelSettings, MdOutlineRateReview, MdReport
 import { useQuery } from "@tanstack/react-query";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { FiLogOut } from "react-icons/fi";
-
+import { ImProfile } from "react-icons/im";
 const Sidebar = () => {
   const { user } = useContext(AuthContext);
 
@@ -41,13 +41,25 @@ const Sidebar = () => {
         <MdDashboard /> <span className="hidden md:inline">Dashboard</span>
       </h2>
 
-      <h3 className="text-[#1D2A9D] flex items-center gap-2">
-        {isAdmin && <><MdOutlineAdminPanelSettings className="text-xl" /> <span className="hidden md:inline">Admin User</span></>}
-        {moderator && <><FaUserShield className="text-xl" /> <span className="hidden md:inline">Moderator User</span></>}
-        {isUser && <><FaUserAlt className="text-xl" /> <span className="hidden md:inline">Regular User</span></>}
-      </h3>
+     
+
+    
 
       <nav className="flex flex-col gap-3">
+        <NavLink
+  to="/dashboard/dashboardProfile"
+  className={({ isActive }) =>
+    `flex items-center gap-2 px-4 py-2 rounded-md transition-colors ${
+      isActive
+        ? "text-[#21BEDA]"
+        : "text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+    }`
+  }
+>
+  <ImProfile className="text-xl" />
+  <span className="hidden md:inline">Profile</span>
+</NavLink>
+
         {menuItems.map((item, idx) => (
           <NavLink
             key={idx}

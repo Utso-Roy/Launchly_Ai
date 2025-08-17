@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, NavLink } from 'react-router';
 import Roket  from '../../assets/Roket.json'
 import Lottie from 'lottie-react';
+import { AuthContext } from '../../AuthProvider/AuthProvider';
 const Footer = () => {
-
+const {user} =useContext(AuthContext)
      const navLinks = (
   <>
     <li>
@@ -16,7 +17,8 @@ const Footer = () => {
         Home
       </NavLink>
     </li>
-    <li>
+         {
+           user?.email && <li>
       <NavLink
         to="/products"
         className={({ isActive }) =>
@@ -26,6 +28,7 @@ const Footer = () => {
         Products
       </NavLink>
     </li>
+    }
   </>
 );
 

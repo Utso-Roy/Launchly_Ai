@@ -40,7 +40,7 @@ const Statistics = () => {
               className="bg-white dark:bg-gray-800 rounded-2xl shadow-md p-6 cursor-target cursor-pointer transition-transform transform hover:scale-105"
             >
               <p className="text-3xl md:text-4xl font-bold text-[#101960] dark:text-yellow-400">
-                <CountUp end={stat.value} duration={8} separator="," />
+                <CountUp end={stat.value} duration={15} separator="," />
                 {stat.suffix}
               </p>
               <p className="mt-2 text-gray-700 dark:text-gray-300 font-medium">

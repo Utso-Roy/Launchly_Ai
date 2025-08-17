@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { Link, useLocation, useNavigate } from "react-router"; 
+import { Link, useLocation, useNavigate } from "react-router";
 import { motion } from "framer-motion";
 import signInAnimation from "../../assets/signIn.json";
 import Lottie from "lottie-react";
@@ -8,49 +8,45 @@ import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { toast } from "react-toastify";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
-
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+
+  // Email & Password state
+  const [email, setEmail] = useState("utshoroy5248@gmail.com");
+  const [password, setPassword] = useState("Pa$$w0rd!");
+
   const location = useLocation();
-  const navigate = useNavigate()
-const from = location.state?.from?.pathname || "/";
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
 
+  const { loginUser, setUser, googleLogin } = useContext(AuthContext);
 
-  const { loginUser,setUser, googleLogin } = useContext(AuthContext)
   const handleGoogleLogin = () => {
     googleLogin()
-      .then(data => {
-        setUser(data.user)
-        toast.success('Google Login successful!')
+      .then((data) => {
+        setUser(data.user);
+        toast.success("Google Login successful!");
         navigate(from, { replace: true });
       })
-      .catch(err => {
-      
-        console.log(err.message)
-        toast.error("Google Login failed ! please try again later .")
-    })
-
-
-   
+      .catch((err) => {
+        console.log(err.message);
+        toast.error("Google Login failed! Please try again later.");
+      });
   };
-const handleLogin = (e) => {
-  e.preventDefault();
-  const form = e.target;
-  const email = form.email.value.trim();
-  const password = form.password.value.trim();
 
-  loginUser(email, password)
-    .then((data) => {
-      setUser(data.user);
+  const handleLogin = (e) => {
+    e.preventDefault();
+    loginUser(email, password)
+      .then((data) => {
+        setUser(data.user);
         navigate(from, { replace: true });
-      toast.success("Login successful!");
-      form.reset();
-    })
-    .catch((err) => {
-      console.error("Login error:", err.message);
-      toast.error("Login failed! Please check your credentials.");
-    })
-};
+        toast.success("Login successful!");
+      })
+      .catch((err) => {
+        console.error("Login error:", err.message);
+        toast.error("Login failed! Please check your credentials.");
+      });
+  };
 
   return (
     <div className="min-h-screen bg-base-200 flex justify-center items-center px-2 dark:bg-gray-900">
@@ -75,42 +71,47 @@ const handleLogin = (e) => {
             Login
           </h2>
 
-          
-<form onSubmit={handleLogin} className="space-y-4 w-full max-w-sm">
-  <input
-    type="email"
-    name="email"
-    placeholder="Email"
-    className="input input-bordered w-full dark:bg-gray-700 dark:text-white"
-    required
-  />
+          <form onSubmit={handleLogin} className="space-y-4 w-full max-w-sm">
+            <input
+              type="email"
+              name="email"
+              value={email} // pre-filled email
+              onChange={(e) => setEmail(e.target.value)} // editable
+              placeholder="Email"
+              className="input input-bordered w-full dark:bg-gray-700 dark:text-white"
+              required
+            />
 
-  {/* Password Field with Toggle Icon */}
-  <div className="relative">
-    <input
-      type={showPassword ? "text" : "password"}
-      name="password"
-      placeholder="Password"
-      className="input input-bordered w-full pr-10 dark:bg-gray-700 dark:text-white"
-      required
-    />
-    <span
-      onClick={() => setShowPassword(!showPassword)}
-      className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400"
-    >
-      {showPassword ? <FaEyeSlash /> : <FaEye />}
-    </span>
-  </div>
+            {/* Password Field */}
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                value={password} // pre-filled password
+                onChange={(e) => setPassword(e.target.value)} // editable
+                placeholder="Password"
+                className="input input-bordered w-full pr-10 dark:bg-gray-700 dark:text-white"
+                required
+              />
+              <span
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400"
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
 
-  <button
-    type="submit"
-    className="w-full py-2 cursor-pointer px-4 bg-[#21BEDA] rounded-md text-white font-semibold"
-  >
-    Login
-  </button>
-</form>
+            <button
+              type="submit"
+              className="w-full py-2 cursor-pointer px-4 bg-[#21BEDA] rounded-md text-white font-semibold"
+            >
+              Login
+            </button>
+          </form>
 
-          <div className="divider text-gray-500 dark:text-gray-400 w-full max-w-sm">OR</div>
+          <div className="divider text-gray-500 dark:text-gray-400 w-full max-w-sm">
+            OR
+          </div>
 
           <button
             onClick={handleGoogleLogin}

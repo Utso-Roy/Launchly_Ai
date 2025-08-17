@@ -51,7 +51,7 @@ const TrendingProducts = () => {
                   animate={{ opacity: 1, y: 0 }}
                   whileHover={{ y: -8, scale: 1.03 }}
                   transition={{ delay: i * 0.1, duration: 0.4, type: "spring" }}
-                  className="hover:shadow-[#21BEDA] rounded-xl p-4 bg-base-200 dark:bg-gray-900 shadow-md hover:shadow-lg transition-all"
+                  className="hover:shadow-[#8ed1dc] rounded-xl p-4 bg-base-200 dark:bg-gray-900 shadow-md hover:shadow-lg transition-all"
                 >
                   <img
                     src={product.image}

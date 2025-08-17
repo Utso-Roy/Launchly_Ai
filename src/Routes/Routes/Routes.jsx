@@ -23,6 +23,7 @@ import MarkAddDetails from "../../Pages/MarkAddDetails/MarkAddDetails";
 import Guide from "../../Pages/Guide";
 import Contact from "../../Pages/Contact";
 import Blog from "../../Pages/Blog";
+import DashboardProfile from "../../Pages/DashboardHome/DashboardProfile";
 
 export const router = createBrowserRouter([
   {
@@ -162,6 +163,15 @@ export const router = createBrowserRouter([
           <PrivateRoutes>
             {" "}
             <MangeUser></MangeUser>{" "}
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "/dashboard/dashboardProfile",
+        element: (
+          <PrivateRoutes>
+            {" "}
+            <DashboardProfile></DashboardProfile>{" "}
           </PrivateRoutes>
         ),
       },

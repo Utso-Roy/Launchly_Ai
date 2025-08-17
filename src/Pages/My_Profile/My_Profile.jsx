@@ -4,7 +4,6 @@ import { Elements } from "@stripe/react-stripe-js";
 import {loadStripe} from '@stripe/stripe-js';
 
 import CheckoutForm from "../../Components/CheckoutForm/CheckoutForm";
-// import { toast } from "react-toastify";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIP_KEY);
 
