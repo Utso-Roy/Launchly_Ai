@@ -1,6 +1,6 @@
 # React + Vite
 
-## Live Link : https://dancing-chaja-a6026f.netlify.app/
+## Live Link : https://launchly-ai.netlify.app/
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
