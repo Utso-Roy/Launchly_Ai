@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import "aos/dist/aos.css";
 import Aos from "aos";
 import { Link } from "react-router";
+import Container from "../Container/Container";
 
 const guides = [
   {
@@ -32,7 +33,9 @@ const GuidesSection = () => {
          Helpful Guides
       </h2>
 
-      <div className="max-w-6xl mx-auto grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <Container>
+
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {guides.map((guide, idx) => (
           <div
             key={idx}
@@ -47,6 +50,7 @@ const GuidesSection = () => {
           </div>
         ))}
       </div>
+      </Container>
 
       <div className="mt-8 text-center" data-aos="fade-up" data-aos-delay={400}>
         <Link to="/guide">

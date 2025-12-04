@@ -101,8 +101,9 @@ const Navbar = () => {
         theme === "dark" ? "bg-[#1e2939] text-white" : "bg-[#101960] text-white"
       }`}
     >
-      {/* Navbar Start */}
-      <div className="navbar-start  ">
+    
+        
+         <div className="navbar-start  ">
         {/* Mobile Dropdown Menu */}
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -218,6 +219,7 @@ const Navbar = () => {
           </Link>
         )}
       </div>
+    
     </div>
   );
 };

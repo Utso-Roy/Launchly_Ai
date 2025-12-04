@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { FaTags } from "react-icons/fa";
+import Container from "../../Container/Container";
 
 const CouponMarquee = () => {
   const [coupons, setCoupons] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/valid-coupons")
+    fetch("https://launchly-server-side.vercel.app/valid-coupons")
       .then((res) => res.json())
       .then((data) => setCoupons(data))
       .catch((err) => console.error("Failed to load coupons:", err));
@@ -21,7 +22,11 @@ const CouponMarquee = () => {
       </h2>
 
       {/* Scrolling coupons */}
-      <div className="overflow-hidden group">
+      <Container>
+        
+
+
+         <div className="overflow-hidden group">
         <div
           className="flex whitespace-nowrap animate-marquee group-hover:paused"
           style={{ gap: "1rem" }}
@@ -32,8 +37,12 @@ const CouponMarquee = () => {
               className="flex-shrink-0 border border-[#21BEDA] p-6 rounded shadow bg-white dark:bg-gray-800 text-center hover:scale-105 transition-transform duration-300"
               style={{ minWidth: "16rem" }}
             >
-              <h3 className="text-xl font-bold text-[#21BEDA]">{coupon?.code}</h3>
-              <p className="text-gray-600 dark:text-gray-300">{coupon?.description}</p>
+              <h3 className="text-xl font-bold text-[#21BEDA]">
+                {coupon?.code}
+              </h3>
+              <p className="text-gray-600 dark:text-gray-300">
+                {coupon?.description}
+              </p>
               <p className="text-green-600 font-semibold">
                 Discount: ${coupon?.discount}
               </p>
@@ -44,6 +53,7 @@ const CouponMarquee = () => {
           ))}
         </div>
       </div>
+     </Container>
 
       {/* Inline keyframes + hover pause */}
       <style>{`

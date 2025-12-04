@@ -24,7 +24,9 @@ const Products_Details_Page = () => {
   } = useQuery({
     queryKey: ["all_products"],
     queryFn: async () => {
-      const res = await axios.get("http://localhost:3000/all_products");
+      const res = await axios.get(
+        "https://launchly-server-side.vercel.app/all_products"
+      );
       if (Array.isArray(res.data)) return res.data;
       if (res.data.products) return res.data.products;
       return [];
@@ -74,7 +76,7 @@ const Products_Details_Page = () => {
 
   const handleReportConfirm = async () => {
     try {
-      await axios.post("http://localhost:3000/reported", {
+      await axios.post("https://launchly-server-side.vercel.app/reported", {
         productId: product._id,
         productName: product.name,
         productImage: product.image,
@@ -105,7 +107,7 @@ const Products_Details_Page = () => {
     }
 
     try {
-      await axios.post("http://localhost:3000/reviews", {
+      await axios.post("https://launchly-server-side.vercel.app/reviews", {
         userName: user?.displayName,
         photo: user?.photoURL,
         productId: product._id,

@@ -19,6 +19,7 @@ import ReviewSection from "../../Pages/ReviewSection";
 import Faq from "../../Components/Faq";
 import Statistics from "../../Components/Statistics";
 import Contact from "../Contact";
+import Container from "../../Container/Container";
 
 const Home = () => {
   const { user } = useContext(AuthContext);
@@ -60,10 +61,7 @@ const Home = () => {
 
       {/* Featured Products */}
       <section
-        data-aos="fade-right"
-        data-aos-offset="300"
-        data-aos-easing="ease-in-sine"
-        className="my-10 px-4 md:px-8"
+        className="my-10"
       >
         <h2 className="text-3xl flex items-center justify-center  font-bold text-center text-[#101960] dark:text-white mb-8">
           <GiStarFormation color="#f3d60f" />
@@ -73,7 +71,9 @@ const Home = () => {
         {isLoading ? (
           Loading()
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <Container>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {featured.map((product, i) => {
               const isOwner = user?.uid === product.ownerId;
               const hasVoted = product.upvotedUsers.includes(user?.uid);
@@ -130,6 +130,7 @@ const Home = () => {
               );
             })}
           </div>
+          </Container>
         )}
 
 
@@ -140,10 +141,8 @@ const Home = () => {
 
 
       <section
-        data-aos="fade-left"
-        data-aos-offset="300"
-        data-aos-easing="ease-in-sine"
-        className="my-10 px-4 md:px-8"
+      
+        className="my-10 "
       >
         <h2 className="text-3xl flex items-center justify-center  font-bold text-center text-[#101960] dark:text-white mb-8">
           <IoMdTrendingUp size={40} color="#f3d60f" />

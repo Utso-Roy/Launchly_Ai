@@ -26,7 +26,7 @@ const CheckoutForm = ({ subscriptionAmount, setVerify }) => {
 
         const amountInCents = Math.round(amount * 100);
         const res = await axios.post(
-          "http://localhost:3000/create-payment-intent",
+          "https://launchly-server-side.vercel.app/create-payment-intent",
           {
             amount: amountInCents,
           }

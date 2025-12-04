@@ -9,7 +9,7 @@ const ReviewDetails = () => {
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/all_pending_products`)
+    fetch(`https://launchly-server-side.vercel.app/all_pending_products`)
       .then((res) => {
         return res.json();
       })

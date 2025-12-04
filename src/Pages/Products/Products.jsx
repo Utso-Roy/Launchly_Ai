@@ -17,7 +17,9 @@ const Products = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:3000/all_products?page=${page}&limit=${limit}`)
+    fetch(
+      `https://launchly-server-side.vercel.app/all_products?page=${page}&limit=${limit}`
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
@@ -37,7 +39,7 @@ const Products = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:3000/featured_products/upvote/${productId}`,
+        `https://launchly-server-side.vercel.app/featured_products/upvote/${productId}`,
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },

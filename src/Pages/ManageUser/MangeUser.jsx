@@ -8,7 +8,7 @@ const MangeUser = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:3000/mangeUser")
+    fetch("https://launchly-server-side.vercel.app/mangeUser")
       .then((res) => res.json())
       .then((data) => {
         setLoading(false);
@@ -24,7 +24,9 @@ const MangeUser = () => {
 
   const makeAdmin = async (id) => {
     try {
-      await axios.patch(`http://localhost:3000/users/admin/${id}`);
+      await axios.patch(
+        `https://launchly-server-side.vercel.app/users/admin/${id}`
+      );
       toast.success("Made Admin Successfully");
       setUsers((prev) =>
         prev.map((user) =>
@@ -39,7 +41,9 @@ const MangeUser = () => {
 
   const makeModerator = async (id) => {
     try {
-      await axios.patch(`http://localhost:3000/users/moderator/${id}`);
+      await axios.patch(
+        `https://launchly-server-side.vercel.app/users/moderator/${id}`
+      );
       toast.success("Made Moderator Successfully");
       setUsers((prev) =>
         prev.map((user) =>

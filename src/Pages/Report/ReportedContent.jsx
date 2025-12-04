@@ -9,7 +9,7 @@ const ReportedContent = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:3000/reported")
+    fetch("https://launchly-server-side.vercel.app/reported")
       .then((res) => res.json())
       .then((data) => {
         setReport(data);
@@ -19,12 +19,15 @@ const ReportedContent = () => {
 
   const handleDelete = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/reported`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        `https://launchly-server-side.vercel.app/reported`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to delete");

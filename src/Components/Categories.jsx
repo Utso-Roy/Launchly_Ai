@@ -6,6 +6,7 @@ import {
   FaMobileAlt,
   FaLaptopCode,
 } from "react-icons/fa";
+import Container from "../Container/Container";
 
 const categories = [
   { name: "Web Apps", icon: <FaGlobe />, color: "#3B82F6" },
@@ -26,7 +27,9 @@ const Categories = () => {
       </h2>
 
       {/* Marquee Wrapper */}
-      <div className="overflow-hidden relative w-full">
+      <Container>
+
+        <div className="overflow-hidden relative w-full">
         <div className="marquee flex">
           {scrollingCategories.map((cat, idx) => (
             <div
@@ -40,6 +43,7 @@ const Categories = () => {
           ))}
         </div>
       </div>
+      </Container>
 
       {/* Inline keyframes + hover pause */}
       <style>{`

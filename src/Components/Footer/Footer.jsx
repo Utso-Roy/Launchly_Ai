@@ -3,6 +3,7 @@ import { Link, NavLink } from 'react-router';
 import Roket  from '../../assets/Roket.json'
 import Lottie from 'lottie-react';
 import { AuthContext } from '../../AuthProvider/AuthProvider';
+import Container from '../../Container/Container';
 const Footer = () => {
 const {user} =useContext(AuthContext)
      const navLinks = (
@@ -28,14 +29,38 @@ const {user} =useContext(AuthContext)
         Products
       </NavLink>
     </li>
-    }
+         }
+          {
+                 user?.email && <li>
+                 <NavLink
+                   to="/blog"
+                   className={({ isActive }) =>
+                     isActive ? "text-[#21BEDA] font-semibold" : ""
+                   }
+                 >
+                   Blog
+                 </NavLink>
+               </li>
+         }
+          <li>
+                 <NavLink
+                   to="/guide"
+                   className={({ isActive }) =>
+                     isActive ? "text-[#21BEDA] font-semibold" : ""
+                   }
+                 >
+                   Guides
+                 </NavLink>
+               </li>
   </>
 );
 
 
   return (
-    <footer className="bg-[#101960] dark:bg-[#1e2939]  text-white py-10 px-4">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+    <footer className="bg-[#101960] dark:bg-[#1e2939]  text-white py-10 ">
+      <Container>
+        
+         <div className=" grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
 
         {/* Logo / Name */}
         <div>
@@ -78,6 +103,7 @@ const {user} =useContext(AuthContext)
       <div className="mt-10 text-center border-t border-gray-700 pt-4 text-sm text-gray-400">
         &copy; {new Date().getFullYear()} Launchly. All rights reserved.
       </div>
+     </Container>
     </footer>
   );
 };

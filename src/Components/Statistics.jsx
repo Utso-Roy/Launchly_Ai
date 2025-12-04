@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import CountUp from "react-countup";
+import Container from "../Container/Container";
 
 const stats = [
   { id: 1, label: "Enthusiasts Joined", value: 10000, suffix: "+" },
@@ -21,7 +22,7 @@ const Statistics = () => {
 
   return (
     <section className="py-10 transition-colors duration-300">
-      <div className="max-w-6xl mx-auto px-6">
+      <Container >
         {/* Heading */}
         <h2
           data-aos="fade-up"
@@ -49,7 +50,7 @@ const Statistics = () => {
             </div>
           ))}
         </div>
-      </div>
+      </Container>
     </section>
   );
 };

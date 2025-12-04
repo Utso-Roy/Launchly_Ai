@@ -6,6 +6,7 @@ import { useNavigate } from "react-router";
 import { motion } from "framer-motion";
 import { axiosSecure } from "../../Services/products_Api/Featured_Products_Api";
 import Loading from "../../Context/Auth/Loader/Loading";
+import Container from "../../Container/Container";
 
 const TrendingProducts = () => {
   const { user } = useContext(AuthContext);
@@ -35,7 +36,7 @@ const TrendingProducts = () => {
 
   return (
     <section className="my-10 ">
-      <div className="max-w-7xl mx-auto">
+      <Container>
         {isLoading ? (
           <Loading />
         ) : (
@@ -104,7 +105,7 @@ const TrendingProducts = () => {
             Show All Products
           </button>
         </div>
-      </div>
+      </Container>
 
     </section>
   );

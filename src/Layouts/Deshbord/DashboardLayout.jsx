@@ -2,35 +2,29 @@ import React from "react";
 import Sidebar from "../../Dashboard_Page/Sidebar/Sidebar";
 import { Outlet } from "react-router";
 import Navbar from "../../Components/Navbar/Navbar";
-import Footer from "../../Components/Footer/Footer";
-import { FcIdea } from "react-icons/fc";
 
 const DashboardLayout = () => {
   return (
-    <div>
-      <Navbar></Navbar>
-      <div className="flex md:gap-4 sm:gap-2">
-        <Sidebar></Sidebar>
-{/* 
-        <div className="p-8">
-      <h1 className="text-3xl font-bold text-[#2D7FC4] text-center mb-4"> Welcome to Your Dashboard</h1>
-      <p className="text-lg text-center text-gray-600">
-        Use the sidebar to navigate through your dashboard tools and features.
-      </p>
-
-      <div className="flex justify-center mt-6">
-        <FcIdea className="text-7xl" />
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      {/* Navbar - Fixed at top */}
+      <div className=" z-30 bg-white dark:bg-gray-900 shadow-md">
+        <Navbar />
       </div>
-    </div> */}
-    
-        <div className="my-15 ">
 
-          
-        <Outlet></Outlet>
+      {/* Main Content Area */}
+      <div className="flex min-h-[calc(100vh-64px)]">
+        {/* Sidebar - Will scroll with content */}
+        <div className="flex-shrink-0">
+          <Sidebar />
         </div>
-      </div>
 
-      
+        {/* Page Content */}
+        <main className="flex-1 overflow-y-auto">
+          <div className="min-h-full my-16 p-4 md:p-6">
+            <Outlet />
+          </div>
+        </main>
+      </div>
     </div>
   );
 };

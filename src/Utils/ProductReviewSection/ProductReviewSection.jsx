@@ -11,7 +11,7 @@ const ProductReviewSection = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:3000/reviews/product/")
+    fetch("https://launchly-server-side.vercel.app/reviews/product/")
       .then((res) => {
         if (!res.ok) {
           throw new Error("Failed to fetch");

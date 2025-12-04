@@ -1,12 +1,15 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FaUsers, FaCheckCircle } from "react-icons/fa";
+import Container from "../../Container/Container";
 
 const ExtraSections = () => {
   return (
-    <div className="px-4 md:px-12 my-20 space-y-20  ">
+    <div className=" my-20 space-y-20">
       {/* Section 1 - Why Choose Us */}
-      <motion.section
+      <Container>
+        
+          <motion.section
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
@@ -78,6 +81,7 @@ const ExtraSections = () => {
           ))}
         </div>
       </motion.section>
+    </Container>
     </div>
   );
 };

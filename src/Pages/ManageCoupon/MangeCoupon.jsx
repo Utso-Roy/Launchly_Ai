@@ -14,7 +14,9 @@ const MangeCoupon = () => {
 
   const fetchCoupons = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/coupons");
+      const res = await axios.get(
+        "https://launchly-server-side.vercel.app/coupons"
+      );
       setCoupons(res.data);
     } catch (err) {
       toast.error("Failed to fetch coupons");
@@ -32,7 +34,7 @@ const MangeCoupon = () => {
     try {
       if (editingId) {
         const res = await axios.put(
-          `http://localhost:3000/coupons/${editingId}`,
+          `https://launchly-server-side.vercel.app/coupons/${editingId}`,
           formData
         );
         if (res.data.modifiedCount > 0 || res.data.acknowledged) {
@@ -41,7 +43,10 @@ const MangeCoupon = () => {
           toast.warn("No changes made.");
         }
       } else {
-        const res = await axios.post("http://localhost:3000/coupons", formData);
+        const res = await axios.post(
+          "https://launchly-server-side.vercel.app/coupons",
+          formData
+        );
         if (res.data.insertedId || res.data._id) {
           toast.success("Coupon added successfully!");
         } else {
@@ -61,7 +66,9 @@ const MangeCoupon = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/coupons/${id}`);
+      await axios.delete(
+        `https://launchly-server-side.vercel.app/coupons/${id}`
+      );
       toast.success("Coupon deleted successfully!");
       fetchCoupons();
     } catch (err) {

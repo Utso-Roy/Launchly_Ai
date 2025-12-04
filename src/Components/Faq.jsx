@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
+import Container from "../Container/Container";
 
 const faqs = [
   {
@@ -34,7 +35,7 @@ const Faq = () => {
 
   return (
     <section className=" py-10">
-      <div className="max-w-6xl mx-auto px-6">
+      <Container >
         <motion.h2
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -72,7 +73,7 @@ const Faq = () => {
             </motion.div>
           ))}
         </div>
-      </div>
+      </Container>
     </section>
   );
 };

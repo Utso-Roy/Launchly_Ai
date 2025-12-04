@@ -5,6 +5,7 @@ import { FaThumbsUp } from "react-icons/fa";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { toast } from "react-toastify";
 import axios from "axios";
+import Container from "../../Container/Container";
 
 const MakeFeaturedSection = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
@@ -16,7 +17,7 @@ const MakeFeaturedSection = () => {
 
     try {
       const res = await axios.patch(
-        `http://localhost:3000/upvote/${productId}`,
+        `https://launchly-server-side.vercel.app/upvote/${productId}`,
         {
           userId: user.uid,
         }
@@ -45,7 +46,7 @@ const MakeFeaturedSection = () => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:3000/featured")
+    fetch("https://launchly-server-side.vercel.app/featured")
       .then((res) => res.json())
       .then((data) => {
         const updated = data.map((item) => ({
@@ -61,7 +62,9 @@ const MakeFeaturedSection = () => {
 
   return (
     <div className="my-10 ">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+      <Container>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 ">
         {featuredProducts.map((product, i) => {
           const alreadyVoted = (product.upvotedUsers || []).includes(user?.uid);
 
@@ -117,6 +120,7 @@ const MakeFeaturedSection = () => {
           );
         })}
       </div>
+      </Container>
     </div>
   );
 };

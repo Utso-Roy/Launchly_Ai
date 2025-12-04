@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { FaStar } from "react-icons/fa";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import Container from "../Container/Container";
 
 const reviews = [
   {
@@ -57,9 +58,12 @@ const ReviewSection = () => {
 
   return (
     <section className=" transition-colors duration-300 py-16">
-      <div className="max-w-6xl mx-auto rounded-lg ">
+      <div className="rounded-lg ">
         {/* Heading */}
-        <h2
+        <Container>
+          
+
+             <h2
           data-aos="fade-up"
           className="text-3xl md:text-4xl font-bold text-center text-[#101960] dark:text-white mb-10"
         >
@@ -107,6 +111,7 @@ const ReviewSection = () => {
             </div>
           ))}
         </div>
+     </Container>
       </div>
     </section>
   );
