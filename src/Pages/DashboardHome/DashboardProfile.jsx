@@ -11,14 +11,10 @@ const DashboardProfile = () => {
     queryKey: ["userRole", user?.email],
     enabled: !!user?.email,
     queryFn: async () => {
-      const res = await fetch(
-        `https://launchly-server-side.vercel.app/users/${user.email}`
-      );
+      const res = await fetch(`http://localhost:3000/users/${user.email}`);
       return res.json();
     },
   });
-
-  console.log(userRole?.role);
 
   const isAdmin = userRole?.role === "admin";
   const moderator = userRole?.role === "moderator";

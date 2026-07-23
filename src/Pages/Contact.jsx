@@ -1,18 +1,10 @@
-import React, { useEffect } from "react";
 import { FiMail, FiPhone, FiMapPin } from "react-icons/fi";
-import AOS from "aos";
-import "aos/dist/aos.css";
+
 import { toast } from "react-toastify";
 import Container from "../Container/Container";
 
 const Contact = () => {
-  useEffect(() => {
-    AOS.init({
-      duration: 800, 
-      once: true,    
-      easing: "ease-in-out",
-    });
-  }, []);
+  
     
     const handleSubmit = () => {
         toast.success('Submit successfully')
@@ -24,23 +16,20 @@ const Contact = () => {
         {/* Heading */}
         <div className="text-center mb-12">
           <h2
-            data-aos="fade-up"
             className="text-4xl md:text-5xl font-bold text-[#1c398e] dark:text-white mb-4 relative inline-block"
           >
             Get In Touch
           </h2>
           <p
-            data-aos="fade-up"
-            data-aos-delay="100"
             className="text-lg text-gray-600 dark:text-gray-300 mt-6 max-w-2xl mx-auto"
           >
             Have any questions or want to get in touch? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-8 ">
           {/* Contact Info */}
-          <div data-aos="fade-right" data-aos-delay="200" className="space-y-6">
+          <div   className="space-y-6">
             <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border-l-4 border-[#21BEDA] dark:border-yellow-400">
               <div className="flex items-start space-x-5">
                 <div className="bg-[#21BEDA]/10 dark:bg-yellow-400/10 p-4 rounded-xl">
@@ -84,8 +73,6 @@ const Contact = () => {
           {/* Contact Form */}
           <form
             onSubmit={handleSubmit}
-            data-aos="fade-left"
-            data-aos-delay="300"
             className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl space-y-6 border border-gray-200 dark:border-gray-700"
           >
             <div className="space-y-2">

@@ -1,7 +1,4 @@
-import React, { useEffect } from "react";
 import { FaStar } from "react-icons/fa";
-import AOS from "aos";
-import "aos/dist/aos.css";
 import Container from "../Container/Container";
 
 const reviews = [
@@ -48,23 +45,16 @@ const reviews = [
 ];
 
 const ReviewSection = () => {
-  useEffect(() => {
-    AOS.init({
-      duration: 800,
-      once: true,
-      easing: "ease-in-out",
-    });
-  }, []);
+ 
 
   return (
-    <section className=" transition-colors duration-300 py-16">
+    <section className="  py-16">
       <div className="rounded-lg ">
         {/* Heading */}
         <Container>
           
 
              <h2
-          data-aos="fade-up"
           className="text-3xl md:text-4xl font-bold text-center text-[#101960] dark:text-white mb-10"
         >
           What Our Users Say About Our Software
@@ -75,9 +65,8 @@ const ReviewSection = () => {
           {reviews.map((review, index) => (
             <div
               key={review.id}
-              data-aos="fade-up"
               data-aos-delay={index * 150} 
-              className="card bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl border border-gray-200 dark:border-gray-700 rounded-2xl p-6 transition-all duration-300 cursor-target cursor-pointer"
+              className="card bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl border border-gray-200 dark:border-gray-700 rounded-2xl p-6   cursor-pointer"
             >
               <div className="flex flex-col h-full">
                 {/* User Info */}

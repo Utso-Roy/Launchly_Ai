@@ -15,7 +15,7 @@ const My_Products = () => {
     const email = user?.email;
     if (!email) return;
 
-    fetch(`https://launchly-server-side.vercel.app/add_products_data/${email}`)
+    fetch(`http://localhost:3000/add_products_data/${email}`)
       .then((res) => {
         if (!res.ok) {
           throw new Error("Failed to fetch data");
@@ -43,25 +43,22 @@ const My_Products = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(
-          `https://launchly-server-side.vercel.app/add_products_data/${id}`,
-          {
-            method: "DELETE",
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        )
+        fetch(`http://localhost:3000/add_products_data/${id}`, {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
           .then((res) => res.json())
           .then((data) => {
             if (data.deletedCount > 0) {
               setPostProducts((prev) =>
-                prev.filter((product) => product._id !== id)
+                prev.filter((product) => product._id !== id),
               );
               Swal.fire(
                 "Deleted!",
                 "Your product has been deleted.",
-                "success"
+                "success",
               );
             }
           })
@@ -97,24 +94,21 @@ const My_Products = () => {
       status: updatedStatus,
     };
 
-    fetch(
-      `https://launchly-server-side.vercel.app/add_products_data/${selectedProduct._id}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify(updatedData),
-      }
-    )
+    fetch(`http://localhost:3000/add_products_data/${selectedProduct._id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify(updatedData),
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {
           setPostProducts((prev) =>
             prev.map((item) =>
-              item._id === selectedProduct._id ? updatedData : item
-            )
+              item._id === selectedProduct._id ? updatedData : item,
+            ),
           );
           Swal.fire("Updated!", "Product has been updated.", "success");
         } else {
@@ -189,8 +183,8 @@ const My_Products = () => {
                           product?.status === "Accepted"
                             ? "bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100"
                             : product.status === "Rejected"
-                            ? "bg-red-100 text-red-800 dark:bg-red-800 dark:text-red-100"
-                            : "bg-yellow-100 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-100"
+                              ? "bg-red-100 text-red-800 dark:bg-red-800 dark:text-red-100"
+                              : "bg-yellow-100 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-100"
                         }`}
                     >
                       {product?.status || "Pending"}

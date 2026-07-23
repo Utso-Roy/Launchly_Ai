@@ -31,9 +31,7 @@ const Sidebar = () => {
     queryKey: ["userRole", user?.email],
     enabled: !!user?.email,
     queryFn: async () => {
-      const res = await fetch(
-        `https://launchly-server-side.vercel.app/users/${user.email}`
-      );
+      const res = await fetch(`http://localhost:3000/users/${user.email}`);
       return res.json();
     },
   });
@@ -44,9 +42,20 @@ const Sidebar = () => {
 
   // Role badge
   const getRoleBadge = () => {
-    if (isAdmin) return { text: "Admin", color: "bg-red-500", icon: <MdOutlineAdminPanelSettings /> };
-    if (moderator) return { text: "Moderator", color: "bg-blue-500", icon: <FaUserShield /> };
-    if (isUser) return { text: "User", color: "bg-green-500", icon: <FaUserAlt /> };
+    if (isAdmin)
+      return {
+        text: "Admin",
+        color: "bg-red-500",
+        icon: <MdOutlineAdminPanelSettings />,
+      };
+    if (moderator)
+      return {
+        text: "Moderator",
+        color: "bg-blue-500",
+        icon: <FaUserShield />,
+      };
+    if (isUser)
+      return { text: "User", color: "bg-green-500", icon: <FaUserAlt /> };
     return { text: "Guest", color: "bg-gray-500", icon: <FaUserCircle /> };
   };
 
@@ -125,7 +134,9 @@ const Sidebar = () => {
             <h2 className="text-xl font-bold text-gray-900 dark:text-white">
               Dashboard
             </h2>
-            <p className="text-xs text-gray-500 dark:text-gray-400">Control Panel</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">
+              Control Panel
+            </p>
           </div>
         </div>
 
@@ -153,9 +164,13 @@ const Sidebar = () => {
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <div className={`${roleBadge.color} px-3 py-1 rounded-full flex items-center gap-1.5`}>
+            <div
+              className={`${roleBadge.color} px-3 py-1 rounded-full flex items-center gap-1.5`}
+            >
               <span className="text-white text-xs">{roleBadge.icon}</span>
-              <span className="text-white text-xs font-semibold">{roleBadge.text}</span>
+              <span className="text-white text-xs font-semibold">
+                {roleBadge.text}
+              </span>
             </div>
           </div>
         </div>
@@ -187,7 +202,9 @@ const Sidebar = () => {
                     >
                       {({ isActive }) => (
                         <>
-                          <span className={`text-lg ${isActive ? "" : "group-hover:scale-110 transition-transform"}`}>
+                          <span
+                            className={`text-lg ${isActive ? "" : "group-hover:scale-110 transition-transform"}`}
+                          >
                             {item.icon}
                           </span>
                           <span className="font-medium">{item.label}</span>

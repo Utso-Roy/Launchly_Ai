@@ -17,7 +17,7 @@ const MakeFeaturedSection = () => {
 
     try {
       const res = await axios.patch(
-        `https://launchly-server-side.vercel.app/upvote/${productId}`,
+        `http://localhost:3000/upvote/${productId}`,
         {
           userId: user.uid,
         }
@@ -46,7 +46,7 @@ const MakeFeaturedSection = () => {
   };
 
   useEffect(() => {
-    fetch("https://launchly-server-side.vercel.app/featured")
+    fetch("http://localhost:3000/featured")
       .then((res) => res.json())
       .then((data) => {
         const updated = data.map((item) => ({

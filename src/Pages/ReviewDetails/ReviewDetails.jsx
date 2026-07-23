@@ -9,7 +9,7 @@ const ReviewDetails = () => {
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    fetch(`https://launchly-server-side.vercel.app/all_pending_products`)
+    fetch(`http://localhost:3000/all_pending_products`)
       .then((res) => {
         return res.json();
       })
@@ -100,8 +100,8 @@ const ReviewDetails = () => {
                 product.status === "Pending"
                   ? "bg-yellow-600"
                   : product.status === "Accepted"
-                  ? "bg-green-600"
-                  : "bg-red-600"
+                    ? "bg-green-600"
+                    : "bg-red-600"
               }`}
             >
               Status: {product.status}

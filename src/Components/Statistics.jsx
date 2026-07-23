@@ -1,6 +1,3 @@
-import React, { useEffect } from "react";
-import AOS from "aos";
-import "aos/dist/aos.css";
 import CountUp from "react-countup";
 import Container from "../Container/Container";
 
@@ -12,20 +9,13 @@ const stats = [
 ];
 
 const Statistics = () => {
-  useEffect(() => {
-    AOS.init({
-      duration: 800,
-      once: true,
-      easing: "ease-in-out",
-    });
-  }, []);
+  
 
   return (
     <section className="py-10 transition-colors duration-300">
       <Container >
         {/* Heading */}
         <h2
-          data-aos="fade-up"
           className="text-3xl md:text-4xl font-bold text-center text-[#101960] dark:text-white mb-12"
         >
           Our Impact in Numbers
@@ -36,7 +26,6 @@ const Statistics = () => {
           {stats.map((stat, index) => (
             <div
               key={stat.id}
-              data-aos="zoom-in"
               data-aos-delay={index * 150}
               className="bg-white dark:bg-gray-800 rounded-2xl shadow-md p-6 cursor-target cursor-pointer transition-transform transform hover:scale-105"
             >

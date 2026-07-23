@@ -6,7 +6,7 @@ const CouponMarquee = () => {
   const [coupons, setCoupons] = useState([]);
 
   useEffect(() => {
-    fetch("https://launchly-server-side.vercel.app/valid-coupons")
+    fetch("http://localhost:3000/valid-coupons")
       .then((res) => res.json())
       .then((data) => setCoupons(data))
       .catch((err) => console.error("Failed to load coupons:", err));
@@ -23,37 +23,34 @@ const CouponMarquee = () => {
 
       {/* Scrolling coupons */}
       <Container>
-        
-
-
-         <div className="overflow-hidden group">
-        <div
-          className="flex whitespace-nowrap animate-marquee group-hover:paused"
-          style={{ gap: "1rem" }}
-        >
-          {scrollingCoupons.map((coupon, idx) => (
-            <div
-              key={idx}
-              className="flex-shrink-0 border border-[#21BEDA] p-6 rounded shadow bg-white dark:bg-gray-800 text-center hover:scale-105 transition-transform duration-300"
-              style={{ minWidth: "16rem" }}
-            >
-              <h3 className="text-xl font-bold text-[#21BEDA]">
-                {coupon?.code}
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                {coupon?.description}
-              </p>
-              <p className="text-green-600 font-semibold">
-                Discount: ${coupon?.discount}
-              </p>
-              <p className="text-red-500 font-medium">
-                Expires: {coupon?.expiryDate}
-              </p>
-            </div>
-          ))}
+        <div className="overflow-hidden group">
+          <div
+            className="flex whitespace-nowrap animate-marquee group-hover:paused"
+            style={{ gap: "1rem" }}
+          >
+            {scrollingCoupons.map((coupon, idx) => (
+              <div
+                key={idx}
+                className="flex-shrink-0 border border-[#21BEDA] p-6 rounded shadow bg-white dark:bg-gray-800 text-center hover:scale-105 "
+                style={{ minWidth: "16rem" }}
+              >
+                <h3 className="text-xl font-bold text-[#21BEDA]">
+                  {coupon?.code}
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300">
+                  {coupon?.description}
+                </p>
+                <p className="text-green-600 font-semibold">
+                  Discount: ${coupon?.discount}
+                </p>
+                <p className="text-red-500 font-medium">
+                  Expires: {coupon?.expiryDate}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-     </Container>
+      </Container>
 
       {/* Inline keyframes + hover pause */}
       <style>{`

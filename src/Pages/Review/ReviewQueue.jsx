@@ -14,7 +14,7 @@ const ReviewQueue = () => {
   //   const token = localStorage.getItem("token");
   //   if (!token || !email) return;
 
-  //   fetch(`https://launchly-server-side.vercel.app/add_products_data/${email}`, {
+  //   fetch(`http://localhost:3000/add_products_data/${email}`, {
   //     headers: {
   //       Authorization: `Bearer ${token}`,
   //     },
@@ -40,7 +40,7 @@ const ReviewQueue = () => {
   // }, [user]);
 
   useEffect(() => {
-    fetch(`https://launchly-server-side.vercel.app/all_pending_products`)
+    fetch(`http://localhost:3000/all_pending_products`)
       .then((res) => {
         if (!res.ok) {
           throw new Error("Failed to fetch data");
@@ -50,7 +50,7 @@ const ReviewQueue = () => {
       .then((data) => {
         const order = { Pending: 0, Accepted: 1, Rejected: 2 };
         const sorted = [...data].sort(
-          (a, b) => order[a.status] - order[b.status]
+          (a, b) => order[a.status] - order[b.status],
         );
         setPostProducts(sorted);
         setLoading(false);
@@ -66,22 +66,19 @@ const ReviewQueue = () => {
   // Common function to PATCH status update with auth header
   const updateProductStatus = async (id, status, successMessage) => {
     try {
-      const res = await fetch(
-        `https://launchly-server-side.vercel.app/products/${id}/status`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({ status }),
-        }
-      );
+      const res = await fetch(`http://localhost:3000/products/${id}/status`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ status }),
+      });
       const result = await res.json();
       if (result.modifiedCount) {
         toast.success(successMessage);
         setPostProducts((prev) =>
-          prev.map((p) => (p._id === id ? { ...p, status } : p))
+          prev.map((p) => (p._id === id ? { ...p, status } : p)),
         );
       }
     } catch (err) {
@@ -98,15 +95,12 @@ const ReviewQueue = () => {
   // Mark featured function
   const handleFeatured = async (id) => {
     try {
-      const res = await fetch(
-        `https://launchly-server-side.vercel.app/products/${id}/feature`,
-        {
-          method: "PATCH",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const res = await fetch(`http://localhost:3000/products/${id}/feature`, {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const result = await res.json();
       if (result.modifiedCount) {
         toast.info("Product marked as Featured");
@@ -171,8 +165,8 @@ const ReviewQueue = () => {
                   product?.status === "Accepted"
                     ? "text-green-600"
                     : product?.status === "Rejected"
-                    ? "text-red-600"
-                    : "text-yellow-600"
+                      ? "text-red-600"
+                      : "text-yellow-600"
                 }`}
               >
                 {product?.status}

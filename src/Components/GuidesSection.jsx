@@ -25,10 +25,10 @@ const GuidesSection = () => {
   }, []);
 
   return (
-    <div className="py-12  transition-colors duration-500">
+    <div className="py-12 ">
       <h2
         className="text-3xl font-bold text-center text-[#101960] dark:text-gray-100 mb-8"
-        data-aos="fade-up"
+        
       >
          Helpful Guides
       </h2>
@@ -39,9 +39,9 @@ const GuidesSection = () => {
         {guides.map((guide, idx) => (
           <div
             key={idx}
-            className="p-6 rounded-2xl shadow-lg bg-white dark:bg-gray-800 hover:shadow-xl transition-shadow duration-300 cursor-target cursor-pointer"
-            data-aos="fade-up"
-            data-aos-delay={idx * 100} 
+            className="p-6 rounded-2xl shadow-lg bg-white dark:bg-gray-800 hover:shadow-xl transition-shadow  cursor-target cursor-pointer"
+            
+           
           >
             <h3 className="text-xl font-semibold text-[#141c60] dark:text-gray-100 mb-2">
               {guide.title}
@@ -52,7 +52,7 @@ const GuidesSection = () => {
       </div>
       </Container>
 
-      <div className="mt-8 text-center" data-aos="fade-up" data-aos-delay={400}>
+      <div className="mt-8 text-center"  data-aos-delay={400}>
         <Link to="/guide">
         <button className="px-6 py-3 border border-[#21BEDA] btn btn-outline text-[#21BEDA] hover:text-white rounded-full hover:bg-[#21BEDA] transition-colors duration-300 cursor-target cursor-pointer">
           See All Guides

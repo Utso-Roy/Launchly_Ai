@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 
 const ProductsPostData = (data) => {
   const axiosData = axios
-    .post("https://launchly-server-side.vercel.app/add_products_data", { data })
+    .post("http://localhost:3000/add_products_data", { data })
     .then((res) => {
       console.log("Product saved:", res.data);
 

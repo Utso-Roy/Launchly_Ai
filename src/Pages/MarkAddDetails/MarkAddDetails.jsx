@@ -19,7 +19,7 @@ const MarkAddDetails = () => {
 
   // Fetch product
   useEffect(() => {
-    fetch(`https://launchly-server-side.vercel.app/product/${id}`)
+    fetch(`http://localhost:3000/product/${id}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
@@ -37,12 +37,9 @@ const MarkAddDetails = () => {
     if (!user) return navigate("/login");
 
     try {
-      const res = await axios.patch(
-        `https://launchly-server-side.vercel.app/upvote/${id}`,
-        {
-          userId: user.uid,
-        }
-      );
+      const res = await axios.patch(`http://localhost:3000/upvote/${id}`, {
+        userId: user.uid,
+      });
 
       if (res.data.success) {
         setProduct((prev) => ({

@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import Lottie from "lottie-react";
 import Roket from "../../assets/Roket.json";
 import { MdDashboard } from "react-icons/md";
+import Container from "../../Container/Container";
 const Navbar = () => {
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
   const { user, logOut, setUser } = useContext(AuthContext);
@@ -96,14 +97,22 @@ const Navbar = () => {
   );
 
   return (
-    <div
-      className={`navbar shadow-sm fixed top-0 left-0 right-0 z-50  px-4 ${
+  
+      
+       <div
+      className={` shadow-sm fixed top-0 left-0 right-0 z-50  px-4 ${
         theme === "dark" ? "bg-[#1e2939] text-white" : "bg-[#101960] text-white"
       }`}
     >
     
         
-         <div className="navbar-start  ">
+      <Container>
+        
+
+         <div className="navbar max-w-7xl mx-auto">
+        
+
+         <div className="navbar-start ">
         {/* Mobile Dropdown Menu */}
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -220,7 +229,13 @@ const Navbar = () => {
         )}
       </div>
     
+      </div>
+      
+     </Container>
+
+
     </div>
+   
   );
 };
 

@@ -24,18 +24,16 @@ const Statistics = () => {
 
   useEffect(() => {
     Promise.all([
-      fetch("https://launchly-server-side.vercel.app/mangeUser").then((res) =>
-        res.json()
+      fetch("http://localhost:3000/mangeUser").then((res) => res.json()),
+      fetch("http://localhost:3000/totalVotesProducts").then((res) =>
+        res.json(),
       ),
-      fetch("https://launchly-server-side.vercel.app/totalVotesProducts").then(
-        (res) => res.json()
+      fetch("http://localhost:3000/all_pending_products").then((res) =>
+        res.json(),
       ),
-      fetch(
-        "https://launchly-server-side.vercel.app/all_pending_products"
-      ).then((res) => res.json()),
-      fetch(
-        "https://launchly-server-side.vercel.app/all_Accepted_products"
-      ).then((res) => res.json()),
+      fetch("http://localhost:3000/all_Accepted_products").then((res) =>
+        res.json(),
+      ),
     ])
       .then(([usersData, votesData, pendingData, acceptedData]) => {
         setUsers(usersData);
@@ -124,13 +122,13 @@ const Statistics = () => {
         {stats.map((stat, index) => (
           <div
             key={index}
-            className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group"
+            className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl  overflow-hidden group"
           >
             <div className={`h-2 bg-gradient-to-r ${stat.color}`}></div>
             <div className="p-6">
               <div className="flex items-center justify-between mb-4">
                 <div
-                  className={`${stat.bgColor} p-4 rounded-xl group-hover:scale-110 transition-transform duration-300`}
+                  className={`${stat.bgColor} p-4 rounded-xl group-hover:scale-110 `}
                 >
                   <span className={`${stat.iconColor} text-3xl`}>
                     {stat.icon}
@@ -206,7 +204,10 @@ const Statistics = () => {
                   <Legend wrapperStyle={{ paddingTop: "20px" }} />
                   <Bar dataKey="value" radius={[8, 8, 0, 0]}>
                     {chartData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={`url(#gradient${index})`} />
+                      <Cell
+                        key={`cell-${index}`}
+                        fill={`url(#gradient${index})`}
+                      />
                     ))}
                   </Bar>
                 </BarChart>
@@ -257,7 +258,7 @@ const Statistics = () => {
             <p className="text-3xl font-bold">
               {pendingCount + acceptedCount > 0
                 ? Math.round(
-                    (acceptedCount / (pendingCount + acceptedCount)) * 100
+                    (acceptedCount / (pendingCount + acceptedCount)) * 100,
                   )
                 : 0}
               %
@@ -266,9 +267,7 @@ const Statistics = () => {
           <div className="bg-white/20 dark:bg-black/20 rounded-xl p-4 backdrop-blur-sm">
             <p className="text-sm opacity-90 mb-1">Average Votes per Product</p>
             <p className="text-3xl font-bold">
-              {acceptedCount > 0
-                ? Math.round(votesCount / acceptedCount)
-                : 0}
+              {acceptedCount > 0 ? Math.round(votesCount / acceptedCount) : 0}
             </p>
           </div>
         </div>

@@ -17,9 +17,7 @@ const Products = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(
-      `https://launchly-server-side.vercel.app/all_products?page=${page}&limit=${limit}`
-    )
+    fetch(`http://localhost:3000/all_products?page=${page}&limit=${limit}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
@@ -39,12 +37,12 @@ const Products = () => {
 
     try {
       const response = await fetch(
-        `https://launchly-server-side.vercel.app/featured_products/upvote/${productId}`,
+        `http://localhost:3000/featured_products/upvote/${productId}`,
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ userId: user.uid }),
-        }
+        },
       );
       const data = await response.json();
       if (data.success) {
@@ -55,7 +53,7 @@ const Products = () => {
                 votes: product.votes + 1,
                 upvotedUsers: [...product.upvotedUsers, user.uid],
               }
-            : product
+            : product,
         );
         setProductData(updated);
       }
@@ -65,7 +63,7 @@ const Products = () => {
   };
 
   const filteredProducts = productData.filter((product) =>
-    product.name.toLowerCase().includes(searchQuery.toLowerCase())
+    product.name.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   const handleClick = (id) => {

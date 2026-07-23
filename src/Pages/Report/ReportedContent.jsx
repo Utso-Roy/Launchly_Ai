@@ -9,7 +9,7 @@ const ReportedContent = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("https://launchly-server-side.vercel.app/reported")
+    fetch("http://localhost:3000/reported")
       .then((res) => res.json())
       .then((data) => {
         setReport(data);
@@ -19,15 +19,12 @@ const ReportedContent = () => {
 
   const handleDelete = async () => {
     try {
-      const response = await fetch(
-        `https://launchly-server-side.vercel.app/reported`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(`http://localhost:3000/reported`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
       if (!response.ok) {
         throw new Error("Failed to delete");
@@ -39,7 +36,7 @@ const ReportedContent = () => {
         toast.success("Deleted Successfully");
         // UI থেকে ম্যানুয়ালি রিমুভ করতে পারো: যেকোনো একটা item যার isFeatured === true
         setReport((prevReport) =>
-          prevReport.filter((item) => item.isFeatured !== true)
+          prevReport.filter((item) => item.isFeatured !== true),
         );
       } else {
         toast.error("No featured product found to delete");

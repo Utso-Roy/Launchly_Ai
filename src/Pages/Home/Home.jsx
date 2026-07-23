@@ -47,6 +47,8 @@ const Home = () => {
     }
   };
 
+  console.log(products)
+
   const featured = products
     ?.filter((item) => item.isFeatured)
     .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
