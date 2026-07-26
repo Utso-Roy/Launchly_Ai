@@ -17,10 +17,10 @@ const MakeFeaturedSection = () => {
 
     try {
       const res = await axios.patch(
-        `http://localhost:3000/upvote/${productId}`,
+        `https://launchlyserverside.vercel.app/upvote/${productId}`,
         {
           userId: user.uid,
-        }
+        },
       );
 
       if (res.data.success) {
@@ -34,7 +34,7 @@ const MakeFeaturedSection = () => {
                   upvotedUsers: [...(product.upvotedUsers || []), user.uid],
                 }
               : product;
-          })
+          }),
         );
 
         toast.success("You upvoted successfully!");
@@ -46,7 +46,7 @@ const MakeFeaturedSection = () => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:3000/featured")
+    fetch("https://launchlyserverside.vercel.app/featured")
       .then((res) => res.json())
       .then((data) => {
         const updated = data.map((item) => ({
@@ -63,63 +63,64 @@ const MakeFeaturedSection = () => {
   return (
     <div className="my-10 ">
       <Container>
-
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 ">
-        {featuredProducts.map((product, i) => {
-          const alreadyVoted = (product.upvotedUsers || []).includes(user?.uid);
+          {featuredProducts.map((product, i) => {
+            const alreadyVoted = (product.upvotedUsers || []).includes(
+              user?.uid,
+            );
 
-          return (
-            <motion.div
-              key={product._id}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              whileHover={{ y: -8, scale: 1.03 }}
-              transition={{ delay: i * 0.1, duration: 0.4, type: "spring" }}
-              className="border-2 border-[#21BEDA] rounded-xl p-4 bg-white dark:bg-gray-900 cursor-pointer shadow-md transition-all"
-            >
-              <img
-                src={product?.data?.image}
-                alt={product?.data?.name}
-                className="w-full h-40 object-cover rounded mb-3"
-              />
-              <h3
-                className="text-xl font-semibold text-[#21BEDA] cursor-pointer hover:underline"
-                onClick={() => navigate(`/dashboard/products/${product._id}`)}
+            return (
+              <motion.div
+                key={product._id}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                whileHover={{ y: -8, scale: 1.03 }}
+                transition={{ delay: i * 0.1, duration: 0.4, type: "spring" }}
+                className="border-2 border-[#21BEDA] rounded-xl p-4 bg-white dark:bg-gray-900 cursor-pointer shadow-md transition-all"
               >
-                {product?.data?.name}
-              </h3>
-
-              <div className="flex flex-wrap gap-2 my-2">
-                {product?.data?.tags?.map((tag, index) => (
-                  <span
-                    key={index}
-                    className="text-xs bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white px-2 py-1 rounded"
-                  >
-                    #{tag}
-                  </span>
-                ))}
-              </div>
-
-              <div className="mt-3 flex items-center gap-2 text-gray-600 dark:text-gray-300">
-                <button
-                  onClick={() => handleUpvote(product?._id)}
-                  disabled={alreadyVoted}
-                  className={`btn ${
-                    alreadyVoted
-                      ? "bg-gray-400 cursor-not-allowed"
-                      : "bg-[#21BEDA]"
-                  }`}
+                <img
+                  src={product?.data?.image}
+                  alt={product?.data?.name}
+                  className="w-full h-40 object-cover rounded mb-3"
+                />
+                <h3
+                  className="text-xl font-semibold text-[#21BEDA] cursor-pointer hover:underline"
+                  onClick={() => navigate(`/dashboard/products/${product._id}`)}
                 >
-                  <FaThumbsUp size={18} className="text-white" />
-                  <span className="text-white ml-1">
-                    {product?.upvotes || 0}
-                  </span>
-                </button>
-              </div>
-            </motion.div>
-          );
-        })}
-      </div>
+                  {product?.data?.name}
+                </h3>
+
+                <div className="flex flex-wrap gap-2 my-2">
+                  {product?.data?.tags?.map((tag, index) => (
+                    <span
+                      key={index}
+                      className="text-xs bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white px-2 py-1 rounded"
+                    >
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="mt-3 flex items-center gap-2 text-gray-600 dark:text-gray-300">
+                  <button
+                    onClick={() => handleUpvote(product?._id)}
+                    disabled={alreadyVoted}
+                    className={`btn ${
+                      alreadyVoted
+                        ? "bg-gray-400 cursor-not-allowed"
+                        : "bg-[#21BEDA]"
+                    }`}
+                  >
+                    <FaThumbsUp size={18} className="text-white" />
+                    <span className="text-white ml-1">
+                      {product?.upvotes || 0}
+                    </span>
+                  </button>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
       </Container>
     </div>
   );

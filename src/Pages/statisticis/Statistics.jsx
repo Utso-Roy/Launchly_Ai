@@ -24,15 +24,17 @@ const Statistics = () => {
 
   useEffect(() => {
     Promise.all([
-      fetch("http://localhost:3000/mangeUser").then((res) => res.json()),
-      fetch("http://localhost:3000/totalVotesProducts").then((res) =>
+      fetch("https://launchlyserverside.vercel.app/mangeUser").then((res) =>
         res.json(),
       ),
-      fetch("http://localhost:3000/all_pending_products").then((res) =>
-        res.json(),
+      fetch("https://launchlyserverside.vercel.app/totalVotesProducts").then(
+        (res) => res.json(),
       ),
-      fetch("http://localhost:3000/all_Accepted_products").then((res) =>
-        res.json(),
+      fetch("https://launchlyserverside.vercel.app/all_pending_products").then(
+        (res) => res.json(),
+      ),
+      fetch("https://launchlyserverside.vercel.app/all_Accepted_products").then(
+        (res) => res.json(),
       ),
     ])
       .then(([usersData, votesData, pendingData, acceptedData]) => {

@@ -15,7 +15,7 @@ const My_Products = () => {
     const email = user?.email;
     if (!email) return;
 
-    fetch(`http://localhost:3000/add_products_data/${email}`)
+    fetch(`https://launchlyserverside.vercel.app/add_products_data/${email}`)
       .then((res) => {
         if (!res.ok) {
           throw new Error("Failed to fetch data");
@@ -43,7 +43,7 @@ const My_Products = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/add_products_data/${id}`, {
+        fetch(`https://launchlyserverside.vercel.app/add_products_data/${id}`, {
           method: "DELETE",
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -94,14 +94,17 @@ const My_Products = () => {
       status: updatedStatus,
     };
 
-    fetch(`http://localhost:3000/add_products_data/${selectedProduct._id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+    fetch(
+      `https://launchlyserverside.vercel.app/add_products_data/${selectedProduct._id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify(updatedData),
       },
-      body: JSON.stringify(updatedData),
-    })
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {

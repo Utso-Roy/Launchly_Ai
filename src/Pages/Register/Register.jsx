@@ -60,12 +60,15 @@ const Register = () => {
 
       // Save user to MongoDB after Firebase success
       try {
-        const res = await axios.post("http://localhost:3000/user", {
-          name,
-          email,
-          photo,
-          password,
-        });
+        const res = await axios.post(
+          "https://launchlyserverside.vercel.app/user",
+          {
+            name,
+            email,
+            photo,
+            password,
+          },
+        );
       } catch (dbErr) {
         console.error("MongoDB Save Error:", dbErr.message);
         toast.error("Failed to save user to database.");

@@ -34,7 +34,7 @@ const Faq = () => {
   };
 
   return (
-    <section className=" py-10">
+    <section className=" py-10 ">
       <Container >
         <motion.h2
           initial={{ opacity: 0, y: 40 }}
@@ -45,7 +45,7 @@ const Faq = () => {
           Frequently Asked Questions
         </motion.h2>
 
-        <div className="space-y-4">
+        <div className="space-y-4 ">
           {faqs.map((faq, index) => (
             <motion.div
               key={index}

@@ -6,7 +6,7 @@ const CouponMarquee = () => {
   const [coupons, setCoupons] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/valid-coupons")
+    fetch("https://launchlyserverside.vercel.app/valid-coupons")
       .then((res) => res.json())
       .then((data) => setCoupons(data))
       .catch((err) => console.error("Failed to load coupons:", err));
